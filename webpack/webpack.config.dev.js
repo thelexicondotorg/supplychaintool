@@ -1,9 +1,12 @@
 const path = require("path");
 const {merge} = require('webpack-merge');
 
+const publicPath = '/dist/dev/';
+
 module.exports = merge(require('./webpack.config.common'), {
   output: {
-    path: path.resolve(__dirname, "../dist/dev"),
+    path: path.resolve(__dirname, `..${publicPath}`),
+    publicPath
   },
   module: {
     rules: [
