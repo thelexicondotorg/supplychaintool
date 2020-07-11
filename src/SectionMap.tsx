@@ -1,10 +1,12 @@
 
 import * as React from "react";
-import { MapImage, IMapImageProps } from "./MapImage";
+import { MapImage, IMapImageContent } from "./MapImage";
+import { SectionType } from "./Types";
+import { mapPositions } from "./MapPositions";
 
 interface ISectionMapProps {
-    frame: string;
-    sections: IMapImageProps[];
+    section: SectionType;
+    sections: IMapImageContent[];
 }
 
 interface ISectionMapState {    
@@ -13,7 +15,7 @@ interface ISectionMapState {
 
 export class SectionMap extends React.Component<ISectionMapProps, ISectionMapState> {
 
-    private _frame!: HTMLElement;
+    private _frame!: HTMLImageElement;
     private _images: MapImage[] = [];
 
     constructor(props: ISectionMapProps) {
@@ -33,22 +35,22 @@ export class SectionMap extends React.Component<ISectionMapProps, ISectionMapSta
     }
 
     public render() {
-        const { frame, sections } = this.props;
+        const { section, sections } = this.props;
 
         return (
             <div>
                 <img
                     className="fill-parent"
-                    ref={e => this._frame = e as HTMLElement}
-                    src={frame}
-
+                    ref={e => this._frame = e as HTMLImageElement}
+                    src={`/public/${section}/map-paths.svg`}
                 />
                 {sections.map((sectionProps, index) => {
                     return (
                         <MapImage
                             key={index}
-                            {...sectionProps}
+                            content={sectionProps}
                             ref={e => this._images[index] = e as MapImage}
+                            position={mapPositions[section][index]}
                         />
                     );
                 })}
@@ -57,6 +59,6 @@ export class SectionMap extends React.Component<ISectionMapProps, ISectionMapSta
     }
 
     private onResize() {
-        this._images.forEach(i => i.onResize(this._frame.getBoundingClientRect()));        
+        this._images.forEach(i => i.onResize(this._frame));        
     }
 }

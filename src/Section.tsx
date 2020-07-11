@@ -42,9 +42,10 @@ export class Section extends React.Component<ISectionIntroProps & RouteComponent
         //     return <LoadingIndicator />;
         // }
         
+        const { section } = this.props;
         return (
             <SectionMap
-                frame="/public/fonio/intro-paths.svg"
+                section={this.props.section}
                 // Get this from wordpress
                 sections={[
                     {
