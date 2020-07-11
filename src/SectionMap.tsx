@@ -26,12 +26,16 @@ export class SectionMap extends React.Component<ISectionMapProps, ISectionMapSta
     public componentDidMount() {
         this.onResize = this.onResize.bind(this);
         window.addEventListener("resize", this.onResize);
-        this.onResize();
+
+        if (this._frame.naturalWidth === 0) {
+            this._frame.onload = () => this.onResize();
+        } else {
+            this.onResize();
+        }
     }
 
     public componentWillUnmount() {
         window.removeEventListener("resize", this.onResize);
-
     }
 
     public render() {
@@ -59,6 +63,9 @@ export class SectionMap extends React.Component<ISectionMapProps, ISectionMapSta
     }
 
     private onResize() {
+        if (this._frame.naturalWidth === 0) {
+            return;
+        }
         this._images.forEach(i => i.onResize(this._frame));        
     }
 }
