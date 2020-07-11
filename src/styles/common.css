@@ -1,5 +1,18 @@
 
+body { margin: 0px; }
+#root { position: absolute; width: 100%; height: 100%; }
+.fill-parent { width: 100%; height: 100%; }
+
 .fade-out { animation: .25s forwards fade-out; }
 .fade-in { animation: .25s forwards fade-in; }
 @keyframes fade-out { from { opacity: 1; } to { opacity: 0; }}
 @keyframes fade-in { from { opacity: 0; } to { opacity: 1; }}
+
+.map-elem-title {
+    font-family: Work Sans;
+    font-weight: bold;
+}
+
+.map-elem-subtitle {
+    font-size: Work Sans;
+}

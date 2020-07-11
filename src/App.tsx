@@ -2,13 +2,36 @@
 import * as React from "react";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import { Intro } from "./Intro";
-import { SectionIntro } from "./SectionIntro";
+import { Section } from "./Section";
 import { SectionType } from "./Types";
 
 import "./styles/common.css";
+import { LoadingIndicator } from "./LoadingIndicator";
+import { Fonts } from "./Fonts";
 
-export class App extends React.Component {
+interface IAppState {
+    fontsLoaded: boolean;
+}
+
+export class App extends React.Component<{}, IAppState> {
+    constructor(props: {}) {
+        super(props);
+        this.state = {
+            fontsLoaded: false
+        };
+    }
+
+    public componentDidMount() {
+        Fonts.preload().then(() => {
+            this.setState({ fontsLoaded: true });
+        });
+    }
+
     public render() {
+        if (!this.state.fontsLoaded) {
+            return <LoadingIndicator />;
+        }
+
         return (
             <BrowserRouter>
                 <Switch>
@@ -24,7 +47,7 @@ export class App extends React.Component {
                                     path={`/${section}/:index?`}
                                     render={props => {
                                         const { index } = props.match.params;
-                                        return <SectionIntro {...props} section={section} index={index} />;
+                                        return <Section {...props} section={section} index={index} />;
                                     }}
                                 />
                             );

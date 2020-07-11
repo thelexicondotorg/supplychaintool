@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   inkscape:version="1.0 (6e3e5246a0, 2020-05-07)"
+   sodipodi:docname="intro-paths.svg"
+   id="svg2657"
+   version="1.1"
+   viewBox="0 0 1650.259 899.423"
+   height="899.423"
+   width="1650.259">
+  <metadata
+     id="metadata2661">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     inkscape:current-layer="Group_445"
+     inkscape:window-maximized="1"
+     inkscape:window-y="27"
+     inkscape:window-x="64"
+     inkscape:cy="404.82326"
+     inkscape:cx="799.25345"
+     inkscape:zoom="0.76654633"
+     showgrid="false"
+     id="namedview2659"
+     inkscape:window-height="1016"
+     inkscape:window-width="1856"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0"
+     guidetolerance="10"
+     gridtolerance="10"
+     objecttolerance="10"
+     borderopacity="1"
+     bordercolor="#666666"
+     pagecolor="#ffffff" />
+  <defs
+     id="defs1776">
+    <image
+       xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAS0AAAANCAYAAAD8ODhsAAAAAXNSR0IArs4c6QAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAABLaADAAQAAAABAAAADQAAAABL876PAAAAtklEQVRoBe3bsQ2DQBAEQD/U4mpclOViKMFVuAQX89bjlM03GALEc8lqTlqRMOact3U9H/f/w3lyI0CAQJ/A6/0dY5WWwupbjkQECFwL7PNz+MK6tvGWAIFCga0wk0gECBCIAkor0hgQINAooLQatyITAQJRQGlFGgMCBBoFlFbjVmQiQCAKKK1IY0CAQKOA0mrcikwECEQBpRVpDAgQaBRQWo1bkYkAgSiwrX954tSAAAECZQI/UGQRgr9B3DkAAAAASUVORK5CYII="
+       height="7.138"
+       width="165.281"
+       id="image" />
+    <image
+       xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAS0AAAANCAYAAAD8ODhsAAAAAXNSR0IArs4c6QAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAABLaADAAQAAAABAAAADQAAAABL876PAAAAm0lEQVRoBe3WAQ2AMBADwA20oAZRBDFIQAUSEPMEUNHsUFCun2a9qtq2LtV8BAgQCBCY6zoMVkBRIhIg8AtMIAgQIJAkYLSS2pKVAIFmtBwBAQJRAkYrqi5hCRAwWm6AAIEoAaMVVZewBAgYLTdAgECUgNGKqktYAgSMlhsgQCBKYNrPu0clFpYAgaEFvpeW4Rr6Bvw8gRiBd6seblwOqlq25GsAAAAASUVORK5CYII="
+       height="7.138"
+       width="165.281"
+       id="image-2" />
+  </defs>
+  <g
+     transform="translate(-28.933 -32.308)"
+     data-name="Group 445"
+     id="Group_445">
+    <path
+       stroke-width="4"
+       stroke-miterlimit="10"
+       stroke="#f77e0b"
+       fill="none"
+       transform="translate(46.37 319.668)"
+       d="M286.355,360.455H151.665c-4.807.1-44.311.5-69.359-19.352-14.931-11.833-17-24.74-17.37-29.92V280.507"
+       data-name="Path 702"
+       id="Path_702" />
+    <path
+       stroke-width="4"
+       stroke-miterlimit="10"
+       stroke="#f77e0b"
+       fill="none"
+       transform="translate(46.272 85.376)"
+       d="M65.034,473.115,64.86,145.573A50.437,50.437,0,0,1,72.3,119.951c11.785-18.734,32.153-21.062,35.166-21.355"
+       data-name="Path 703"
+       id="Path_703" />
+    <line
+       stroke-width="4"
+       stroke-miterlimit="10"
+       stroke="#f77e0b"
+       fill="none"
+       transform="translate(312.87 176.978)"
+       x2="128.013"
+       data-name="Line 53"
+       id="Line_53" />
+    <line
+       stroke-width="4"
+       stroke-miterlimit="10"
+       stroke="#f77e0b"
+       fill="none"
+       transform="translate(877.19 185.854)"
+       x2="98.085"
+       data-name="Line 54"
+       id="Line_54" />
+    <path
+       stroke-width="4"
+       stroke-miterlimit="10"
+       stroke="#f77e0b"
+       fill="none"
+       transform="translate(809.48 86.673)"
+       d="M783.6,167.241V139.175c-5.312-42.183-48.527-39.538-48.527-39.538H657.436"
+       data-name="Path 704"
+       id="Path_704" />
+    <line
+       stroke-width="4"
+       stroke-miterlimit="10"
+       stroke="#f77e0b"
+       fill="none"
+       transform="translate(1350.503 624.695)"
+       x1="144.961"
+       data-name="Line 55"
+       id="Line_55" />
+    <path
+       stroke-dasharray="12 9"
+       stroke-width="2"
+       stroke-miterlimit="10"
+       stroke="#00a1ed"
+       fill="none"
+       transform="translate(11.123 11.459)"
+       d="M81.621,633.8a36.6,36.6,0,0,1-19.356-4.073C35.777,615.21,37.317,565.848,37.738,548c1.5-63.543.512-223.292,0-439.774-2-74.7,83.574-66.783,83.574-66.783H1548.683c58.826,2.21,66.815,73.4,66.815,73.4V220.287"
+       data-name="Path 705"
+       id="Path_705" />
+    <path
+       stroke-dasharray="12 9"
+       stroke-width="2"
+       stroke-miterlimit="10"
+       stroke="#00a1ed"
+       fill="none"
+       transform="translate(233.682 346.274)"
+       d="M210.37,301.165"
+       data-name="Path 706"
+       id="Path_706" />
+    <line
+       stroke-dasharray="12 9"
+       stroke-width="2"
+       stroke-miterlimit="10"
+       stroke="#00a1ed"
+       fill="none"
+       transform="translate(181.527 647.439)"
+       x2="151.198"
+       data-name="Line 56"
+       id="Line_56" />
+    <path
+       fill="#f77e0b"
+       transform="translate(141.118 353.901)"
+       d="M159.109,347.8l-20.608-20.1,20.1-20.608Q158.853,327.442,159.109,347.8Z"
+       data-name="Path 707"
+       id="Path_707" />
+    <path
+       fill="#00a1ed"
+       transform="translate(570.475)"
+       d="M492.476,73.017l-20.61-20.1,20.1-20.61Z"
+       data-name="Path 708"
+       id="Path_708" />
+    <path
+       fill="#00a1ed"
+       transform="translate(118.548 335.36)"
+       d="M120.977,292.691l20.969,19.722-19.722,20.971Q121.6,313.037,120.977,292.691Z"
+       data-name="Path 709"
+       id="Path_709" />
+    <path
+       fill="#248432"
+       transform="translate(165.11 319.36)"
+       d="M157.129,280.268,178.1,299.992l-19.722,20.969Q157.755,300.617,157.129,280.268Z"
+       data-name="Path 710"
+       id="Path_710" />
+    <path
+       fill="#f77e0b"
+       transform="translate(776.863 322.196)"
+       d="M652.718,323.179l-20.607-20.1,20.1-20.608Q652.464,302.825,652.718,323.179Z"
+       data-name="Path 711"
+       id="Path_711" />
+    <path
+       fill="#248432"
+       transform="translate(511.407 205.04)"
+       d="M446.612,232.216,426,212.115l20.1-20.608Q446.358,211.862,446.612,232.216Z"
+       data-name="Path 712"
+       id="Path_712" />
+    <path
+       fill="#248432"
+       transform="translate(197.05 205.04)"
+       d="M202.536,232.216l-20.608-20.1,20.1-20.608Z"
+       data-name="Path 713"
+       id="Path_713" />
+    <path
+       fill="#f77e0b"
+       transform="translate(34.815 165.531)"
+       d="M55.964,181.587l19.949-20.756,20.756,19.946Z"
+       data-name="Path 714"
+       id="Path_714" />
+    <path
+       fill="#00a1ed"
+       transform="translate(888.492 78.951)"
+       d="M718.783,114.367l19.946-20.759,20.756,19.946Q739.134,113.959,718.783,114.367Z"
+       data-name="Path 715"
+       id="Path_715" />
+    <path
+       fill="#f77e0b"
+       transform="translate(200.365 69.522)"
+       d="M184.5,86.287l20.436,20.276L184.662,127Q184.58,106.644,184.5,86.287Z"
+       data-name="Path 716"
+       id="Path_716" />
+    <line
+       stroke-width="4"
+       stroke-miterlimit="10"
+       stroke="#f77e0b"
+       fill="none"
+       transform="translate(1238.15 186.212)"
+       x2="128.013"
+       data-name="Line 57"
+       id="Line_57" />
+    <path
+       fill="#f77e0b"
+       transform="translate(721.23 74.722)"
+       d="M588.916,90.324,609.352,110.6l-20.276,20.436Q589,110.679,588.916,90.324Z"
+       data-name="Path 717"
+       id="Path_717" />
+    <path
+       fill="#f77e0b"
+       transform="translate(501.167 74.713)"
+       d="M418.053,90.317l20.436,20.276-20.273,20.436Q418.133,110.671,418.053,90.317Z"
+       data-name="Path 718"
+       id="Path_718" />
+    <path
+       fill="#f77e0b"
+       transform="translate(869.042 103.367)"
+       d="M744.394,112.654l-20.4,20.31-20.312-20.4Z"
+       data-name="Path 719"
+       id="Path_719" />
+    <path
+       fill="#00a1ed"
+       transform="translate(0 167.118)"
+       d="M69.645,162.152l-20.4,20.31-20.312-20.4Z"
+       data-name="Path 720"
+       id="Path_720" />
+    <line
+       stroke-width="4"
+       stroke-miterlimit="10"
+       stroke="#f77e0b"
+       fill="none"
+       transform="translate(1591.416 454.768)"
+       y2="62.039"
+       data-name="Line 58"
+       id="Line_58" />
+    <line
+       stroke-dasharray="12 9"
+       stroke-width="2"
+       stroke-miterlimit="10"
+       stroke="#00a1ed"
+       fill="none"
+       transform="translate(1623.132 455.17)"
+       y2="65.686"
+       data-name="Line 59"
+       id="Line_59" />
+    <path
+       stroke-width="4"
+       stroke-miterlimit="10"
+       stroke="#248432"
+       fill="none"
+       transform="translate(124.475 165.531)"
+       d="M960.161,160.831v40.7s.693,49.758-46.207,49.6H146.594s-24.824,2.906-20.511,31.185V395.236"
+       data-name="Path 967"
+       id="Path_967" />
+    <path
+       stroke-width="4"
+       stroke-miterlimit="10"
+       stroke="#248432"
+       fill="none"
+       transform="translate(124.45 312.022)"
+       d="M125.6,280.507c-.119,2.434-.3,10.655,3.839,18.122,6.306,11.391,16.906,10.68,17.777,10.6h61.054"
+       data-name="Path 968"
+       id="Path_968" />
+  </g>
+</svg>
