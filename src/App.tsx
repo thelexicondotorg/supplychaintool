@@ -8,27 +8,34 @@ import { SectionType } from "./Types";
 import "./styles/common.css";
 import { LoadingIndicator } from "./LoadingIndicator";
 import { Fonts } from "./Fonts";
+import { Categories } from "./Categories";
+import { Captions } from "./Captions";
 
 interface IAppState {
-    fontsLoaded: boolean;
+    loaded: boolean;
 }
 
 export class App extends React.Component<{}, IAppState> {
     constructor(props: {}) {
         super(props);
         this.state = {
-            fontsLoaded: false
+            loaded: false
         };
     }
 
     public componentDidMount() {
-        Fonts.preload().then(() => {
-            this.setState({ fontsLoaded: true });
-        });
+        Fonts.preload()
+            .then(() => Promise.all([
+                Categories.load(),
+                Captions.load()
+            ]))
+            .then(() => {
+                this.setState({ loaded: true });
+            });
     }
 
     public render() {
-        if (!this.state.fontsLoaded) {
+        if (!this.state.loaded) {
             return <LoadingIndicator />;
         }
 
