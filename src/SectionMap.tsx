@@ -42,11 +42,15 @@ export class SectionMap extends React.Component<ISectionMapProps, ISectionMapSta
 
     public render() {
         const { section, sections, index } = this.props;
+        const isFullscreen = index === undefined;
 
         return (
             <div>
                 <img
-                    className="fill-parent"
+                    style={{ 
+                        width: "100%",
+                        height: isFullscreen ? "100%" : undefined
+                    }}
                     ref={e => this._frame = e as HTMLImageElement}
                     src={`/public/${section}/map-paths.svg`}
                 />
@@ -59,7 +63,7 @@ export class SectionMap extends React.Component<ISectionMapProps, ISectionMapSta
                                     content={sectionProps}
                                     ref={e => this._images[currentIndex] = e as MapImage}
                                     position={mapPositions[section][currentIndex]}
-                                    greyedOut={index !== undefined && currentIndex !== index}
+                                    greyedOut={!isFullscreen && currentIndex !== index}
                                     onClick={() => {
                                         history?.push(`/${section}/${currentIndex + 1}`);
                                     }}
