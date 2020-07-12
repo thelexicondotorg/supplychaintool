@@ -92,7 +92,7 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
                                         <tr style={{ fontWeight: "bold" }}>
                                             <td className="table-quadrant-col1">
                                                 Agrobiodiversity Principles
-                                    </td>
+                                            </td>
                                             <td
                                                 style={{
                                                     textAlign: "center",
@@ -100,36 +100,34 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
                                                 }}
                                             >
                                                 Contributes to
-                                    </td>
-                                        </tr>
-                                        <tr>
-                                            <td className="table-quadrant-col1">1. Promote Healthy Soils</td>
-                                            <td>
-                                                <div
-                                                    style={{
-                                                        backgroundColor: "#F77E0B",
-                                                        borderRadius: "50%",
-                                                        width: "18px",
-                                                        height: "18px",
-                                                        margin: "0 auto"
-                                                    }}
-                                                />
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td className="table-quadrant-col1">2. Increase Resilience to Climate change, Economic Fluctuations and shocks</td>
-                                            <td>
-                                                <div
-                                                    style={{
-                                                        backgroundColor: "#F77E0B",
-                                                        borderRadius: "50%",
-                                                        width: "18px",
-                                                        height: "18px",
-                                                        margin: "0 auto"
-                                                    }}
-                                                />
-                                            </td>
-                                        </tr>
+                                        {
+                                            post.principles.map((principle, index) => {
+                                                return (
+                                                    <tr key={index}>
+                                                        <td className="table-quadrant-col1">{index + 1}. {principle.name}</td>
+                                                        <td>
+                                                            {
+                                                                principle.contributes
+                                                                &&
+                                                                (
+                                                                    <div
+                                                                        style={{
+                                                                            backgroundColor: "#F77E0B",
+                                                                            borderRadius: "50%",
+                                                                            width: "18px",
+                                                                            height: "18px",
+                                                                            margin: "0 auto"
+                                                                        }}
+                                                                    />
+                                                                )
+                                                            }
+                                                        </td>
+                                                    </tr>
+                                                );
+                                            })
+                                        }
                                     </tbody>
                                 </table>
                             </div>

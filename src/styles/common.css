@@ -32,7 +32,7 @@ body {
 }
 
 td {
-    padding: 4px;
+    padding: 6px;
     border-bottom: 1px solid #E0E0E0;
 }
 
@@ -84,7 +84,7 @@ td {
 
 .quadrant-cell { 
     display: table-cell; 
-    max-width: 900px; 
+    max-width: 48vw; 
     vertical-align: top;
     padding: 10px;
 }

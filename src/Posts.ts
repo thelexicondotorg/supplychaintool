@@ -20,9 +20,16 @@ interface IArticle {
     content: string;
 }
 
+interface IPrinciple {
+    name: string;
+    contributes: boolean;
+}
+
 interface IPost {
     title: string;
-    articles: IArticle[];    
+    articles: IArticle[];
+
+    principles: IPrinciple[];
 }
 
 export class Posts {
@@ -104,9 +111,22 @@ export class Posts {
             } as IArticle;
         });
 
+        const principles = DOMUtils.select(tree.body, "table > tbody > tr").map((row, index) => {
+            if (index === 0) {
+                // skip first title row
+                return null;
+            }
+            const [col1, col2] = DOMUtils.select(row, "td");
+            return {
+                name: col1?.innerText,
+                contributes: col2?.innerText?.toLowerCase() === "yes"
+            } as IPrinciple;
+        }).filter(Boolean) as IPrinciple[];
+
         const newPost: IPost = {
             title: rawData.title,
-            articles
+            articles,
+            principles
         };
 
         Posts.data[category].posts[index].post = newPost;
