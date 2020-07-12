@@ -12,7 +12,7 @@ body {
 @keyframes fade-in { from { opacity: 0; } to { opacity: 1; }}
 
 .clickable { cursor: pointer; transition: filter .5s, transform .25s; }
-.clickable:hover { filter: contrast(.75); transform: scale(1.1); }
+.clickable:hover { filter: brightness(130%); transform: scale(1.08); }
 
 .greyed-out {
     filter: grayscale(1) !important;
@@ -27,7 +27,8 @@ body {
 .quadrant-title {
     font-weight: bold;
     border-bottom: 1px solid #B7B7B7;
-    padding: 8px;
+    padding: 12px 12px 14px 30px;
+    color: #334B2E;
 }
 
 td {
@@ -43,6 +44,7 @@ td {
     text-align: center;
     border-bottom: 1px solid #B7B7B7;
     padding: 8px;
+    color: #334B2E;
 }
 
 .quadrant-image {
@@ -69,23 +71,32 @@ td {
     height: 20px;
 }
 
-.quadrant-image-caption {    
-    position: absolute;
-    bottom: 20px;
+.quadrant-image-caption {
     font-size: 12px;
+    text-align: center;
+    padding: 4px;
 }
 
-.quadrant-row { display: table; }
+.quadrant-row { 
+    display: table; 
+    width: 100%;
+}
+
 .quadrant-cell { 
     display: table-cell; 
     max-width: 900px; 
     vertical-align: top;
+    padding: 10px;
+}
+
+.card {
+  box-shadow: 0 2px 6px 0 rgba(0,0,0,0.2), 0 2px 6px 0 rgba(0,0,0,0.19);   
 }
 
 @media (max-width: 1000px) {
     .quadrant-cell {
         display: block;
-        width: 100% !important;
+        max-width: 100%;
     }    
     .quadrant-row {
         display: block;

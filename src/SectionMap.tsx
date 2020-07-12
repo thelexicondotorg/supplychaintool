@@ -17,6 +17,7 @@ interface ISectionMapState {
 
 export class SectionMap extends React.Component<ISectionMapProps, ISectionMapState> {
 
+    private _root!: HTMLElement;
     private _frame!: HTMLImageElement;
     private _images: MapImage[] = [];
 
@@ -45,7 +46,7 @@ export class SectionMap extends React.Component<ISectionMapProps, ISectionMapSta
         const isFullscreen = index === undefined;
 
         return (
-            <div>
+            <div ref={e => this._root = e as HTMLElement}>
                 <img
                     style={{ 
                         width: "100%",
@@ -81,5 +82,6 @@ export class SectionMap extends React.Component<ISectionMapProps, ISectionMapSta
             return;
         }
         this._images.forEach(i => i.onResize(this._frame));
+        this._root.style.fontSize = `${Math.min(this._frame.clientWidth, this._frame.clientHeight) / 55}px`;
     }
 }
