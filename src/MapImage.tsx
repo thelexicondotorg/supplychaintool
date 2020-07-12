@@ -10,6 +10,7 @@ export interface IMapImageContent {
 interface IMapImageProps {
     content: IMapImageContent;
     position: [number, number];
+    greyedOut: boolean;
     onClick: () => void;
 }
 
@@ -22,6 +23,7 @@ export class MapImage extends React.Component<IMapImageProps> {
 
     public render() {
         const { image, title, subtitle } = this.props.content;
+        const { greyedOut } = this.props;
 
         return (
             <div
@@ -32,7 +34,7 @@ export class MapImage extends React.Component<IMapImageProps> {
                 ref={e => this._container = e as HTMLElement}
             >
                 <img
-                    className="clickable"
+                    className={`clickable ${greyedOut ? "greyed-out" : ""}`}
                     style={{ width: "100%" }}
                     src={image}
                     ref={e => this._image = e as HTMLImageElement}
@@ -40,7 +42,7 @@ export class MapImage extends React.Component<IMapImageProps> {
                     onClick={this.props.onClick}
                 />
                 <div className="map-elem-title">{title}</div>
-                {subtitle && <div className="map-elem-subtitle">{subtitle}</div>}
+                {subtitle && <div>{subtitle}</div>}
             </div>
         );
     }

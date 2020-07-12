@@ -8,6 +8,7 @@ import { routerContext } from "./RouterContext";
 interface ISectionMapProps {
     section: SectionType;
     sections: IMapImageContent[];
+    index?: number;
 }
 
 interface ISectionMapState {
@@ -40,7 +41,7 @@ export class SectionMap extends React.Component<ISectionMapProps, ISectionMapSta
     }
 
     public render() {
-        const { section, sections } = this.props;
+        const { section, sections, index } = this.props;
 
         return (
             <div>
@@ -51,15 +52,16 @@ export class SectionMap extends React.Component<ISectionMapProps, ISectionMapSta
                 />
                 <routerContext.Consumer>
                     {({ history }) => {
-                        return sections.map((sectionProps, index) => {
+                        return sections.map((sectionProps, currentIndex) => {
                             return (
                                 <MapImage
-                                    key={index}
+                                    key={currentIndex}
                                     content={sectionProps}
-                                    ref={e => this._images[index] = e as MapImage}
-                                    position={mapPositions[section][index]}
+                                    ref={e => this._images[currentIndex] = e as MapImage}
+                                    position={mapPositions[section][currentIndex]}
+                                    greyedOut={index !== undefined && currentIndex !== index}
                                     onClick={() => {
-                                        history?.push(`/${section}/${index + 1}`);
+                                        history?.push(`/${section}/${currentIndex + 1}`);
                                     }}
                                 />
                             );

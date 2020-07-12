@@ -1,5 +1,8 @@
 
-body { margin: 0px; }
+body { 
+    margin: 0px; 
+    font-family: Work Sans;
+}
 #root { position: absolute; width: 100%; height: 100%; }
 .fill-parent { width: 100%; height: 100%; }
 
@@ -11,13 +14,29 @@ body { margin: 0px; }
 .clickable { cursor: pointer; transition: filter .5s, transform .25s; }
 .clickable:hover { filter: contrast(.75); transform: scale(1.1); }
 
+.greyed-out {
+    filter: grayscale(1) !important;
+}
+
 .map-elem-title {
-    font-family: Work Sans;
     font-weight: bold;
     padding: 4px;
     margin-top: 8px;
 }
 
-.map-elem-subtitle {
-    font-family: Work Sans;    
+.section-quadrants {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    width: 100%;
+    height: 100%;
+}
+
+td {
+    padding: 4px;
+    border-bottom: 1px solid #E0E0E0;
+}
+
+.section-table-left {    
+    border-right: 1px solid #E0E0E0;
 }
