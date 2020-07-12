@@ -3,13 +3,14 @@ import * as React from "react";
 import { MapImage, IMapImageContent } from "./MapImage";
 import { SectionType } from "./Types";
 import { mapPositions } from "./MapPositions";
+import { routerContext } from "./RouterContext";
 
 interface ISectionMapProps {
     section: SectionType;
     sections: IMapImageContent[];
 }
 
-interface ISectionMapState {    
+interface ISectionMapState {
     activePage?: number;
 }
 
@@ -20,7 +21,7 @@ export class SectionMap extends React.Component<ISectionMapProps, ISectionMapSta
 
     constructor(props: ISectionMapProps) {
         super(props);
-        this.state = {};       
+        this.state = {};
     }
 
     public componentDidMount() {
@@ -48,16 +49,23 @@ export class SectionMap extends React.Component<ISectionMapProps, ISectionMapSta
                     ref={e => this._frame = e as HTMLImageElement}
                     src={`/public/${section}/map-paths.svg`}
                 />
-                {sections.map((sectionProps, index) => {
-                    return (
-                        <MapImage
-                            key={index}
-                            content={sectionProps}
-                            ref={e => this._images[index] = e as MapImage}
-                            position={mapPositions[section][index]}
-                        />
-                    );
-                })}
+                <routerContext.Consumer>
+                    {({ history }) => {
+                        return sections.map((sectionProps, index) => {
+                            return (
+                                <MapImage
+                                    key={index}
+                                    content={sectionProps}
+                                    ref={e => this._images[index] = e as MapImage}
+                                    position={mapPositions[section][index]}
+                                    onClick={() => {
+                                        history?.push(`/${section}/${index + 1}`);
+                                    }}
+                                />
+                            );
+                        });
+                    }}
+                </routerContext.Consumer>
             </div>
         );
     }
@@ -66,6 +74,6 @@ export class SectionMap extends React.Component<ISectionMapProps, ISectionMapSta
         if (this._frame.naturalWidth === 0) {
             return;
         }
-        this._images.forEach(i => i.onResize(this._frame));        
+        this._images.forEach(i => i.onResize(this._frame));
     }
 }

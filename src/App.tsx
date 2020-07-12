@@ -10,6 +10,7 @@ import { LoadingIndicator } from "./LoadingIndicator";
 import { Fonts } from "./Fonts";
 import { Categories } from "./Categories";
 import { Captions } from "./Captions";
+import { routerContext } from "./RouterContext";
 
 interface IAppState {
     loaded: boolean;
@@ -52,9 +53,13 @@ export class App extends React.Component<{}, IAppState> {
                                 <Route
                                     key={section}
                                     path={`/${section}/:index?`}
-                                    render={props => {
+                                    render={props => {                                        
                                         const { index } = props.match.params;
-                                        return <Section {...props} section={section} index={index} />;
+                                        return (
+                                            <routerContext.Provider value={{ history: props.history }}>
+                                                <Section section={section} index={index} />
+                                            </routerContext.Provider>
+                                        );
                                     }}
                                 />
                             );

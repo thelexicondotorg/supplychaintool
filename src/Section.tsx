@@ -13,39 +13,44 @@ interface ISectionIntroProps {
 }
 
 interface ISectionState {
-    data?: {
-        intro: string;
-        posts: string[];
+    loaded: {
+        [category: string]: boolean;
     };
 }
 
-export class Section extends React.Component<ISectionIntroProps & RouteComponentProps, ISectionState> {
+export class Section extends React.Component<ISectionIntroProps, ISectionState> {
 
-    constructor(props: ISectionIntroProps & RouteComponentProps) {
+    constructor(props: ISectionIntroProps) {
         super(props);
-        this.state = {};
+        this.state = { loaded: {} };
     }
 
     public componentDidMount() {
         Posts.load(this.props.section)
-            .then(({ intro, posts }) => this.setState({ data: { intro, posts } }));
+            .then(() => this.setState({
+                loaded: {
+                    ...this.state.loaded,
+                    ...{ [this.props.section]: true }
+                }                
+            }));
     }
 
     public componentWillUnmount() {
     }
 
     public render() {
-        const { data } = this.state;
-        if (!(data)) {
+        const loaded = this.state.loaded[this.props.section];
+        if (!loaded) {
             return <LoadingIndicator />;
-        }
-
-        const { intro, posts } = data;
+        }        
+        
         const { section, index } = this.props;
+        const post = Posts.get(section, index);
+        const tree = new DOMParser().parseFromString(post, "text/html");
 
         if (index === undefined) {
-            const tree = new DOMParser().parseFromString(intro, "text/html");            
-            let sections: IMapImageContent[] = [];
+            const sections: IMapImageContent[] = [];
+            // tslint:disable-next-line
             for (let i = 0; i < tree.body.children.length; ++i) {
                 const child = tree.body.children[i];
                 const imageElem = child.querySelector("div > figure > img");
@@ -69,11 +74,12 @@ export class Section extends React.Component<ISectionIntroProps & RouteComponent
                 />
             );
         } else {
+            
             return (
                 <div>
-
+                    subsection
                 </div>
             );
-        }        
+        }
     }
 }

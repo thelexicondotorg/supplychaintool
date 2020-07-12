@@ -33,11 +33,14 @@ export class Posts {
                 posts
             }
         });
-        return Posts.getPosts(category);
     }
 
-    public static getPosts(category: string) {
-        return Posts.data[category];
+    public static get(category: string, index?: number) {
+        if (index === undefined) {
+            return Posts.data[category].intro;
+        } else {
+            return Posts.data[category].posts[index - 1];
+        }
     }
 
     private static data: {

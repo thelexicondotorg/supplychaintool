@@ -10,6 +10,7 @@ export interface IMapImageContent {
 interface IMapImageProps {
     content: IMapImageContent;
     position: [number, number];
+    onClick: () => void;
 }
 
 export class MapImage extends React.Component<IMapImageProps> {
@@ -31,10 +32,12 @@ export class MapImage extends React.Component<IMapImageProps> {
                 ref={e => this._container = e as HTMLElement}
             >
                 <img
+                    className="clickable"
                     style={{ width: "100%" }}
                     src={image}
                     ref={e => this._image = e as HTMLImageElement}
                     onLoad={() => this.resize()}
+                    onClick={this.props.onClick}
                 />
                 <div className="map-elem-title">{title}</div>
                 {subtitle && <div className="map-elem-subtitle">{subtitle}</div>}
@@ -49,7 +52,7 @@ export class MapImage extends React.Component<IMapImageProps> {
         this.resize();
     }
 
-    private resize() { 
+    private resize() {
         if (this._image.naturalWidth === 0
             || !this._frameSize
             || !this._frameOrigSize) {
@@ -68,7 +71,7 @@ export class MapImage extends React.Component<IMapImageProps> {
             const offset = (width - newWidth) / 2;
             this._container.style.left = `${offset + imageOrigPos[0] * sizeRatio}px`;
             this._container.style.top = `${imageOrigPos[1] * sizeRatio}px`;
-            this._container.style.width = `${imageOrigWidth * sizeRatio}px`
+            this._container.style.width = `${imageOrigWidth * sizeRatio}px`;
         } else {
             // Center vertically + 'bars' on top & bottom
             const sizeRatio = width / this._frameOrigSize[0];
@@ -76,7 +79,7 @@ export class MapImage extends React.Component<IMapImageProps> {
             const offset = (height - newHeight) / 2;
             this._container.style.left = `${imageOrigPos[0] * sizeRatio}px`;
             this._container.style.top = `${offset + imageOrigPos[1] * sizeRatio}px`;
-            this._container.style.width = `${imageOrigWidth * sizeRatio}px`
+            this._container.style.width = `${imageOrigWidth * sizeRatio}px`;
         }
     }
 }
