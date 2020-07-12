@@ -13,10 +13,9 @@ export class Captions {
 
         (json as IMediaJson[]).forEach(({ source_url, caption }) => {
             if (caption.rendered.length > 0) {
-                // tslint:disable-next-line
-                console.log(`[${source_url}].caption = ${caption.rendered}`);
+                const tree = new DOMParser().parseFromString(caption.rendered, "text/html");
+                Object.assign(Captions.data, { [source_url]: tree.body.querySelector("p")?.innerText });
             }
-            Object.assign(Captions.data, { [source_url]: caption.rendered });
         });
     }
 

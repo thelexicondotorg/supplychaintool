@@ -6,6 +6,7 @@ import { LoadingIndicator } from "./LoadingIndicator";
 import { SectionMap } from "./SectionMap";
 import { Posts } from "./Posts";
 import { IMapImageContent } from "./MapImage";
+import { Captions } from "./Captions";
 
 interface ISectionIntroProps {
     section: SectionType;
@@ -144,21 +145,27 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
                                     }}
                                 >
                                     <div className="quadrant-image">
-                                        <img src="http://wp-supplytool.franticsoftware.com/wp-content/uploads/2020/07/fonio-growers.png" />
+                                        <img src={post.articles[0].image} />
                                         <div className="quadrant-image-caption">
-                                            (Seeds of Digitaria exilis (Fonio), from the USA Agricultural Research Service)
+                                            {Captions.get(post.articles[0].image)}
                                         </div>
                                     </div>
                                     <div className="quadrant-text">
                                         <div className="quadrant-text-title">
-                                            Grain Production
+                                            {post.articles[0].title}
                                         </div>
-                                        <div className="quadrant-text-title">
-                                            Location: Tiebe, Mali, West Africa
-                                        </div>
+                                        {
+                                            post.articles[0].subTitle
+                                            &&
+                                            (
+                                                <div className="quadrant-text-title">
+                                                    {post.articles[0].subTitle}
+                                                </div>
+                                            )
+                                        }                                        
                                         <div className="quadrant-text-separator" />
                                         <div>
-                                            500 Women smallholder farmers enter into verbal agreements with Farafena-Mali to grow fonio. Fonio is grown in four quarters in the village. Fonio is sown by hand at the end of May and matures in approximately 100 days, after which it is cut and sheathed by hand. Fonio is certified organic by Ecocert NOP/USD. Seed is selected from the previous year’s fonio crop
+                                            {post.articles[0].content}
                                         </div>
                                     </div>
                                 </div>
@@ -166,17 +173,17 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
                         </div>
                         <div className="quadrant-cell">
                             <div className="card">
-                                <div className="quadrant-title">Introduction</div>
+                                <div className="quadrant-title">{post.articles[1].title}</div>
                                 <div
                                     style={{
                                         display: "flex"
                                     }}
                                 >
                                     <div className="quadrant-image">
-                                        <img src="https://wp-supplytool.franticsoftware.com/wp-content/uploads/2020/07/fonio-introduction.png" />
+                                        <img src={post.articles[1].image} />
                                     </div>
                                     <div className="quadrant-text">
-                                        The successful integration and expansion of biodiversity in food systems require upholding basic principles that represent significant changes in the predominant patterns of food production and trade. These principles support climate-friendly regenerative biodiverse farming practices, responsible and effective food businesses, healthy diets, and ensure fair benefit-sharing with producers and communities. Application of the ten principles identified here provide benefits to producers, communities, consumers, and other stakeholders in the food supply chain, and is aligned with broader efforts to develop sustainable, equitable and regenerative food systems, as well as responsible businesses.
+                                        {post.articles[1].content}
                                     </div>
                                 </div>
                             </div>

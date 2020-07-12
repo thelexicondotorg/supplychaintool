@@ -1,5 +1,6 @@
 import { Categories } from "./Categories";
 import { IMapImageContent } from "./MapImage";
+import { DOMUtils } from "./DOMUtils";
 
 interface IPostJson {
     slug: string;
@@ -12,9 +13,16 @@ interface IPostRawData {
     content: string;
 }
 
+interface IArticle {
+    image: string;
+    title: string;
+    subTitle?: string;
+    content: string;
+}
+
 interface IPost {
     title: string;
-    secondaryTitle: string;
+    articles: IArticle[];    
 }
 
 export class Posts {
@@ -83,10 +91,24 @@ export class Posts {
         }
         const tree = new DOMParser().parseFromString(rawData.content, "text/html");
 
+        const articles = DOMUtils.select(tree.body, ".wp-block-media-text").map(a => {
+            const image = a.querySelector("img");
+            const content = a.querySelector(".wp-block-media-text__content");
+            const headers = content ? DOMUtils.select(content, "h6") : [];
+            const text = content?.querySelector("p");
+            return {
+                image: image?.src,
+                title: headers[0]?.innerText,
+                subTitle: headers[1]?.innerText,
+                content: text?.innerText
+            } as IArticle;
+        });
+
         const newPost: IPost = {
             title: rawData.title,
-            secondaryTitle: "TODO"
+            articles
         };
+
         Posts.data[category].posts[index].post = newPost;
         return newPost;
     }
