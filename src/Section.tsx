@@ -72,13 +72,7 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
                         index={postIndex}
                     />
                     <div>
-                        <div
-                            style={{
-                                textAlign: "center",
-                                borderBottom: "1px solid #B7B7B7",
-                                padding: "4px"
-                            }}
-                        >
+                        <div className="table-quadrant-title">
                             How the <b>{post.title}</b> contribute to agrobiodiversity principles.
                         </div>
                         <table
@@ -88,9 +82,9 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
                             }}
                         >
                             <tbody>
-                                <tr>
-                                    <td className="section-table-left">
-                                        <b>Agrobiodiversity Principles</b>
+                                <tr style={{ fontWeight: "bold" }}>
+                                    <td className="table-quadrant-col1">
+                                        Agrobiodiversity Principles
                                     </td>
                                     <td
                                         style={{
@@ -98,11 +92,11 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
                                             borderBottom: "1px solid #E0E0E0"
                                         }}
                                     >
-                                        <b>contributes to</b>
+                                        Contributes to
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td className="section-table-left">1. Promote Healthy Soils</td>
+                                    <td className="table-quadrant-col1">1. Promote Healthy Soils</td>
                                     <td>
                                         <div
                                             style={{
@@ -116,7 +110,7 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td className="section-table-left">2. Increase Resilience to Climate change, Economic Fluctuations and shocks</td>
+                                    <td className="table-quadrant-col1">2. Increase Resilience to Climate change, Economic Fluctuations and shocks</td>
                                     <td>
                                         <div
                                             style={{
@@ -124,7 +118,7 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
                                                 borderRadius: "50%",
                                                 width: "18px",
                                                 height: "18px",
-                                                margin: "0 auto"                                                
+                                                margin: "0 auto"
                                             }}
                                         />                                        
                                     </td>
@@ -133,39 +127,43 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
                         </table>
                     </div>
                     <div>
-                        <div>{post.title}</div>
+                        <div className="quadrant-title">{post.title}</div>
                         <div
                             style={{
                                 display: "flex"
                             }}
                         >
-                            <div>
+                            <div className="quadrant-image">
                                 <img src="http://wp-supplytool.franticsoftware.com/wp-content/uploads/2020/07/fonio-growers.png" />
                             </div>
-                            <div>
-                                <div>
-                                    Grain Production Location: Tiebe, Mali, West Africa
+                            <div className="quadrant-text">
+                                <div className="quadrant-text-title">
+                                    Grain Production
                                 </div>
+                                <div className="quadrant-text-title">
+                                    Location: Tiebe, Mali, West Africa
+                                </div>
+                                <div className="quadrant-text-separator" />
                                 <div>
                                     500 Women smallholder farmers enter into verbal agreements with Farafena-Mali to grow fonio. Fonio is grown in four quarters in the village. Fonio is sown by hand at the end of May and matures in approximately 100 days, after which it is cut and sheathed by hand. Fonio is certified organic by Ecocert NOP/USD. Seed is selected from the previous year’s fonio crop
                                 </div>
-                                <div>
+                                <div className="quadrant-image-caption">
                                     ( Seeds of Digitaria exilis (Fonio), from the USA Agricultural Research Service )
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div>
-                        <div>Introduction</div>
+                        <div className="quadrant-title">Introduction</div>
                         <div
                             style={{
                                 display: "flex"
                             }}
                         >
-                            <div>
+                            <div className="quadrant-image">
                                 <img src="https://wp-supplytool.franticsoftware.com/wp-content/uploads/2020/07/fonio-introduction.png" />
                             </div>
-                            <div>
+                            <div className="quadrant-text">
                                 The successful integration and expansion of biodiversity in food systems require upholding basic principles that represent significant changes in the predominant patterns of food production and trade. These principles support climate-friendly regenerative biodiverse farming practices, responsible and effective food businesses, healthy diets, and ensure fair benefit-sharing with producers and communities. Application of the ten principles identified here provide benefits to producers, communities, consumers, and other stakeholders in the food supply chain, and is aligned with broader efforts to develop sustainable, equitable and regenerative food systems, as well as responsible businesses.
                             </div>
                         </div>

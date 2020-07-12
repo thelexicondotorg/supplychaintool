@@ -32,11 +32,47 @@ body {
     height: 100%;
 }
 
+.quadrant-title {
+    font-weight: bold;
+    border-bottom: 1px solid #B7B7B7;
+    padding: 8px;
+}
+
 td {
     padding: 4px;
     border-bottom: 1px solid #E0E0E0;
 }
 
-.section-table-left {    
+.table-quadrant-col1 {    
     border-right: 1px solid #E0E0E0;
+}
+
+.table-quadrant-title {
+    text-align: center;
+    border-bottom: 1px solid #B7B7B7;
+    padding: 8px;
+}
+
+.quadrant-image {
+    padding: 20px;
+}
+
+.quadrant-text {
+    padding: 20px 20px 20px 8px;
+    font-size: 14px;
+    position: relative;
+}
+
+.quadrant-text-title {
+    font-weight: bold;
+}
+
+.quadrant-text-separator {
+    height: 20px;
+}
+
+.quadrant-image-caption {    
+    position: absolute;
+    bottom: 20px;
+    font-size: 12px;
 }
