@@ -76,13 +76,10 @@ export class Posts {
             const titleElem = child.querySelector("div > div > p");
             const subtitleElem = child.querySelector("div > div > p + p");
             if (imageElem && titleElem) {
-                const image = (imageElem as HTMLImageElement).src;
-                const title = (titleElem as HTMLParagraphElement).innerText;
-                const subtitle = (subtitleElem as HTMLParagraphElement)?.innerText;
                 newSections.push({
-                    image,
-                    title,
-                    subtitle
+                    image: (imageElem as HTMLImageElement).src,
+                    title: (titleElem as HTMLParagraphElement).innerText,
+                    subtitle: (subtitleElem as HTMLParagraphElement)?.innerText
                 });
             }
         }
@@ -101,27 +98,25 @@ export class Posts {
         const articles = DOMUtils.select(tree.body, ".wp-block-media-text").map(a => {
             const image = a.querySelector("img");
             const content = a.querySelector(".wp-block-media-text__content");
-            const headers = content ? DOMUtils.select(content, "h6") : [];
+            const [header1, header2] = content ? DOMUtils.select(content, "h6") : [];
             const text = content?.querySelector("p");
             return {
                 image: image?.src,
-                title: headers[0]?.innerText,
-                subTitle: headers[1]?.innerText,
+                title: header1?.innerText,
+                subTitle: header2?.innerText,
                 content: text?.innerText
             } as IArticle;
         });
 
-        const principles = DOMUtils.select(tree.body, "table > tbody > tr").map((row, index) => {
-            if (index === 0) {
-                // skip first title row
-                return null;
-            }
-            const [col1, col2] = DOMUtils.select(row, "td");
-            return {
-                name: col1?.innerText,
-                contributes: col2?.innerText?.toLowerCase() === "yes"
-            } as IPrinciple;
-        }).filter(Boolean) as IPrinciple[];
+        const principles = DOMUtils.select(tree.body, "table > tbody > tr")
+            .slice(1) // skip first title row
+            .map(row => {
+                const [col1, col2] = DOMUtils.select(row, "td");
+                return {
+                    name: col1?.innerText,
+                    contributes: col2?.innerText?.toLowerCase() === "yes"
+                } as IPrinciple;
+            });
 
         const newPost: IPost = {
             title: rawData.title,

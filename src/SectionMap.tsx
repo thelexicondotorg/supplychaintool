@@ -1,13 +1,13 @@
 
 import * as React from "react";
-import { MapImage, IMapImageContent } from "./MapImage";
+import { MapImage } from "./MapImage";
 import { SectionType } from "./Types";
 import { mapPositions } from "./MapPositions";
 import { routerContext } from "./RouterContext";
+import { Posts } from "./Posts";
 
 interface ISectionMapProps {
     section: SectionType;
-    sections: IMapImageContent[];
     index?: number;
 }
 
@@ -42,8 +42,9 @@ export class SectionMap extends React.Component<ISectionMapProps, ISectionMapSta
     }
 
     public render() {
-        const { section, sections, index } = this.props;
+        const { section, index } = this.props;
         const isFullscreen = index === undefined;
+        const sections = Posts.getIntroSections(section);
 
         return (
             <div ref={e => this._root = e as HTMLElement}>

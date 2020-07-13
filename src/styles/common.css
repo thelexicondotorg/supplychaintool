@@ -3,8 +3,17 @@ body {
     margin: 0px; 
     font-family: Work Sans;
 }
-#root { position: absolute; width: 100%; height: 100%; }
-.fill-parent { width: 100%; height: 100%; }
+
+#root { 
+    position: absolute; 
+    width: 100%; 
+    height: 100%; 
+}
+
+.fill-parent { 
+    width: 100%; 
+    height: 100%; 
+}
 
 .fade-out { animation: .25s forwards fade-out; }
 .fade-in { animation: .25s forwards fade-in; }
@@ -12,11 +21,10 @@ body {
 @keyframes fade-in { from { opacity: 0; } to { opacity: 1; }}
 
 .clickable { cursor: pointer; transition: filter .5s, transform .25s; }
-.clickable:hover { filter: brightness(130%); transform: scale(1.08); }
+.clickable:hover { filter: brightness(140%); transform: scale(1.08); }
 
-.greyed-out {
-    filter: grayscale(1) !important;
-}
+.greyed-out { filter: grayscale(1) !important; }
+.greyed-out:hover { filter: brightness(140%) !important; }
 
 .map-elem-title {
     font-weight: bold;
@@ -90,7 +98,7 @@ td {
 }
 
 .card {
-  box-shadow: 0 2px 6px 0 rgba(0,0,0,0.2), 0 2px 6px 0 rgba(0,0,0,0.19);   
+  box-shadow: 0 2px 6px 0 rgba(0,0,0,0.2), 0 2px 6px 0 rgba(0,0,0,0.19);
 }
 
 @media (max-width: 1000px) {
@@ -101,4 +109,14 @@ td {
     .quadrant-row {
         display: block;
     }
+}
+
+.circular-button {
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 2px 6px 0 rgba(0,0,0,0.2), 0 2px 6px 0 rgba(0,0,0,0.19);    
+}
+
+.circular-button:focus {
+    outline: none;
 }

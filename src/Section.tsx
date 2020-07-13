@@ -1,11 +1,9 @@
 
 import * as React from "react";
-import { RouteComponentProps } from "react-router-dom";
 import { SectionType } from "./Types";
 import { LoadingIndicator } from "./LoadingIndicator";
 import { SectionMap } from "./SectionMap";
 import { Posts } from "./Posts";
-import { IMapImageContent } from "./MapImage";
 import { Captions } from "./Captions";
 
 interface ISectionIntroProps {
@@ -56,23 +54,17 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
 
         const { section, index } = this.props;
         if (index === undefined) {
-            return (
-                <SectionMap
-                    section={this.props.section}
-                    sections={Posts.getIntroSections(this.props.section)}
-                />
-            );
+            return <SectionMap section={section} />;
         } else {
             const postIndex = parseInt(index, 10) - 1;
-            const post = Posts.getPost(this.props.section, postIndex);
+            const post = Posts.getPost(section, postIndex);
             return (
                 <div className="fill-parent">
                     <div className="quadrant-row">
                         <div className="quadrant-cell">
                             <div className="card">
                                 <SectionMap
-                                    section={this.props.section}
-                                    sections={Posts.getIntroSections(this.props.section)}
+                                    section={section}
                                     index={postIndex}
                                 />
                             </div>
@@ -103,10 +95,12 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
                                             </td>
                                         </tr>
                                         {
-                                            post.principles.map((principle, index) => {
+                                            post.principles.map((principle, i) => {
                                                 return (
-                                                    <tr key={index}>
-                                                        <td className="table-quadrant-col1">{index + 1}. {principle.name}</td>
+                                                    <tr key={i}>
+                                                        <td className="table-quadrant-col1">
+                                                            {i + 1}. {principle.name}
+                                                        </td>
                                                         <td>
                                                             {
                                                                 principle.contributes
