@@ -32,7 +32,12 @@ export class Intro extends React.Component {
         };
 
         return (
-            <div className="fill-parent">
+            <div 
+                className="fill-parent"
+                style={{
+                    overflow: "hidden"
+                }}
+            >
                 <div
                     style={{
                         display: "flex",
@@ -68,8 +73,17 @@ export class Intro extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div>
-
+                <div
+                    style={{
+                        paddingTop: "40px"
+                    }}
+                >
+                    <img 
+                        style={{
+                            width: "100%"
+                        }}
+                        src="/public/intro/intro.svg"
+                    />
                 </div>
                 <div
                     style={{
