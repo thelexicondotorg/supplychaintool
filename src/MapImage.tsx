@@ -12,6 +12,8 @@ interface IMapImageProps {
     position: [number, number];
     greyedOut: boolean;
     onClick: () => void;
+    onMouseOver: () => void;
+    onMouseOut: () => void;
 }
 
 export class MapImage extends React.Component<IMapImageProps> {
@@ -40,6 +42,8 @@ export class MapImage extends React.Component<IMapImageProps> {
                     ref={e => this._image = e as HTMLImageElement}
                     onLoad={() => this.resize()}
                     onClick={this.props.onClick}
+                    onMouseOver={this.props.onMouseOver}
+                    onMouseOut={this.props.onMouseOut}
                 />
                 <div className="map-elem-title">{title}</div>
                 {subtitle && <div>{subtitle}</div>}

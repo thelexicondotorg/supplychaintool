@@ -25,10 +25,10 @@ body {
 @keyframes fade-in { from { opacity: 0; } to { opacity: 1; }}
 
 .clickable { cursor: pointer; transition: filter .5s, transform .25s; }
-.clickable:hover { filter: brightness(140%); transform: scale(1.06); }
+.clickable:hover { filter: brightness(130%); transform: scale(1.06); }
 
 .greyed-out { filter: grayscale(1) !important; }
-.greyed-out:hover { filter: brightness(140%) !important; }
+.greyed-out:hover { filter: brightness(130%) !important; }
 
 .map-elem-title {
     font-weight: bold;
@@ -60,7 +60,8 @@ td {
 }
 
 .quadrant-image {
-    padding: 20px;    
+    padding: 20px 20px 20px 20px;    
+    padding-right: 10px;
 }
 
 .quadrant-image > img {
@@ -69,7 +70,7 @@ td {
 }
 
 .quadrant-text {
-    padding: 20px 20px 20px 8px;
+    padding: 20px 20px 20px 0px;
     font-size: 14px;
     position: relative;
     max-width: 60%;

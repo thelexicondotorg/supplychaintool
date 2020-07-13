@@ -81,7 +81,8 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
                                     <table
                                         style={{
                                             width: "100%",
-                                            borderCollapse: "collapse"
+                                            borderCollapse: "collapse",
+                                            fontSize: "14px"
                                         }}
                                     >
                                         <tbody>
@@ -191,19 +192,18 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
         };
 
         return (
-            makeContent()
-            // <div className="fill-parent">
-            //     <div
-            //         style={{
-            //             height: `calc(100% - ${Footer.height})`,
-            //             overflow: "auto",
-            //             position: "relative"
-            //         }}
-            //     >
-            //         {makeContent()}
-            //     </div>
-            //     <Footer />
-            // </div>
+            <div className="fill-parent">
+                <div
+                    style={{
+                        height: `calc(100% - ${Footer.height})`,
+                        overflow: "auto",
+                        position: "relative"
+                    }}
+                >
+                    {makeContent()}
+                </div>
+                <Footer />
+            </div>
         );
     }
 }

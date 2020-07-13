@@ -12,7 +12,7 @@ interface ISectionMapProps {
 }
 
 interface ISectionMapState {
-    activePage?: number;
+    hoveredImage?: number;
 }
 
 export class SectionMap extends React.Component<ISectionMapProps, ISectionMapState> {
@@ -38,6 +38,7 @@ export class SectionMap extends React.Component<ISectionMapProps, ISectionMapSta
 
     public render() {
         const { section, index } = this.props;
+        const { hoveredImage } = this.state;
         const isFullscreen = index === undefined;
         const sections = Posts.getIntroSections(section);
 
@@ -66,9 +67,27 @@ export class SectionMap extends React.Component<ISectionMapProps, ISectionMapSta
                                     content={sectionProps}
                                     ref={e => this._images[currentIndex] = e as MapImage}
                                     position={mapPositions[section][currentIndex]}
-                                    greyedOut={!isFullscreen && currentIndex !== index}
+                                    greyedOut={(() => {
+                                        if (isFullscreen) {
+                                            return false;
+                                        }
+                                        if (hoveredImage !== undefined) {
+                                            return currentIndex !== hoveredImage;
+                                        }
+                                        return currentIndex !== index;
+                                    })()}
                                     onClick={() => {
                                         history?.push(`/${section}/${currentIndex + 1}`);
+                                    }}
+                                    onMouseOver={() => {
+                                        if (!isFullscreen) {
+                                            this.setState({ hoveredImage: currentIndex });
+                                        }
+                                    }}
+                                    onMouseOut={() => {
+                                        if (!isFullscreen) {
+                                            this.setState({ hoveredImage: undefined });
+                                        }
                                     }}
                                 />
                             );
