@@ -29,12 +29,7 @@ export class SectionMap extends React.Component<ISectionMapProps, ISectionMapSta
     public componentDidMount() {
         this.onResize = this.onResize.bind(this);
         window.addEventListener("resize", this.onResize);
-
-        if (this._frame.naturalWidth === 0) {
-            this._frame.onload = () => this.onResize();
-        } else {
-            this.onResize();
-        }
+        this.onResize();
     }
 
     public componentWillUnmount() {
@@ -54,7 +49,8 @@ export class SectionMap extends React.Component<ISectionMapProps, ISectionMapSta
                         height: isFullscreen ? "100%" : undefined
                     }}
                     ref={e => this._frame = e as HTMLImageElement}
-                    src={`/public/${section}/map-paths.svg`}
+                    src={`/public/${section}/map.svg`}
+                    onLoad={() => this.onResize()}
                 />
                 <routerContext.Consumer>
                     {({ history }) => {

@@ -37,8 +37,8 @@ export class Fonts {
         };
 
         return Promise.all([
-            loadFont("Google Sans", "normal", "normal", "/public/fonts/GoogleSans-Regular.ttf"),
-            loadFont("Google Sans", "normal", "bold", "/public/fonts/GoogleSans-Bold.ttf"),
+            // loadFont("Google Sans", "normal", "normal", "/public/fonts/GoogleSans-Regular.ttf"),
+            // loadFont("Google Sans", "normal", "bold", "/public/fonts/GoogleSans-Bold.ttf"),
             // loadFont("Roboto Condensed", "normal", "normal", "/public/fonts/RobotoCondensed-Regular.ttf"),
             // loadFont("Roboto Condensed", "normal", "bold", "/public/fonts/RobotoCondensed-Bold.ttf"),
             loadFont("Work Sans", "normal", "normal", "/public/fonts/WorkSans-Regular.ttf"),

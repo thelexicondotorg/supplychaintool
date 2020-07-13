@@ -15,6 +15,10 @@ body {
     height: 100%; 
 }
 
+* {
+    box-sizing: border-box;
+}
+
 .fade-out { animation: .25s forwards fade-out; }
 .fade-in { animation: .25s forwards fade-in; }
 @keyframes fade-out { from { opacity: 1; } to { opacity: 0; }}
@@ -60,7 +64,7 @@ td {
 }
 
 .quadrant-image > img {
-    max-width: 100%;
+    max-width: 95%;
     height: auto;
 }
 
@@ -97,6 +101,11 @@ td {
     padding: 10px;
 }
 
+.quadrant-cell.map {
+    width: 44%;
+    position: relative;
+}
+
 .card {
   box-shadow: 0 2px 6px 0 rgba(0,0,0,0.2), 0 2px 6px 0 rgba(0,0,0,0.19);
 }
@@ -108,6 +117,9 @@ td {
     }    
     .quadrant-row {
         display: block;
+    }
+    .quadrant-cell.map {
+        width: 100%;
     }
 }
 

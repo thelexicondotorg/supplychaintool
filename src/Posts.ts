@@ -28,7 +28,6 @@ interface IPrinciple {
 interface IPost {
     title: string;
     articles: IArticle[];
-
     principles: IPrinciple[];
 }
 

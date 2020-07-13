@@ -105,13 +105,13 @@ export class Intro extends React.Component {
                         radius={180}
                         color="#E23F39"
                         content={makeButton("AMARANTH", "Mexico")}
-                        url="/amaranth-local"
+                        // url="/amaranth-local"
                     />
                     <CircularButton
                         radius={180}
                         color="#27A33E"
                         content={makeButton("SMALL MILLETS", "India")}
-                        url="/small-millets"
+                        // url="/small-millets"
                     />
                 </div>
             </div>

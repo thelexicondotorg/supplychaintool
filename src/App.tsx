@@ -53,11 +53,10 @@ export class App extends React.Component<{}, IAppState> {
                                 <Route
                                     key={section}
                                     path={`/${section}/:index?`}
-                                    render={props => {
-                                        const { index } = props.match.params;
+                                    render={({ match, history }) => {
                                         return (
-                                            <routerContext.Provider value={{ history: props.history }}>
-                                                <Section section={section} index={index} />
+                                            <routerContext.Provider value={{ history }}>
+                                                <Section section={section} index={match.params.index} />
                                             </routerContext.Provider>
                                         );
                                     }}
@@ -68,9 +67,9 @@ export class App extends React.Component<{}, IAppState> {
                     <Route
                         path="/"
                         exact={true}
-                        render={props => {
+                        render={({ history }) => {
                             return (
-                                <routerContext.Provider value={{ history: props.history }}>
+                                <routerContext.Provider value={{ history }}>
                                     <Intro />
                                 </routerContext.Provider>
                             );
