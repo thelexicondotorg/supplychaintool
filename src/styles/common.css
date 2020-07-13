@@ -25,15 +25,15 @@ body {
 @keyframes fade-in { from { opacity: 0; } to { opacity: 1; }}
 
 .clickable { cursor: pointer; transition: filter .5s, transform .25s; }
-.clickable:hover { filter: brightness(140%); transform: scale(1.08); }
+.clickable:hover { filter: brightness(140%); transform: scale(1.06); }
 
 .greyed-out { filter: grayscale(1) !important; }
 .greyed-out:hover { filter: brightness(140%) !important; }
 
 .map-elem-title {
     font-weight: bold;
-    padding: 4px;
-    margin-top: 8px;
+    padding: 2px;
+    margin-top: 2px;
 }
 
 .quadrant-title {

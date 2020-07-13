@@ -42,14 +42,19 @@ export class SectionMap extends React.Component<ISectionMapProps, ISectionMapSta
         const sections = Posts.getIntroSections(section);
 
         return (
-            <div ref={e => this._root = e as HTMLElement}>
+            <div 
+                style={{
+                    position: "relative"
+                }}
+                ref={e => this._root = e as HTMLElement}
+            >
                 <img
                     style={{ 
                         width: "100%",
                         height: isFullscreen ? "100%" : undefined
                     }}
                     ref={e => this._frame = e as HTMLImageElement}
-                    src={`/public/${section}/map.svg`}
+                    src={`/public/${section}/map-paths.svg`}
                     onLoad={() => this.onResize()}
                 />
                 <routerContext.Consumer>
@@ -79,6 +84,8 @@ export class SectionMap extends React.Component<ISectionMapProps, ISectionMapSta
             return;
         }
         this._images.forEach(i => i.onResize(this._frame));
-        this._root.style.fontSize = `${Math.min(this._frame.clientWidth, this._frame.clientHeight) / 55}px`;
+
+        const { width, height } = this._frame.getBoundingClientRect();
+        this._root.style.fontSize = `${Math.min(width, height) / 55}px`;
     }
 }

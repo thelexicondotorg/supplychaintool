@@ -60,28 +60,33 @@ export class MapImage extends React.Component<IMapImageProps> {
             || !this._frameOrigSize) {
             return;
         }
-        const imageOrigWidth = this._image.naturalWidth;
+
+        const imageOrigSize = [this._image.naturalWidth, this._image.naturalHeight];
         const imageOrigPos = this.props.position;
 
         const [width, height] = this._frameSize;
         const ratio = width / height;
         const origRatio = this._frameOrigSize[0] / this._frameOrigSize[1];
+
+        // Y is inverted in SVG
+        const imageY = this._frameOrigSize[1] - imageOrigPos[1] - imageOrigSize[1];
+
         if (ratio > origRatio) {
             // Center horizontally + 'bars' on the sides
             const sizeRatio = height / this._frameOrigSize[1];
             const newWidth = this._frameOrigSize[0] * sizeRatio;
             const offset = (width - newWidth) / 2;
             this._container.style.left = `${offset + imageOrigPos[0] * sizeRatio}px`;
-            this._container.style.top = `${imageOrigPos[1] * sizeRatio}px`;
-            this._container.style.width = `${imageOrigWidth * sizeRatio}px`;
+            this._container.style.top = `${imageY * sizeRatio}px`;
+            this._container.style.width = `${imageOrigSize[0] * sizeRatio}px`;
         } else {
             // Center vertically + 'bars' on top & bottom
             const sizeRatio = width / this._frameOrigSize[0];
             const newHeight = this._frameOrigSize[1] * sizeRatio;
             const offset = (height - newHeight) / 2;
             this._container.style.left = `${imageOrigPos[0] * sizeRatio}px`;
-            this._container.style.top = `${offset + imageOrigPos[1] * sizeRatio}px`;
-            this._container.style.width = `${imageOrigWidth * sizeRatio}px`;
+            this._container.style.top = `${offset + imageY * sizeRatio}px`;
+            this._container.style.width = `${imageOrigSize[0] * sizeRatio}px`;
         }
     }
 }
