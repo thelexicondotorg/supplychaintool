@@ -94,13 +94,22 @@ export class Posts {
         }
         const tree = new DOMParser().parseFromString(rawData.content, "text/html");
 
+        // TODO not sure why some images are reference with http
+        const forceHttps = (url?: string) => {            
+            if (url?.startsWith("http://")) {
+                return url.replace("http", "https");
+            } else {
+                return url;
+            }
+        };
+
         const articles = DOMUtils.select(tree.body, ".wp-block-media-text").map(a => {
             const image = a.querySelector("img");
             const content = a.querySelector(".wp-block-media-text__content");
             const [header1, header2] = content ? DOMUtils.select(content, "h6") : [];
             const text = content?.querySelector("p");
             return {
-                image: image?.src,
+                image: forceHttps(image?.src),
                 title: header1?.innerText,
                 subTitle: header2?.innerText,
                 content: text?.innerText

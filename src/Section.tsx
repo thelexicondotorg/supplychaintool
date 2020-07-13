@@ -115,8 +115,8 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
                                                                             style={{
                                                                                 backgroundColor: "#F77E0B",
                                                                                 borderRadius: "50%",
-                                                                                width: "18px",
-                                                                                height: "18px",
+                                                                                width: "14px",
+                                                                                height: "14px",
                                                                                 margin: "0 auto"
                                                                             }}
                                                                         />
