@@ -20,42 +20,53 @@ interface IArticle {
     content: string;
 }
 
+interface IContribution {
+    principleName: string;
+    contributes: boolean;
+}
+
 interface IPrinciple {
     name: string;
-    contributes: boolean;
+    image: string;
+    content: string;
 }
 
 interface IPost {
     title: string;
-    articles: IArticle[];
-    principles: IPrinciple[];
+    article: IArticle;
+    contributions: IContribution[];
 }
 
 export class Posts {
     public static async load(category: string) {
         const categoryId = Categories.getId(category);
-        const response = await fetch(`https://wp-supplytool.franticsoftware.com/wp-json/wp/v2/posts?categories=${categoryId}`);
+        const response = await fetch(`https://wp-supplytool.franticsoftware.com/wp-json/wp/v2/posts?categories=${categoryId}&per_page=11`);
         const json = await response.json();
 
         const allPosts = (json as IPostJson[])
             .map(({ slug, title, content }) => {
                 const [match, index] = slug.match(/[a-z-]+-([0-9]+)/) ?? [null, null];
-                const postIndex = parseInt(index ?? "-1", 10);
-                if (postIndex < 0) {
-                    // tslint:disable-next-line
-                    console.assert(slug === category);
-                }
+                const postIndex = (() => {
+                    if (index !== null) {
+                        return parseInt(index, 10);
+                    } else if (slug.endsWith("principles")) {
+                        return -1;
+                    } else {
+                        // Intro page
+                        console.assert(slug === category);
+                        return -2;
+                    }
+                })();
                 return [postIndex, { title: title.rendered, content: content.rendered }] as [number, IPostRawData];
             })
             .sort((a, b) => a[0] - b[0])
             .map(([index, content]) => content);
 
-        const [intro, ...posts] = allPosts;
+        const [intro, principles, ...posts] = allPosts;
         Object.assign(Posts.data, {
             [category]: {
-                intro: {
-                    rawData: intro
-                },
+                intro: { rawData: intro },
+                principles: { rawData: principles },
                 posts: posts.map(rawData => ({ rawData }))
             }
         });
@@ -87,6 +98,26 @@ export class Posts {
         return newSections;
     }
 
+    public static getPrinciples(category: string) {
+        const { rawData, content } = Posts.data[category].principles;
+        if (content) {
+            return content;
+        }
+        const tree = new DOMParser().parseFromString(rawData.content, "text/html");
+        const principleElems = DOMUtils.select(tree.body, ".wp-block-media-text");
+        const allPrinciples = principleElems.map(e => {
+            return {                
+                image: e.querySelector("img")?.src,
+                name: (e.querySelector(".wp-block-media-text__content > h6") as HTMLElement).innerText,
+                content: (e.querySelector(".wp-block-media-text__content > p") as HTMLElement).innerText,
+            } as IPrinciple;
+        });
+        const [intro, ...principles] = allPrinciples;
+        const newPrinciples = { intro, principles };
+        Posts.data[category].principles.content = newPrinciples;
+        return newPrinciples;
+    }
+
     public static getPost(category: string, index: number) {
         const { rawData, post } = Posts.data[category].posts[index];
         if (post) {
@@ -103,33 +134,32 @@ export class Posts {
             }
         };
 
-        const articles = DOMUtils.select(tree.body, ".wp-block-media-text").map(a => {
-            const image = a.querySelector("img");
-            const content = a.querySelector(".wp-block-media-text__content");
-            const [header1, header2] = content ? DOMUtils.select(content, "h6") : [];
-            const text = content?.querySelector("p");
-            return {
-                image: forceHttps(image?.src),
-                title: header1?.innerText,
-                subTitle: header2?.innerText,
-                content: text?.innerText
-            } as IArticle;
-        });
+        const articleElem = tree.body.querySelector(".wp-block-media-text") as Element;
+        const image = articleElem.querySelector("img");
+        const content = articleElem.querySelector(".wp-block-media-text__content");
+        const [header1, header2] = content ? DOMUtils.select(content, "h6") : [];
+        const text = content?.querySelector("p");
+        const article = {
+            image: forceHttps(image?.src),
+            title: header1?.innerText,
+            subTitle: header2?.innerText,
+            content: text?.innerText
+        } as IArticle;        
 
-        const principles = DOMUtils.select(tree.body, "table > tbody > tr")
+        const contributions = DOMUtils.select(tree.body, "table > tbody > tr")
             .slice(1) // skip first title row
             .map(row => {
                 const [col1, col2] = DOMUtils.select(row, "td");
                 return {
-                    name: col1?.innerText,
+                    principleName: col1?.innerText,
                     contributes: col2?.innerText?.toLowerCase() === "yes"
-                } as IPrinciple;
+                } as IContribution;
             });
 
         const newPost: IPost = {
             title: rawData.title,
-            articles,
-            principles
+            article,
+            contributions
         };
 
         Posts.data[category].posts[index].post = newPost;
@@ -142,10 +172,17 @@ export class Posts {
                 rawData: IPostRawData;
                 sections: IMapImageContent[];
             };
+            principles: {
+                rawData: IPostRawData;
+                content: {
+                    intro: IPrinciple;
+                    principles: IPrinciple[];
+                };
+            }
             posts: Array<{
                 rawData: IPostRawData;
                 post: IPost;
-            }>
+            }>;
         }
     } = {};
 }

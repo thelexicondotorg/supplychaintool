@@ -16,6 +16,7 @@ interface ISectionState {
     loaded: {
         [category: string]: boolean;
     };
+    currentPrinciple?: number;
 }
 
 export class Section extends React.Component<ISectionIntroProps, ISectionState> {
@@ -60,10 +61,12 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
             } else {
                 const postIndex = parseInt(index, 10) - 1;
                 const post = Posts.getPost(section, postIndex);
+                const principles = Posts.getPrinciples(section);
+                const { currentPrinciple } = this.state;
                 return (
                     <div className="fill-parent">
                         <div className="quadrant-row">
-                            <div 
+                            <div
                                 className="quadrant-cell map"
                             >
                                 <div className="card">
@@ -100,15 +103,21 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
                                                 </td>
                                             </tr>
                                             {
-                                                post.principles.map((principle, i) => {
+                                                post.contributions.map((contribution, i) => {
                                                     return (
-                                                        <tr key={i}>
+                                                        <tr
+                                                            key={i}
+                                                            className={`principle ${i === currentPrinciple ? "active" : ""}`}
+                                                            onClick={() => {
+                                                                this.setState({ currentPrinciple: i });
+                                                            }}
+                                                        >
                                                             <td className="table-quadrant-col1">
-                                                                {i + 1}. {principle.name}
+                                                                {i + 1}. {contribution.principleName}
                                                             </td>
                                                             <td>
                                                                 {
-                                                                    principle.contributes
+                                                                    contribution.contributes
                                                                     &&
                                                                     (
                                                                         <div
@@ -142,48 +151,59 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
                                         }}
                                     >
                                         <div className="quadrant-image">
-                                            <img src={post.articles[0].image} />
+                                            <img src={post.article.image} />
                                             <div className="quadrant-image-caption">
-                                                {Captions.get(post.articles[0].image)}
+                                                {Captions.get(post.article.image)}
                                             </div>
                                         </div>
                                         <div className="quadrant-text">
                                             <div className="quadrant-text-title">
-                                                {post.articles[0].title}
+                                                {post.article.title}
                                             </div>
                                             {
-                                                post.articles[0].subTitle
+                                                post.article.subTitle
                                                 &&
                                                 (
                                                     <div className="quadrant-text-title">
-                                                        {post.articles[0].subTitle}
+                                                        {post.article.subTitle}
                                                     </div>
                                                 )
-                                            }                                        
+                                            }
                                             <div className="quadrant-text-separator" />
                                             <div>
-                                                {post.articles[0].content}
+                                                {post.article.content}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div className="quadrant-cell">
-                                <div className="card">
-                                    <div className="quadrant-title">{post.articles[1].title}</div>
-                                    <div
-                                        style={{
-                                            display: "flex"
-                                        }}
-                                    >
-                                        <div className="quadrant-image">
-                                            <img src={post.articles[1].image} />
+                                {(() => {
+                                    const data = (() => {
+                                        if (currentPrinciple === undefined) {
+                                            return principles.intro;
+                                        } else {
+                                            return principles.principles[currentPrinciple];
+                                        }
+                                    })();
+                                    return (
+                                        <div className="card">
+                                            <div className="quadrant-title">{data.name}</div>
+                                            <div
+                                                style={{
+                                                    display: "flex"
+                                                }}
+                                            >
+                                                <div className="quadrant-image">
+                                                    <img src={data.image} />
+                                                </div>
+                                                <div className="quadrant-text">
+                                                    {data.content}
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div className="quadrant-text">
-                                            {post.articles[1].content}
-                                        </div>
-                                    </div>
-                                </div>
+                                    );
+                                })()}
                             </div>
                         </div>
                     </div>

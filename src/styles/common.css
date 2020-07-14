@@ -133,3 +133,12 @@ td {
 .circular-button:focus {
     outline: none;
 }
+
+.principle {
+    cursor: pointer;
+    transition: color .5s;
+}
+
+.principle.active {
+    color: #F77E0B;
+}
