@@ -53,6 +53,7 @@ export class Posts {
                         return -1;
                     } else {
                         // Intro page
+                        // tslint:disable-next-line
                         console.assert(slug === category);
                         return -2;
                     }

@@ -6,6 +6,7 @@ import { SectionMap } from "./SectionMap";
 import { Posts } from "./Posts";
 import { Captions } from "./Captions";
 import { Footer } from "./Footer";
+import { TableRow } from "./TableRow";
 
 interface ISectionIntroProps {
     section: SectionType;
@@ -64,85 +65,23 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
                 const principles = Posts.getPrinciples(section);
                 const { currentPrinciple } = this.state;
                 return (
-                    <div className="fill-parent">
-                        <div className="quadrant-row">
+                    <div className="quadrants-root fill-parent">
+                        <div className="quadrant-col">
                             <div
-                                className="quadrant-cell map"
+                                className="quadrant-cell"
                             >
-                                <div className="card">
-                                    <SectionMap
-                                        section={section}
-                                        index={postIndex}
-                                    />
-                                </div>
+                                <SectionMap
+                                    section={section}
+                                    index={postIndex}
+                                />
                             </div>
-                            <div className="quadrant-cell">
-                                <div className="card">
-                                    <div className="table-quadrant-title">
-                                        How the <b>{post.title}</b> contribute to agrobiodiversity principles.
-                                    </div>
-                                    <table
-                                        style={{
-                                            width: "100%",
-                                            borderCollapse: "collapse",
-                                            fontSize: "14px"
-                                        }}
-                                    >
-                                        <tbody>
-                                            <tr style={{ fontWeight: "bold" }}>
-                                                <td className="table-quadrant-col1">
-                                                    Agrobiodiversity Principles
-                                                </td>
-                                                <td
-                                                    style={{
-                                                        textAlign: "center",
-                                                        borderBottom: "1px solid #E0E0E0"
-                                                    }}
-                                                >
-                                                    Contributes to
-                                                </td>
-                                            </tr>
-                                            {
-                                                post.contributions.map((contribution, i) => {
-                                                    return (
-                                                        <tr
-                                                            key={i}
-                                                            className={`principle ${i === currentPrinciple ? "active" : ""}`}
-                                                            onClick={() => {
-                                                                this.setState({ currentPrinciple: i });
-                                                            }}
-                                                        >
-                                                            <td className="table-quadrant-col1">
-                                                                {i + 1}. {contribution.principleName}
-                                                            </td>
-                                                            <td>
-                                                                {
-                                                                    contribution.contributes
-                                                                    &&
-                                                                    (
-                                                                        <div
-                                                                            style={{
-                                                                                backgroundColor: "#F77E0B",
-                                                                                borderRadius: "50%",
-                                                                                width: "14px",
-                                                                                height: "14px",
-                                                                                margin: "0 auto"
-                                                                            }}
-                                                                        />
-                                                                    )
-                                                                }
-                                                            </td>
-                                                        </tr>
-                                                    );
-                                                })
-                                            }
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="quadrant-row">
-                            <div className="quadrant-cell">
+                            <div
+                                className="quadrant-cell"
+                                style={{
+                                    minHeight: "330px",
+                                    paddingRight: "20px"
+                                }}
+                            >
                                 <div className="card">
                                     <div className="quadrant-title">{post.title}</div>
                                     <div
@@ -177,7 +116,63 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
                                     </div>
                                 </div>
                             </div>
-                            <div className="quadrant-cell">
+                        </div>
+                        <div className="quadrant-col">
+                            <div
+                                className="quadrant-cell"
+                                style={{
+                                    minHeight: "410px"
+                                }}
+                            >
+                                <div className="card">
+                                    <div className="table-quadrant-title">
+                                        How the <b>{post.title}</b> contribute to agrobiodiversity principles.
+                                    </div>
+                                    <div>
+                                        <TableRow
+                                            left={<span style={{ fontWeight: "bold"}}>Agrobiodiversity Principles</span>}
+                                            right={<span style={{ fontWeight: "bold"}}>Contributes to</span>}
+                                        />
+                                        {
+                                            post.contributions.map((contribution, i) => {
+                                                return (
+                                                    <div
+                                                        key={i}
+                                                        className={`principle ${i === currentPrinciple ? "active" : ""}`}
+                                                        onClick={() => this.setState({ currentPrinciple: i })}
+                                                    >
+                                                        <TableRow
+                                                            left={`${i + 1}. ${contribution.principleName}`}
+                                                            right={
+                                                                contribution.contributes
+                                                                    ?
+                                                                    (
+                                                                        <div
+                                                                            style={{
+                                                                                backgroundColor: "#F77E0B",
+                                                                                borderRadius: "50%",
+                                                                                width: "14px",
+                                                                                height: "14px",
+                                                                                margin: "0 auto"
+                                                                            }}
+                                                                        />
+                                                                    )
+                                                                    :
+                                                                    <div />
+                                                            }
+                                                        />
+                                                    </div>
+
+                                                );
+                                            })
+                                        }
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div
+                                className="quadrant-cell"
+                            >
                                 {(() => {
                                     const data = (() => {
                                         if (currentPrinciple === undefined) {
@@ -196,6 +191,9 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
                                             >
                                                 <div className="quadrant-image">
                                                     <img src={data.image} />
+                                                    <div className="quadrant-image-caption">
+                                                        {Captions.get(data.image)}
+                                                    </div>
                                                 </div>
                                                 <div className="quadrant-text">
                                                     {data.content}

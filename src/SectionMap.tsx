@@ -44,16 +44,13 @@ export class SectionMap extends React.Component<ISectionMapProps, ISectionMapSta
 
         return (
             <div 
-                style={{
+                style={{                    
                     position: "relative"
                 }}
                 ref={e => this._root = e as HTMLElement}
             >
                 <img
-                    style={{ 
-                        width: "100%",
-                        height: isFullscreen ? "100%" : undefined
-                    }}
+                    className={isFullscreen ? "fill-parent" : "map-image"}
                     ref={e => this._frame = e as HTMLImageElement}
                     src={`/public/${section}/map-paths.svg`}
                     onLoad={() => this.onResize()}
@@ -106,6 +103,6 @@ export class SectionMap extends React.Component<ISectionMapProps, ISectionMapSta
         this._images.forEach(i => i.onResize(this._frame));
 
         const { width, height } = this._frame.getBoundingClientRect();
-        this._root.style.fontSize = `${Math.min(width, height) / 55}px`;
+        this._root.style.fontSize = `${Math.min(width, height) / 60}px`;
     }
 }

@@ -8,7 +8,7 @@ interface IMediaJson {
 
 export class Captions {
     public static async load() {
-        const response = await fetch("https://wp-supplytool.franticsoftware.com/wp-json/wp/v2/media");
+        const response = await fetch("https://wp-supplytool.franticsoftware.com/wp-json/wp/v2/media?per_page=100");
         const json = await response.json();
 
         (json as IMediaJson[]).forEach(({ source_url, caption }) => {
