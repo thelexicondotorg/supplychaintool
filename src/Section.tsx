@@ -130,8 +130,16 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
                                     </div>
                                     <div>
                                         <TableRow
-                                            left={<span style={{ fontWeight: "bold"}}>Agrobiodiversity Principles</span>}
-                                            right={<span style={{ fontWeight: "bold"}}>Contributes to</span>}
+                                            left={(
+                                                <span style={{ fontWeight: "bold"}}>
+                                                    Agrobiodiversity Principles
+                                                </span>
+                                            )}
+                                            right={(
+                                                <span style={{ fontWeight: "bold"}}>
+                                                    Contributes to
+                                                </span>
+                                            )}
                                         />
                                         {
                                             post.contributions.map((contribution, i) => {
@@ -183,7 +191,15 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
                                     })();
                                     return (
                                         <div className="card">
-                                            <div className="quadrant-title">{data.name}</div>
+                                            <div className="quadrant-title">
+                                                {(() => {
+                                                    if (currentPrinciple === undefined) {
+                                                        return data.name;
+                                                    } else {
+                                                        return `${currentPrinciple + 1}. ${data.name}`;
+                                                    }
+                                                })()}
+                                            </div>
                                             <div
                                                 style={{
                                                     display: "flex"

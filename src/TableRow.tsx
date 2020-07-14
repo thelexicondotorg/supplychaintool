@@ -32,7 +32,8 @@ export class TableRow extends React.Component<ITableRowProps> {
                     style={{                        
                         padding: "8px",
                         borderLeft: "1px solid #E0E0E0",
-                        width: rightColumnWidth
+                        width: rightColumnWidth,
+                        textAlign: "center"
                     }}
                 >
                     {right}
