@@ -10,6 +10,7 @@ export interface IMapImageContent {
 interface IMapImageProps {
     content: IMapImageContent;
     position: [number, number];
+    frameOrigSize: [number, number];
     greyedOut: boolean;
     onClick: () => void;
     onMouseOver: () => void;
@@ -21,7 +22,6 @@ export class MapImage extends React.Component<IMapImageProps> {
     private _container!: HTMLElement;
     private _image!: HTMLImageElement;
     private _frameSize?: [number, number];
-    private _frameOrigSize?: [number, number];
 
     public render() {
         const { image, title, subtitle } = this.props.content;
@@ -54,14 +54,11 @@ export class MapImage extends React.Component<IMapImageProps> {
     public onResize(frame: HTMLImageElement) {
         const { width, height } = frame.getBoundingClientRect();
         this._frameSize = [width, height];
-        this._frameOrigSize = [frame.naturalWidth, frame.naturalHeight];
         this.resize();
     }
 
     private resize() {
-        if (this._image.naturalWidth === 0
-            || !this._frameSize
-            || !this._frameOrigSize) {
+        if (this._image.naturalWidth === 0 || !this._frameSize) {
             return;
         }
 
@@ -70,23 +67,24 @@ export class MapImage extends React.Component<IMapImageProps> {
 
         const [width, height] = this._frameSize;
         const ratio = width / height;
-        const origRatio = this._frameOrigSize[0] / this._frameOrigSize[1];
+        const [origWidth, origHeight] = this.props.frameOrigSize;
+        const origRatio = origWidth / origHeight;
 
         // Y is inverted in SVG
-        const imageY = this._frameOrigSize[1] - imageOrigPos[1] - imageOrigSize[1];
+        const imageY = origHeight - imageOrigPos[1] - imageOrigSize[1];
 
         if (ratio > origRatio) {
             // Center horizontally + 'bars' on the sides
-            const sizeRatio = height / this._frameOrigSize[1];
-            const newWidth = this._frameOrigSize[0] * sizeRatio;
+            const sizeRatio = height / origHeight;
+            const newWidth = origWidth * sizeRatio;
             const offset = (width - newWidth) / 2;
             this._container.style.left = `${offset + imageOrigPos[0] * sizeRatio}px`;
             this._container.style.top = `${imageY * sizeRatio}px`;
             this._container.style.width = `${imageOrigSize[0] * sizeRatio}px`;
         } else {
             // Center vertically + 'bars' on top & bottom
-            const sizeRatio = width / this._frameOrigSize[0];
-            const newHeight = this._frameOrigSize[1] * sizeRatio;
+            const sizeRatio = width / origWidth;
+            const newHeight = origHeight * sizeRatio;
             const offset = (height - newHeight) / 2;
             this._container.style.left = `${imageOrigPos[0] * sizeRatio}px`;
             this._container.style.top = `${offset + imageY * sizeRatio}px`;

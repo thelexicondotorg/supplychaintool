@@ -2,9 +2,9 @@
 import * as React from "react";
 import { MapImage } from "./MapImage";
 import { SectionType } from "./Types";
-import { mapPositions } from "./MapPositions";
 import { routerContext } from "./RouterContext";
 import { Posts } from "./Posts";
+import { mapMetrics } from "./MapMetrics";
 
 interface ISectionMapProps {
     section: SectionType;
@@ -66,7 +66,8 @@ export class SectionMap extends React.Component<ISectionMapProps, ISectionMapSta
                                     key={currentIndex}
                                     content={sectionProps}
                                     ref={e => this._images[currentIndex] = e as MapImage}
-                                    position={mapPositions[section][currentIndex]}
+                                    frameOrigSize={mapMetrics[section].frameSize}
+                                    position={mapMetrics[section].iconPositions[currentIndex]}
                                     greyedOut={(() => {
                                         if (isFullscreen) {
                                             return false;
