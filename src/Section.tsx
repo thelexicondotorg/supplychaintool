@@ -146,7 +146,9 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
                                                 return (
                                                     <div
                                                         key={i}
-                                                        className={`principle ${i === currentPrinciple ? "active" : ""}`}
+                                                        className={
+                                                            `principle ${i === currentPrinciple ? "active" : ""}`
+                                                        }
                                                         onClick={() => this.setState({ currentPrinciple: i })}
                                                     >
                                                         <TableRow
