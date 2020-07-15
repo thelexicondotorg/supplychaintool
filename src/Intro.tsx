@@ -3,6 +3,19 @@ import * as React from "react";
 import { CircularButton } from "./CircularButton";
 
 export class Intro extends React.Component {
+    
+    private _buttons!: HTMLElement;
+
+    public componentDidMount() {
+        this.onResize();
+        this.onResize = this.onResize.bind(this);
+        window.addEventListener('resize', this.onResize);
+    }
+
+    public componentWillUnmount() {
+        window.removeEventListener('resize', this.onResize);
+    }
+
     public render() {
 
         const makeButton = (name: string, location: string) => {
@@ -93,13 +106,13 @@ export class Intro extends React.Component {
                     />
                 </div>
                 <div
+                    ref={e => this._buttons = e as HTMLElement}
                     style={{
                         position: "absolute",
                         bottom: "25px",
-                        left: "10%",
-                        width: "80%",
-                        display: "flex",
-                        justifyContent: "space-around"
+                        minWidth: "80%",
+                        display: "grid",
+                        gridTemplateColumns: "1fr 1fr 1fr"
                     }}
                 >
                     <CircularButton
@@ -123,5 +136,9 @@ export class Intro extends React.Component {
                 </div>
             </div>
         );
+    }
+
+    private onResize() {
+        this._buttons.style.left = `${(window.innerWidth - this._buttons.clientWidth) / 2}px`;
     }
 }

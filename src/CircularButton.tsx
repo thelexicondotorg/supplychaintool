@@ -22,7 +22,6 @@ export class CircularButton extends React.Component<ICircularButtonProps> {
                             style={{
                                 width: `${radius}px`,
                                 height: `${radius}px`,
-                                color: "black",
                                 backgroundColor: color
                             }}
                             onClick={() => {
