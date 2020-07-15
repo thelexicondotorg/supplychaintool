@@ -148,3 +148,7 @@ body {
 .principle.active {
     color: #F77E0B;
 }
+
+.help-dialog li {
+    padding: 10px;
+}

@@ -3,7 +3,11 @@ import * as React from "react";
 import { CircularButton } from "./CircularButton";
 import { routerContext } from "./RouterContext";
 
-export class Footer extends React.Component {
+interface IFooterProps {
+    onHelp: () => void;
+}
+
+export class Footer extends React.Component<IFooterProps> {
     public static get height() { return "75px"; }
 
     public render() {
@@ -70,6 +74,7 @@ export class Footer extends React.Component {
                             radius={30}
                             color="white"
                             content={<span style={{ fontSize: "18px" }}>?</span>}
+                            onClick={this.props.onHelp}
                         />
                     </div>
                 </div>

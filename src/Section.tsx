@@ -7,6 +7,7 @@ import { Posts } from "./Posts";
 import { Captions } from "./Captions";
 import { Footer } from "./Footer";
 import { TableRow } from "./TableRow";
+import { HelpPopup } from "./HelpPopup";
 
 interface ISectionIntroProps {
     section: SectionType;
@@ -18,6 +19,7 @@ interface ISectionState {
         [category: string]: boolean;
     };
     currentPrinciple?: number;
+    helpVisible: boolean;
 }
 
 export class Section extends React.Component<ISectionIntroProps, ISectionState> {
@@ -26,7 +28,10 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
 
     constructor(props: ISectionIntroProps) {
         super(props);
-        this.state = { loaded: {} };
+        this.state = { 
+            loaded: {},
+            helpVisible: false
+        };
     }
 
     public componentDidMount() {
@@ -238,7 +243,13 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
                 >
                     {makeContent()}
                 </div>
-                <Footer />
+                <Footer onHelp={() => this.setState({ helpVisible: true })} />
+                <HelpPopup 
+                    visible={this.state.helpVisible}
+                    onClose={() => {
+                        this.setState({ helpVisible: false });
+                    }}
+                />
             </div>
         );
     }
