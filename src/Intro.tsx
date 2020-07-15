@@ -9,11 +9,11 @@ export class Intro extends React.Component {
     public componentDidMount() {
         this.onResize();
         this.onResize = this.onResize.bind(this);
-        window.addEventListener('resize', this.onResize);
+        window.addEventListener("resize", this.onResize);
     }
 
     public componentWillUnmount() {
-        window.removeEventListener('resize', this.onResize);
+        window.removeEventListener("resize", this.onResize);
     }
 
     public render() {

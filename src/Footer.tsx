@@ -13,9 +13,10 @@ export class Footer extends React.Component<IFooterProps> {
     public render() {
         return (
             <div
+                className="footer"
                 style={{
                     height: Footer.height,
-                    backgroundColor: "#743F30"
+                    backgroundColor: "#743F30",
                 }}
             >
                 <div
@@ -28,12 +29,7 @@ export class Footer extends React.Component<IFooterProps> {
                         color: "white"
                     }}
                 >
-                    <div
-                        style={{
-                            display: "grid",
-                            gridTemplateColumns: ".6fr 1fr"
-                        }}
-                    >
+                    <div className="footer-logo">
                         <routerContext.Consumer>
                             {({ history }) => {
                                 return (
@@ -50,8 +46,8 @@ export class Footer extends React.Component<IFooterProps> {
                         </routerContext.Consumer>
                         <span
                             style={{
-                                alignSelf: "center",
-                                fontWeight: "bold"
+                                fontWeight: "bold",
+                                paddingLeft: "20px"
                             }}
                         >
                             {"Agrobiodiversity + Transparency".toUpperCase()}
@@ -59,7 +55,10 @@ export class Footer extends React.Component<IFooterProps> {
                     </div>
                     <div
                         style={{
-                            marginRight: "30px"
+                            marginRight: "30px",
+                            display: "grid",
+                            gridTemplateColumns: "1fr auto",
+                            alignItems: "center"
                         }}
                     >
                         <span

@@ -154,3 +154,29 @@ body {
 .help-dialog li {
     padding: 10px;
 }
+
+.footer-logo {
+    grid-template-columns: auto 1fr;
+    display: grid;                            
+    align-items: center;
+}
+
+@media (max-width: 650px) {
+    .footer-logo {
+        grid-template-columns: auto 0fr;     
+    }
+
+    .footer-logo span {
+        display: none;
+    }
+}
+
+.footer {
+    font-size: 16px;    
+}
+
+@media (max-width: 800px) {
+    .footer {
+        font-size: 13px;    
+    }
+}
