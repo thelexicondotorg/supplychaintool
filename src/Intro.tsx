@@ -84,6 +84,13 @@ export class Intro extends React.Component {
                         }}
                         src="/public/intro/intro.svg"
                     />
+                    <div
+                        style={{
+                            backgroundColor: "#E0CFB6",
+                            height: "2000px",
+                            transform: "translate(0px, -2px)"
+                        }}
+                    />
                 </div>
                 <div
                     style={{
