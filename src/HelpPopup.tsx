@@ -1,6 +1,7 @@
 
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import { routerContext } from "./RouterContext";
 
 interface IHelpPopupProps {
     visible: boolean;
@@ -14,6 +15,23 @@ export class HelpPopup extends React.Component<IHelpPopupProps> {
         if (!this.props.visible) {
             return null;
         }
+
+        const makeHomeLink = () => {
+            return (
+                <routerContext.Consumer>
+                    {({ history }) => {
+                        return (
+                            <img
+                                src="/public/help/help-logo.png"
+                                className="clickable"
+                                onClick={() => history?.push("/")}
+                            />
+                        );
+                    }}
+                </routerContext.Consumer>
+            );
+        };
+
         return ReactDOM.createPortal(
             (
                 <div
@@ -60,7 +78,7 @@ export class HelpPopup extends React.Component<IHelpPopupProps> {
                                 <li>A key is provided to show direction of money and goods.</li>
                                 <li>Click on each character to see read more about each part of the supply chain. Information is on the bottom left.</li>
                                 <li>The table (top right) shows how each character contributes to the ten agrobiodiversity principles. Click on principles to learn more about each of them.</li>
-                                <li>To go to another supply chain, Click <img src="/public/help/help-logo.png" /> to return home</li>
+                                <li>To go to another supply chain, Click {makeHomeLink()} to return home</li>
                             </ul>
                         </div>
                     </div>
