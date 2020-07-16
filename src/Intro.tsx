@@ -83,7 +83,7 @@ export class Intro extends React.Component<{}, IIntroState> {
                         paddingBottom: "0px"
                     }}
                 >
-                    <div>
+                    <div style={{ paddingRight: "10px" }}>
                         <img src="/public/intro/logo.svg" />
                     </div>
                     <div
@@ -92,21 +92,13 @@ export class Intro extends React.Component<{}, IIntroState> {
                             paddingLeft: "10px"
                         }}
                     >
-                        <div
-                            style={{
-                                fontSize: "44px",
-                                fontWeight: "bold"
-                            }}
-                        >
-                            Three continents. Three Grains. Three Supply Chains
+                        <div className="intro-title">
+                            Three continents. <br className="intro-break" /> 
+                            Three Grains. <br className="intro-break" /> 
+                            Three Supply Chains
                         </div>
-                        <div
-                            style={{
-                                fontSize: "20px",
-                                paddingTop: "8px"
-                            }}
-                        >
-                            {"Can Transparency bring greater agrobiodiversity to our food systems?".toUpperCase()}
+                        <div className="intro-subtitle">
+                            CAN TRANSPARENCY BRING GREATER <b>AGROBIODIVERSITY</b> TO OUR FOOD SYSTEMS?
                         </div>
                     </div>
                 </div>
@@ -182,7 +174,7 @@ export class Intro extends React.Component<{}, IIntroState> {
                             color={amaranthMenu ? "grey" : "#E23F39"}
                             content={makeButton("AMARANTH", "Mexico")}
                             onClick={() => {
-                                this.setState({ amaranthMenu: !this.state.amaranthMenu });                                
+                                this.setState({ amaranthMenu: !this.state.amaranthMenu });
                             }}                        
                         />
                     </div>
