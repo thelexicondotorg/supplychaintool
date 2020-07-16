@@ -84,7 +84,7 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
                             <div
                                 className="quadrant-cell"
                                 style={{
-                                    minHeight: "330px",
+                                    paddingTop: "10px",
                                     paddingRight: "20px"
                                 }}
                             >
