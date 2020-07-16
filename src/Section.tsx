@@ -73,8 +73,7 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
                     <div className="quadrants-root fill-parent">
                         <div className="quadrant-col">
                             <div
-                                className="quadrant-cell"
-                                style={{ paddingRight: "20px" }}
+                                className="quadrant-cell left"
                             >
                                 <SectionMap
                                     section={section}
@@ -82,10 +81,9 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
                                 />
                             </div>
                             <div
-                                className="quadrant-cell"
+                                className="quadrant-cell left"
                                 style={{
-                                    paddingTop: "10px",
-                                    paddingRight: "20px"
+                                    paddingTop: "10px"
                                 }}
                             >
                                 <div className="card">
