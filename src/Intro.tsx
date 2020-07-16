@@ -83,7 +83,7 @@ export class Intro extends React.Component<{}, IIntroState> {
                         paddingBottom: "0px"
                     }}
                 >
-                    <div style={{ paddingRight: "10px" }}>
+                    <div style={{ paddingRight: "20px" }}>
                         <img src="/public/intro/logo.svg" />
                     </div>
                     <div

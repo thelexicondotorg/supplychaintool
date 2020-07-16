@@ -72,17 +72,17 @@ body {
     font-size: 20px;
     padding-top: 8px;
 }
-@media (max-width: 1423px) {
+@media (max-width: 1440px) {
     .intro-title {
         font-size: 40px;
     }
 }
-@media (max-width: 1321px) {
+@media (max-width: 1340px) {
     .intro-title {
         font-size: 36px;
     }
 }
-@media (max-width: 1218px) {
+@media (max-width: 1240px) {
     .intro-title {
         font-size: 32px;
     }
@@ -90,7 +90,7 @@ body {
         font-size: 16px;
     }
 }
-@media (max-width: 628px) {
+@media (max-width: 660px) {
     .intro-title {
         font-size: 24px;
     }
