@@ -20,6 +20,7 @@ export class SectionMap extends React.Component<ISectionMapProps, ISectionMapSta
     private _root!: HTMLElement;
     private _frame!: HTMLImageElement;
     private _images: MapImage[] = [];
+    private get isFullscreen() { return this.props.index === undefined; }
 
     constructor(props: ISectionMapProps) {
         super(props);
@@ -39,7 +40,6 @@ export class SectionMap extends React.Component<ISectionMapProps, ISectionMapSta
     public render() {
         const { section, index } = this.props;
         const { hoveredImage } = this.state;
-        const isFullscreen = index === undefined;
         const sections = Posts.getIntroSections(section);
 
         return (
@@ -50,7 +50,7 @@ export class SectionMap extends React.Component<ISectionMapProps, ISectionMapSta
                 ref={e => this._root = e as HTMLElement}
             >
                 <img
-                    className={isFullscreen ? "fill-parent" : "map-image"}
+                    className={this.isFullscreen ? "fill-parent" : "map-image"}
                     ref={e => this._frame = e as HTMLImageElement}
                     src={`/public/${section}/map-paths.svg`}
                     onLoad={() => this.onResize()}
@@ -65,8 +65,9 @@ export class SectionMap extends React.Component<ISectionMapProps, ISectionMapSta
                                     ref={e => this._images[currentIndex] = e as MapImage}
                                     frameOrigSize={mapMetrics[section].frameSize}
                                     position={mapMetrics[section].iconPositions[currentIndex]}
+                                    fullScreen={this.isFullscreen}
                                     greyedOut={(() => {
-                                        if (isFullscreen) {
+                                        if (this.isFullscreen) {
                                             return false;
                                         }
                                         if (hoveredImage !== undefined) {
@@ -78,12 +79,12 @@ export class SectionMap extends React.Component<ISectionMapProps, ISectionMapSta
                                         history?.push(`/${section}/${currentIndex + 1}`);
                                     }}
                                     onMouseOver={() => {
-                                        if (!isFullscreen) {
+                                        if (!this.isFullscreen) {
                                             this.setState({ hoveredImage: currentIndex });
                                         }
                                     }}
                                     onMouseOut={() => {
-                                        if (!isFullscreen) {
+                                        if (!this.isFullscreen) {
                                             this.setState({ hoveredImage: undefined });
                                         }
                                     }}
@@ -103,7 +104,8 @@ export class SectionMap extends React.Component<ISectionMapProps, ISectionMapSta
         }
         this._images.forEach(i => i.onResize(this._frame));
 
+        const ratio = this.isFullscreen ? 55 : 60;
         const { width, height } = this._frame.getBoundingClientRect();
-        this._root.style.fontSize = `${Math.min(width, height) / 60}px`;
+        this._root.style.fontSize = `${Math.min(width, height) / ratio}px`;
     }
 }

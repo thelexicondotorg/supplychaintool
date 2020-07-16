@@ -12,6 +12,7 @@ interface IMapImageProps {
     position: [number, number];
     frameOrigSize: [number, number];
     greyedOut: boolean;
+    fullScreen: boolean;
     onClick: () => void;
     onMouseOver: () => void;
     onMouseOut: () => void;
@@ -29,7 +30,7 @@ export class MapImage extends React.Component<IMapImageProps> {
 
     public render() {
         const { image, title, subtitle } = this.props.content;
-        const { greyedOut } = this.props;
+        const { greyedOut, fullScreen } = this.props;
 
         return (
             <div
@@ -49,7 +50,14 @@ export class MapImage extends React.Component<IMapImageProps> {
                     onMouseOver={this.props.onMouseOver}
                     onMouseOut={this.props.onMouseOut}
                 />
-                <div className="map-elem-title">{title}</div>
+                <div 
+                    className="map-elem-title"
+                    style={{
+                        fontSize: fullScreen ? undefined : "11.5px"
+                    }}
+                >
+                        {title}
+                </div>
                 {subtitle && <div>{subtitle}</div>}
             </div>
         );
