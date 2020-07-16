@@ -90,21 +90,24 @@ body {
         font-size: 16px;
     }
 }
-@media (max-width: 660px) {
+@media (max-width: 1138px) {
     .intro-title {
-        font-size: 24px;
-    }
-    .intro-subtitle {
-        font-size: 14px;
+        font-size: 26px;
     }
 }
 
 .intro-break {
     display: none;
 }
-@media (max-width: 1158px) {
+@media (max-width: 1000px) {
     .intro-break {
         display: inline;
+    }
+    .intro-title {
+        font-size: 28px;
+    }
+    .intro-subtitle {
+        font-size: 16px;
     }
 }
 

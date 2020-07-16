@@ -13,11 +13,12 @@ export class Intro extends React.Component<{}, IIntroState> {
         amaranthButtonsSpacing: 20
     };
 
-    private _buttons!: HTMLElement;
+    private _header!: HTMLElement;
+    private _image!: HTMLElement;
+    private _buttons!: HTMLElement;    
     private _amaranthButtons!: HTMLElement;
     private _amaranthLocal!: CircularButton;
     private _amaranthIntl!: CircularButton;
-
     constructor(props: {}) {
         super(props);
         this.state = {
@@ -76,11 +77,11 @@ export class Intro extends React.Component<{}, IIntroState> {
                 }}
             >
                 <div
+                    ref={e => this._header = e as HTMLElement}
                     style={{
                         display: "flex",
                         justifyContent: "space-between",
-                        padding: "40px",
-                        paddingBottom: "0px"
+                        padding: "40px"                        
                     }}
                 >
                     <div style={{ paddingRight: "20px" }}>
@@ -98,19 +99,14 @@ export class Intro extends React.Component<{}, IIntroState> {
                             Three Supply Chains
                         </div>
                         <div className="intro-subtitle">
-                            CAN TRANSPARENCY BRING GREATER <b>AGROBIODIVERSITY</b> TO OUR FOOD SYSTEMS?
+                            CAN TRANSPARENCY BRING GREATER <br className="intro-break" /> 
+                            <b>AGROBIODIVERSITY</b> TO OUR FOOD SYSTEMS?
                         </div>
                     </div>
                 </div>
-                <div
-                    style={{
-                        paddingTop: "40px"
-                    }}
-                >
+                <div>
                     <img
-                        style={{
-                            width: "100%"
-                        }}
+                        ref={e => this._image = e as HTMLElement}                        
                         src="/public/intro/intro.svg"
                     />
                     <div
@@ -197,5 +193,22 @@ export class Intro extends React.Component<{}, IIntroState> {
         const buttonContainerWidth = this._buttons.clientWidth / 3;
         const amaranthWidth = this._amaranthButtons.clientWidth;
         this._amaranthButtons.style.left = `${(buttonContainerWidth - amaranthWidth) / 2}px`;
+
+        // image
+        const origSize = [1800, 818]; // naturalWidth/Height doesn't work as expected on Safari!!
+        const availableSpace = [window.innerWidth, window.innerHeight - this._header.clientHeight];
+        const origRatio = origSize[0] / origSize[1];
+        const ratio = availableSpace[0] / availableSpace[1];        
+        if (ratio > origRatio) {
+            this._image.style.width = "100%";
+            this._image.style.height = "auto";
+            this._image.style.transform = "translate(0px, 0px)";
+        } else {
+            this._image.style.width = "auto";
+            this._image.style.height = `${availableSpace[1]}px`;
+            const imageWidth = origRatio * availableSpace[1];
+            const offset = (availableSpace[0] - imageWidth) / 2;
+            this._image.style.transform = `translate(${offset}px, 0px)`;
+        }
     }
 }
