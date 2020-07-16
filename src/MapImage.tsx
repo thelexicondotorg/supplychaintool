@@ -23,6 +23,10 @@ export class MapImage extends React.Component<IMapImageProps> {
     private _image!: HTMLImageElement;
     private _frameSize?: [number, number];
 
+    public set visible(visible: boolean) { 
+        this._container.style.display = visible ? "block" : "none"; 
+    }
+
     public render() {
         const { image, title, subtitle } = this.props.content;
         const { greyedOut } = this.props;
@@ -59,9 +63,11 @@ export class MapImage extends React.Component<IMapImageProps> {
 
     private resize() {
         if (this._image.naturalWidth === 0 || !this._frameSize) {
+            this.visible = false;
             return;
         }
 
+        this.visible = true;
         const imageOrigSize = [this._image.naturalWidth, this._image.naturalHeight];
         const imageOrigPos = this.props.position;
 

@@ -74,6 +74,7 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
                         <div className="quadrant-col">
                             <div
                                 className="quadrant-cell"
+                                style={{ paddingRight: "20px" }}
                             >
                                 <SectionMap
                                     section={section}

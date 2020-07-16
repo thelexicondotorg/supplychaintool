@@ -98,6 +98,7 @@ export class SectionMap extends React.Component<ISectionMapProps, ISectionMapSta
 
     private onResize() {
         if (this._frame.naturalWidth === 0) {
+            this._images.forEach(i => i.visible = false);
             return;
         }
         this._images.forEach(i => i.onResize(this._frame));
