@@ -24,11 +24,12 @@ export class CircularButton extends React.Component<ICircularButtonProps> {
                                 height: `${radius}px`,
                                 backgroundColor: color
                             }}
-                            onClick={() => {
+                            onClick={e => {
                                 if (url) {
                                     history?.push(url);
                                 } else if (onClick) {
                                     onClick();
+                                    e.stopPropagation();
                                 }
                             }}
                         >

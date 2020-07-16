@@ -2,9 +2,28 @@
 import * as React from "react";
 import { CircularButton } from "./CircularButton";
 
-export class Intro extends React.Component {
-    
+interface IIntroState {
+    amaranthMenu: boolean;
+}
+
+export class Intro extends React.Component<{}, IIntroState> {
+
+    private static readonly config = {
+        buttonRadius: 180,
+        amaranthButtonsSpacing: 20
+    };
+
     private _buttons!: HTMLElement;
+    private _amaranthButtons!: HTMLElement;
+    private _amaranthLocal!: CircularButton;
+    private _amaranthIntl!: CircularButton;
+
+    constructor(props: {}) {
+        super(props);
+        this.state = {
+            amaranthMenu: false
+        };
+    }
 
     public componentDidMount() {
         this.onResize();
@@ -18,13 +37,15 @@ export class Intro extends React.Component {
 
     public render() {
 
+        const { config } = Intro;
+        const { amaranthMenu } = this.state;
         const makeButton = (name: string, location: string) => {
             return (
                 <span>
-                    <span 
-                        style={{ 
+                    <span
+                        style={{
                             fontWeight: "bold",
-                            fontSize: "20px" 
+                            fontSize: "20px"
                         }}
                     >
                         {name}
@@ -45,10 +66,13 @@ export class Intro extends React.Component {
         };
 
         return (
-            <div 
+            <div
                 className="fill-parent"
                 style={{
                     overflow: "hidden"
+                }}
+                onClick={() => {
+                    this.setState({ amaranthMenu: false });
                 }}
             >
                 <div
@@ -91,7 +115,7 @@ export class Intro extends React.Component {
                         paddingTop: "40px"
                     }}
                 >
-                    <img 
+                    <img
                         style={{
                             width: "100%"
                         }}
@@ -115,24 +139,61 @@ export class Intro extends React.Component {
                         gridTemplateColumns: "1fr 1fr 1fr"
                     }}
                 >
-                    <CircularButton
-                        radius={180}
-                        color="#FBB040"
-                        content={makeButton("FONIO", "West Africa")}
-                        url="/fonio"
-                    />
-                    <CircularButton
-                        radius={180}
-                        color="#E23F39"
-                        content={makeButton("AMARANTH", "Mexico")}
-                        // url="/amaranth-local"
-                    />
-                    <CircularButton
-                        radius={180}
-                        color="#27A33E"
-                        content={makeButton("SMALL MILLETS", "India")}
-                        // url="/small-millets"
-                    />
+                    <div className="intro-button-container">
+                        <CircularButton
+                            radius={config.buttonRadius}
+                            color="#FBB040"
+                            content={makeButton("FONIO", "West Africa")}
+                            url="/fonio"
+                        />
+                    </div>
+                    <div className="intro-button-container">
+                        <div
+                            ref={e => this._amaranthButtons = e as HTMLElement}
+                            style={{
+                                position: "absolute",
+                                width: `${config.buttonRadius * 2 + config.amaranthButtonsSpacing}px`,
+                                top: `${-config.buttonRadius}px`,
+                                display: "flex",
+                                justifyContent: "space-between",
+                                opacity: amaranthMenu ? 1 : 0,
+                                pointerEvents: amaranthMenu ? "all" : "none"
+                            }}
+                        >
+                            <CircularButton
+                                ref={e => this._amaranthLocal = e as CircularButton}
+                                radius={config.buttonRadius}
+                                color="#E23F39"
+                                content={makeButton("AMARANTH", "Local")}
+                                // url="/fonio"
+                                // url="/amaranth-local"
+                            />
+                            <CircularButton
+                                ref={e => this._amaranthIntl = e as CircularButton}
+                                radius={config.buttonRadius}
+                                color="#E23F39"
+                                content={makeButton("AMARANTH", "International")}
+                                // url="/fonio"
+                                // url="/amaranth-intl"
+                            />
+                        </div>
+                        <CircularButton
+                            radius={config.buttonRadius}
+                            color={amaranthMenu ? "grey" : "#E23F39"}
+                            content={makeButton("AMARANTH", "Mexico")}
+                            onClick={() => {
+                                this.setState({ amaranthMenu: !this.state.amaranthMenu });                                
+                            }}                        
+                        />
+                    </div>
+                    <div className="intro-button-container">
+                        <CircularButton
+                            radius={config.buttonRadius}
+                            color="#27A33E"
+                            content={makeButton("SMALL MILLETS", "India")}
+                            // url="/small-millets"
+                        />
+                    </div>
                 </div>
             </div>
         );
@@ -140,5 +201,9 @@ export class Intro extends React.Component {
 
     private onResize() {
         this._buttons.style.left = `${(window.innerWidth - this._buttons.clientWidth) / 2}px`;
+        
+        const buttonContainerWidth = this._buttons.clientWidth / 3;
+        const amaranthWidth = this._amaranthButtons.clientWidth;
+        this._amaranthButtons.style.left = `${(buttonContainerWidth - amaranthWidth) / 2}px`;
     }
 }

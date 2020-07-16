@@ -20,16 +20,49 @@ body {
     box-sizing: border-box;
 }
 
-.fade-out { animation: .25s forwards fade-out; }
-.fade-in { animation: .25s forwards fade-in; }
-@keyframes fade-out { from { opacity: 1; } to { opacity: 0; }}
-@keyframes fade-in { from { opacity: 0; } to { opacity: 1; }}
+.fade-out { 
+    animation: .25s forwards fade-out; 
+}
 
-.clickable { cursor: pointer; transition: filter .5s, transform .25s; }
-.clickable:hover { filter: brightness(130%); transform: scale(1.06); }
+.fade-in { 
+    animation: .25s forwards fade-in; 
+}
 
-.greyed-out { filter: grayscale(1) !important; }
-.greyed-out:hover { filter: brightness(130%) !important; }
+@keyframes fade-out { 
+    from { opacity: 1; } to { opacity: 0; }
+}
+
+@keyframes fade-in { 
+    from { opacity: 0; } to { opacity: 1; }
+}
+
+.clickable { 
+    cursor: pointer; 
+    transition: filter .5s, 
+    transform .25s; 
+}
+
+.clickable:hover { 
+    filter: brightness(130%); 
+    transform: scale(1.06); 
+}
+
+.greyed-out { 
+    filter: grayscale(1) !important; 
+}
+
+.greyed-out:hover { 
+    filter: brightness(130%) !important; 
+}
+
+.card {
+    box-shadow: 0 2px 6px 0 rgba(0,0,0,0.2), 0 2px 6px 0 rgba(0,0,0,0.19);
+  }
+
+.intro-button-container {
+    position: relative;
+    text-align: center;
+}
 
 .map-elem-title {
     font-weight: bold;
@@ -84,10 +117,6 @@ body {
     padding: 4px;
 }
 
-.card {
-  box-shadow: 0 2px 6px 0 rgba(0,0,0,0.2), 0 2px 6px 0 rgba(0,0,0,0.19);
-}
-
 .quadrants-root {
     display: flex;
     padding: 24px;
@@ -130,7 +159,6 @@ body {
     border: none;
     border-radius: 50%;
     color: black;
-    margin: 0 auto;
     box-shadow: 0 2px 6px 0 rgba(0,0,0,0.2), 0 2px 6px 0 rgba(0,0,0,0.19);    
 }
 
