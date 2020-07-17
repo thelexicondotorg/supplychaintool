@@ -111,6 +111,32 @@ body {
     }
 }
 
+.amaranth-slide-in-1 {
+    animation: .25s forwards amaranth-slide-in-1; 
+}
+@keyframes amaranth-slide-in-1 { 
+    from { transform: translate(100px, 180px); } to { transform: translate(0px, 0px); }
+}
+.amaranth-slide-out-1 {
+    animation: .25s forwards amaranth-slide-out-1;
+}
+@keyframes amaranth-slide-out-1 { 
+    from { transform: translate(0px, 0px); } to { transform: translate(100px, 180px); }
+}
+
+.amaranth-slide-in-2 {
+    animation: .25s forwards amaranth-slide-in-2;
+}
+@keyframes amaranth-slide-in-2 { 
+    from { transform: translate(-100px, 180px); } to { transform: translate(0px, 0px); }
+}
+.amaranth-slide-out-2 {
+    animation: .25s forwards amaranth-slide-out-2;
+}
+@keyframes amaranth-slide-out-2 { 
+    from { transform: translate(0px, 0px); } to { transform: translate(-100px, 180px); }
+}
+
 .map-elem-title {
     font-weight: bold;
     padding: 2px;

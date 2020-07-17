@@ -11,7 +11,8 @@ export class Intro extends React.Component<{}, IIntroState> {
 
     private static readonly config = {
         buttonRadius: 180,
-        amaranthButtonsSpacing: 20
+        amaranthButtonsSpacing: 20,
+        amaranthAnimDuration: 250
     };
 
     public static get assetsToPreload() {
@@ -82,7 +83,9 @@ export class Intro extends React.Component<{}, IIntroState> {
                     overflow: "hidden"
                 }}
                 onClick={() => {
-                    this.setState({ amaranthMenu: false });
+                    if (this.state.amaranthMenu) {
+                        this.amaranthSlideOut();
+                    }
                 }}
             >
                 <div
@@ -186,9 +189,7 @@ export class Intro extends React.Component<{}, IIntroState> {
                                         radius={config.buttonRadius}
                                         color={amaranthMenu ? "grey" : "#E23F39"}
                                         content={makeButton("AMARANTH", "Mexico")}
-                                        onClick={() => {
-                                            this.setState({ amaranthMenu: !this.state.amaranthMenu });
-                                        }}
+                                        onClick={() => this.amaranthToggle()}
                                     />
                                 </div>
                                 <div className="intro-button-container">
@@ -232,5 +233,27 @@ export class Intro extends React.Component<{}, IIntroState> {
             const offset = (availableSpace[0] - imageWidth) / 2;
             this._image.style.transform = `translate(${offset}px, 0px)`;
         }
+    }
+
+    private amaranthToggle() {
+        const show = !this.state.amaranthMenu;
+        if (show) {
+            this._amaranthLocal.root.classList.remove("amaranth-slide-out-1");
+            this._amaranthIntl.root.classList.remove("amaranth-slide-out-2");
+            this._amaranthLocal.root.classList.add("amaranth-slide-in-1");
+            this._amaranthIntl.root.classList.add("amaranth-slide-in-2");
+            this.setState({ amaranthMenu: true });
+        } else {
+            this.amaranthSlideOut();
+        }
+    }
+
+    private amaranthSlideOut() {
+        if (this._amaranthLocal.root.classList.contains("amaranth-slide-out-1")) {
+            return;
+        }
+        this._amaranthLocal.root.classList.replace("amaranth-slide-in-1", "amaranth-slide-out-1");
+        this._amaranthIntl.root.classList.replace("amaranth-slide-in-2", "amaranth-slide-out-2");
+        setTimeout(() => this.setState({ amaranthMenu: false }), Intro.config.amaranthAnimDuration);
     }
 }

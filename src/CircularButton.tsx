@@ -10,6 +10,11 @@ interface ICircularButtonProps {
 }
 
 export class CircularButton extends React.Component<ICircularButtonProps> {
+
+    public get root() { return this._root; }
+
+    private _root!: HTMLElement;
+
     public render() {
         const { radius, content, color, onClick } = this.props;
         return (
@@ -17,6 +22,7 @@ export class CircularButton extends React.Component<ICircularButtonProps> {
                 {({ history }) => {
                     return (
                         <button
+                            ref={e => this._root = e as HTMLElement}
                             className="circular-button clickable"
                             style={{
                                 width: `${radius}px`,
