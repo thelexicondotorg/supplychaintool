@@ -5,6 +5,7 @@ import { SectionType } from "./Types";
 import { appContext } from "./AppContext";
 import { Posts } from "./Posts";
 import { mapMetrics } from "./MapMetrics";
+import { Transition } from "./Transition";
 
 interface ISectionMapProps {
     section: SectionType;
@@ -56,7 +57,7 @@ export class SectionMap extends React.Component<ISectionMapProps, ISectionMapSta
                     onLoad={() => this.onResize()}
                 />
                 <appContext.Consumer>
-                    {({ history }) => {
+                    {({ history, transition }) => {
                         return sections.map((sectionProps, currentIndex) => {
                             return (
                                 <MapImage
@@ -76,7 +77,12 @@ export class SectionMap extends React.Component<ISectionMapProps, ISectionMapSta
                                         return currentIndex !== index;
                                     })()}
                                     onClick={() => {
-                                        history?.push(`/${section}/${currentIndex + 1}`);
+                                        const go = () => history?.push(`/${section}/${currentIndex + 1}`);
+                                        if (this.isFullscreen) {
+                                            transition?.(go);
+                                        } else {
+                                            go();
+                                        }
                                     }}
                                     onMouseOver={() => {
                                         if (!this.isFullscreen) {

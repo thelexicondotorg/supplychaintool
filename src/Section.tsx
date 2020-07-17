@@ -10,11 +10,12 @@ import { TableRow } from "./TableRow";
 import { HelpPopup } from "./HelpPopup";
 import { Categories } from "./Categories";
 import { Images } from "./Images";
-import { appContext } from "./AppContext";
 
 interface ISectionIntroProps {
     section: SectionType;
     index?: string;
+    showHelpOnStart: boolean;
+    onHelpClosed: () => void;
 }
 
 interface ISectionState {
@@ -27,14 +28,13 @@ interface ISectionState {
 
 export class Section extends React.Component<ISectionIntroProps, ISectionState> {
 
-    private _root!: HTMLElement;
     private _mounted = true;
 
     constructor(props: ISectionIntroProps) {
         super(props);
         this.state = { 
             loaded: {},
-            helpVisible: false
+            helpVisible: props.showHelpOnStart
         };
     }
 
@@ -259,10 +259,7 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
         };
 
         return (
-            <div
-                ref={e => this._root = e as HTMLElement}
-                className="fill-parent"
-            >
+            <div className="fill-parent">
                 <div
                     style={{
                         height: `calc(100% - ${Footer.height})`,
@@ -275,7 +272,12 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
                 <Footer onHelp={() => this.setState({ helpVisible: true })} />
                 <HelpPopup
                     visible={this.state.helpVisible}
-                    onClose={() => this.setState({ helpVisible: false })}
+                    onClose={() => {
+                        this.setState({ helpVisible: false });
+                        if (this.props.showHelpOnStart) {
+                            this.props.onHelpClosed();
+                        }
+                    }}
                 />
             </div>
         );

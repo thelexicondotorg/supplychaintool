@@ -12,6 +12,10 @@ interface IHelpPopupProps {
 
 export class HelpPopup extends React.Component<IHelpPopupProps> {
 
+    private static readonly config = {
+        animDuration: 300
+    };
+
     public static get assetsToPreload() {
         return [
             "/public/help/help-logo.png"
@@ -41,28 +45,34 @@ export class HelpPopup extends React.Component<IHelpPopupProps> {
             );
         };
 
+        const close = () => {
+            this._root.classList.replace("dialog-in", "dialog-out");
+            setTimeout(this.props.onClose, HelpPopup.config.animDuration);            
+        };
+
         return ReactDOM.createPortal(
             (
                 <div
-                    ref={e => this._root = e as HTMLElement}
                     className="help-dialog fill-parent"
                     style={{
                         position: "fixed",
                         left: 0,
                         top: 0,
                         backgroundColor: "rgba(0,0,0,0.4)",
-                        display: "grid"
+                        display: "grid",
                     }}
-                    onClick={this.props.onClose}
+                    onClick={close}
                 >
                     <div
-                        className="card"
+                        ref={e => this._root = e as HTMLElement}
+                        className="card dialog-in"
                         style={{
                             maxWidth: "600px",
                             minHeight: "344px",
                             backgroundColor: "white",
                             margin: "0 auto",
-                            alignSelf: "center"
+                            alignSelf: "center",
+                            transform: "scaleY(0)"
                         }}
                         onClick={e => e.stopPropagation()}
                     >
@@ -78,7 +88,7 @@ export class HelpPopup extends React.Component<IHelpPopupProps> {
                                     right: "14px",
                                     top: "10px"
                                 }}
-                                onClick={this.props.onClose}
+                                onClick={close}
                             >
                                 X
                             </div>

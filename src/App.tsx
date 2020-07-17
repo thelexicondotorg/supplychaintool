@@ -15,6 +15,7 @@ import { Transition } from "./Transition";
 
 interface IAppState {
     loaded: boolean;
+    helpShown: boolean;
 }
 
 export class App extends React.Component<{}, IAppState> {
@@ -25,7 +26,7 @@ export class App extends React.Component<{}, IAppState> {
         super(props);
         this.state = {
             loaded: false,
-
+            helpShown: false
         };
     }
 
@@ -66,7 +67,14 @@ export class App extends React.Component<{}, IAppState> {
                                         render={({ match, history }) => {
                                             return (
                                                 <appContext.Provider value={{ history, transition }}>
-                                                    <Section section={section} index={match.params.index} />
+                                                    <Section 
+                                                        section={section} 
+                                                        index={match.params.index} 
+                                                        showHelpOnStart={!this.state.helpShown}
+                                                        onHelpClosed={() => {
+                                                            this.setState({ helpShown: true });
+                                                        }}
+                                                    />
                                                 </appContext.Provider>
                                             );
                                         }}

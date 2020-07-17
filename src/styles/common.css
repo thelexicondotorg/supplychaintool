@@ -264,6 +264,11 @@ body {
     padding: 10px;
 }
 
+.dialog-out { animation: .3s forwards dialog-out; }
+.dialog-in { animation: .3s forwards dialog-in; }
+@keyframes dialog-out { from { transform: scaleY(1); } to { transform: scaleY(0); }}
+@keyframes dialog-in { from { transform: scaleY(0); } to { transform: scaleY(1); }}
+
 .footer-logo {
     grid-template-columns: auto 1fr;
     display: grid;                            
@@ -288,4 +293,17 @@ body {
     .footer {
         font-size: 13px;    
     }
+}
+
+.selected {
+    filter: contrast(120%);    
+    transform: scale(1.1);
+    cursor: pointer;
+    animation: selected-anim 1s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes selected-anim {
+    10%, 90% { transform: scale(.95); }    
+    20%, 80% { transform: scale(1.1); }  
+    40%, 60% { transform: scale(1.05); }
 }
