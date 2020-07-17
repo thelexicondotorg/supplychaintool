@@ -6,8 +6,7 @@ export class LoadingIndicator extends React.Component {
 
     public render() {
         return (
-            <div
-                className="fade-in"
+            <div                
                 style={{
                     position: "absolute",
                     width: "100%",

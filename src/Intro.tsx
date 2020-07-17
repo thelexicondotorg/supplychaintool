@@ -2,8 +2,6 @@
 import * as React from "react";
 import { CircularButton } from "./CircularButton";
 import { appContext } from "./AppContext";
-import { HotModuleReplacementPlugin } from "webpack";
-import { Theme } from "./Theme";
 
 interface IIntroState {
     amaranthMenu: boolean;
@@ -79,7 +77,7 @@ export class Intro extends React.Component<{}, IIntroState> {
         return (
             <div
                 ref={e => this._root = e as HTMLElement}
-                className="fill-parent fade-in"
+                className="fill-parent"
                 style={{
                     overflow: "hidden"
                 }}
@@ -129,12 +127,9 @@ export class Intro extends React.Component<{}, IIntroState> {
                     />
                 </div>
                 <appContext.Consumer>
-                    {({ history }) => {
+                    {({ history, transition }) => {
 
-                        const onEnter = (url: string) => {
-                            this._root.classList.replace("fade-in", "fade-out");
-                            setTimeout(() => history?.push(url), Theme.fadeDuration);
-                        };
+                        const onEnter = (url: string) => transition?.(() => history?.push(url));
 
                         return (
                             <div

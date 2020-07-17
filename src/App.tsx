@@ -10,16 +10,22 @@ import { Fonts } from "./Fonts";
 import { appContext } from "./AppContext";
 import { Settings } from "./Settings";
 import { IntroContainer } from "./IntroContainer";
+import * as H from "history";
+import { Transition } from "./Transition";
 
 interface IAppState {
     loaded: boolean;
 }
 
 export class App extends React.Component<{}, IAppState> {
+
+    private _transition!: Transition;
+
     constructor(props: {}) {
         super(props);
         this.state = {
-            loaded: false
+            loaded: false,
+
         };
     }
 
@@ -37,45 +43,54 @@ export class App extends React.Component<{}, IAppState> {
         if (!this.state.loaded) {
             return <LoadingIndicator />;
         }
+        
+        const transition = async (onFadeOut?: () => void) => {
+            await this._transition.transition();
+            onFadeOut?.();
+        };
 
         return (
-            <BrowserRouter>
-                <Switch>
-                    {
-                        ([
-                            "fonio",
-                            "amaranth-local",
-                            "small-millets"
-                        ] as SectionType[]).map(section => {
-                            return (
-                                <Route
-                                    key={section}
-                                    path={`/${section}/:index?`}
-                                    render={({ match, history }) => {
-                                        return (
-                                            <appContext.Provider value={{ history }}>
-                                                <Section section={section} index={match.params.index} />
-                                            </appContext.Provider>
-                                        );
-                                    }}
-                                />
-                            );
-                        })
-                    }
-                    <Route
-                        path="/"
-                        exact={true}
-                        render={({ history }) => {
-                            return (
-                                <appContext.Provider value={{ history }}>
-                                    <IntroContainer />
-                                </appContext.Provider>
-                            );
-                        }}
-                    />
-                    <Route render={() => <Redirect to="/" />} />
-                </Switch>
-            </BrowserRouter>
+            <React.Fragment>
+                <BrowserRouter>
+                    <Switch>
+                        {
+                            ([
+                                "fonio",
+                                "amaranth-local",
+                                "small-millets"
+                            ] as SectionType[]).map(section => {
+                                return (
+                                    <Route
+                                        key={section}
+                                        path={`/${section}/:index?`}
+                                        render={({ match, history }) => {
+                                            return (
+                                                <appContext.Provider value={{ history, transition }}>
+                                                    <Section section={section} index={match.params.index} />
+                                                </appContext.Provider>
+                                            );
+                                        }}
+                                    />
+                                );
+                            })
+                        }
+                        <Route
+                            path="/"
+                            exact={true}
+                            render={({ history }) => {
+                                return (
+                                    <appContext.Provider value={{ history, transition }}>
+                                        <IntroContainer />
+                                    </appContext.Provider>
+                                );
+                            }}
+                        />
+                        <Route render={() => <Redirect to="/" />} />
+                    </Switch>
+                </BrowserRouter>
+                <div id="dialog-layer" />
+                <Transition ref={e => this._transition = e as Transition} />
+            </React.Fragment>
         );
     }
 }

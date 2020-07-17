@@ -1,11 +1,11 @@
 
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import { appContext } from "./AppContext";
 
 interface IHelpPopupProps {
     visible: boolean;
     onClose: () => void;
-    onHome: () => void;
 }
 
 // tslint:disable:max-line-length
@@ -27,14 +27,17 @@ export class HelpPopup extends React.Component<IHelpPopupProps> {
 
         const makeHomeLink = () => {
             return (
-                <img
-                    src="/public/help/help-logo.png"
-                    className="clickable"
-                    onClick={() => {
-                        this._root.classList.add("fade-out");
-                        this.props.onHome();
+                <appContext.Consumer>
+                    {({ history, transition }) => {
+                        return (
+                            <img
+                                src="/public/help/help-logo.png"
+                                className="clickable"
+                                onClick={() => transition?.(() => history?.push("/"))}
+                            />
+                        );
                     }}
-                />
+                </appContext.Consumer>
             );
         };
 
@@ -91,7 +94,7 @@ export class HelpPopup extends React.Component<IHelpPopupProps> {
                     </div>
                 </div>
             ),
-            document.body
+            document.getElementById("dialog-layer") as HTMLElement
         );
     }
 }
