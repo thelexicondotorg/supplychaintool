@@ -1,7 +1,9 @@
 
 import * as React from "react";
 import { CircularButton } from "./CircularButton";
-import { LoadingIndicator } from "./LoadingIndicator";
+import { appContext } from "./AppContext";
+import { HotModuleReplacementPlugin } from "webpack";
+import { Theme } from "./Theme";
 
 interface IIntroState {
     amaranthMenu: boolean;
@@ -21,9 +23,10 @@ export class Intro extends React.Component<{}, IIntroState> {
         ];
     }
 
+    private _root!: HTMLElement;
     private _header!: HTMLElement;
     private _image!: HTMLElement;
-    private _buttons!: HTMLElement;    
+    private _buttons!: HTMLElement;
     private _amaranthButtons!: HTMLElement;
     private _amaranthLocal!: CircularButton;
     private _amaranthIntl!: CircularButton;
@@ -75,7 +78,8 @@ export class Intro extends React.Component<{}, IIntroState> {
 
         return (
             <div
-                className="fill-parent"
+                ref={e => this._root = e as HTMLElement}
+                className="fill-parent fade-in"
                 style={{
                     overflow: "hidden"
                 }}
@@ -88,7 +92,7 @@ export class Intro extends React.Component<{}, IIntroState> {
                     style={{
                         display: "flex",
                         justifyContent: "space-between",
-                        padding: "40px"                        
+                        padding: "40px"
                     }}
                 >
                     <div style={{ paddingRight: "20px" }}>
@@ -101,19 +105,19 @@ export class Intro extends React.Component<{}, IIntroState> {
                         }}
                     >
                         <div className="intro-title">
-                            Three continents. <br className="intro-break" /> 
-                            Three Grains. <br className="intro-break" /> 
+                            Three continents. <br className="intro-break" />
+                            Three Grains. <br className="intro-break" />
                             Three Supply Chains
                         </div>
                         <div className="intro-subtitle">
-                            CAN TRANSPARENCY BRING GREATER <br className="intro-break" /> 
+                            CAN TRANSPARENCY BRING GREATER <br className="intro-break" />
                             <b>AGROBIODIVERSITY</b> TO OUR FOOD SYSTEMS?
                         </div>
                     </div>
                 </div>
                 <div>
                     <img
-                        ref={e => this._image = e as HTMLElement}                        
+                        ref={e => this._image = e as HTMLElement}
                         src="/public/intro/intro.svg"
                     />
                     <div
@@ -124,79 +128,95 @@ export class Intro extends React.Component<{}, IIntroState> {
                         }}
                     />
                 </div>
-                <div
-                    ref={e => this._buttons = e as HTMLElement}
-                    style={{
-                        position: "absolute",
-                        bottom: "25px",
-                        minWidth: "80%",
-                        display: "grid",
-                        gridTemplateColumns: "1fr 1fr 1fr"
+                <appContext.Consumer>
+                    {({ history }) => {
+
+                        const onEnter = (url: string) => {
+                            this._root.classList.replace("fade-in", "fade-out");
+                            setTimeout(() => history?.push(url), Theme.fadeDuration);
+                        };
+
+                        return (
+                            <div
+                                ref={e => this._buttons = e as HTMLElement}
+                                style={{
+                                    position: "absolute",
+                                    bottom: "25px",
+                                    minWidth: "80%",
+                                    display: "grid",
+                                    gridTemplateColumns: "1fr 1fr 1fr"
+                                }}
+                            >
+                                <div className="intro-button-container">
+                                    <CircularButton
+                                        radius={config.buttonRadius}
+                                        color="#FBB040"
+                                        content={makeButton("FONIO", "West Africa")}
+                                        onClick={() => onEnter("/fonio")}
+                                    />
+                                </div>
+                                <div className="intro-button-container">
+                                    <div
+                                        ref={e => this._amaranthButtons = e as HTMLElement}
+                                        style={{
+                                            position: "absolute",
+                                            width: `${config.buttonRadius * 2 + config.amaranthButtonsSpacing}px`,
+                                            top: `${-config.buttonRadius}px`,
+                                            display: "flex",
+                                            justifyContent: "space-between",
+                                            opacity: amaranthMenu ? 1 : 0,
+                                            pointerEvents: amaranthMenu ? "all" : "none"
+                                        }}
+                                    >
+                                        <CircularButton
+                                            ref={e => this._amaranthLocal = e as CircularButton}
+                                            radius={config.buttonRadius}
+                                            color="#E23F39"
+                                            content={makeButton("AMARANTH", "Local")}
+                                            onClick={() => {
+                                                // onEnter("/amaranth-local");
+                                            }}
+                                        />
+                                        <CircularButton
+                                            ref={e => this._amaranthIntl = e as CircularButton}
+                                            radius={config.buttonRadius}
+                                            color="#E23F39"
+                                            content={makeButton("AMARANTH", "International")}
+                                            onClick={() => {
+                                                // onEnter("/amaranth-intl");
+                                            }}
+                                        />
+                                    </div>
+                                    <CircularButton
+                                        radius={config.buttonRadius}
+                                        color={amaranthMenu ? "grey" : "#E23F39"}
+                                        content={makeButton("AMARANTH", "Mexico")}
+                                        onClick={() => {
+                                            this.setState({ amaranthMenu: !this.state.amaranthMenu });
+                                        }}
+                                    />
+                                </div>
+                                <div className="intro-button-container">
+                                    <CircularButton
+                                        radius={config.buttonRadius}
+                                        color="#27A33E"
+                                        content={makeButton("SMALL MILLETS", "India")}
+                                        onClick={() => {
+                                            // onEnter("/small-millets");
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                        );
                     }}
-                >
-                    <div className="intro-button-container">
-                        <CircularButton
-                            radius={config.buttonRadius}
-                            color="#FBB040"
-                            content={makeButton("FONIO", "West Africa")}
-                            url="/fonio"
-                        />
-                    </div>
-                    <div className="intro-button-container">
-                        <div
-                            ref={e => this._amaranthButtons = e as HTMLElement}
-                            style={{
-                                position: "absolute",
-                                width: `${config.buttonRadius * 2 + config.amaranthButtonsSpacing}px`,
-                                top: `${-config.buttonRadius}px`,
-                                display: "flex",
-                                justifyContent: "space-between",
-                                opacity: amaranthMenu ? 1 : 0,
-                                pointerEvents: amaranthMenu ? "all" : "none"
-                            }}
-                        >
-                            <CircularButton
-                                ref={e => this._amaranthLocal = e as CircularButton}
-                                radius={config.buttonRadius}
-                                color="#E23F39"
-                                content={makeButton("AMARANTH", "Local")}
-                                // url="/fonio"
-                                // url="/amaranth-local"
-                            />
-                            <CircularButton
-                                ref={e => this._amaranthIntl = e as CircularButton}
-                                radius={config.buttonRadius}
-                                color="#E23F39"
-                                content={makeButton("AMARANTH", "International")}
-                                // url="/fonio"
-                                // url="/amaranth-intl"
-                            />
-                        </div>
-                        <CircularButton
-                            radius={config.buttonRadius}
-                            color={amaranthMenu ? "grey" : "#E23F39"}
-                            content={makeButton("AMARANTH", "Mexico")}
-                            onClick={() => {
-                                this.setState({ amaranthMenu: !this.state.amaranthMenu });
-                            }}                        
-                        />
-                    </div>
-                    <div className="intro-button-container">
-                        <CircularButton
-                            radius={config.buttonRadius}
-                            color="#27A33E"
-                            content={makeButton("SMALL MILLETS", "India")}
-                            // url="/small-millets"
-                        />
-                    </div>
-                </div>
+                </appContext.Consumer>
             </div>
         );
     }
 
     private onResize() {
         this._buttons.style.left = `${(window.innerWidth - this._buttons.clientWidth) / 2}px`;
-        
+
         const buttonContainerWidth = this._buttons.clientWidth / 3;
         const amaranthWidth = this._amaranthButtons.clientWidth;
         this._amaranthButtons.style.left = `${(buttonContainerWidth - amaranthWidth) / 2}px`;
@@ -205,7 +225,7 @@ export class Intro extends React.Component<{}, IIntroState> {
         const origSize = [1800, 818]; // naturalWidth/Height doesn't work as expected on Safari!!
         const availableSpace = [window.innerWidth, window.innerHeight - this._header.clientHeight];
         const origRatio = origSize[0] / origSize[1];
-        const ratio = availableSpace[0] / availableSpace[1];        
+        const ratio = availableSpace[0] / availableSpace[1];
         if (ratio > origRatio) {
             this._image.style.width = "100%";
             this._image.style.height = "auto";

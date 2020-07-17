@@ -1,10 +1,10 @@
 
 import * as React from "react";
 import { CircularButton } from "./CircularButton";
-import { appContext } from "./AppContext";
 
 interface IFooterProps {
     onHelp: () => void;
+    onHome: () => void;
 }
 
 export class Footer extends React.Component<IFooterProps> {
@@ -36,20 +36,14 @@ export class Footer extends React.Component<IFooterProps> {
                     }}
                 >
                     <div className="footer-logo">
-                        <appContext.Consumer>
-                            {({ history }) => {
-                                return (
-                                    <img
-                                        className="clickable"
-                                        style={{
-                                            marginLeft: "40px"
-                                        }}
-                                        src="/public/footer/footer-logo.svg"
-                                        onClick={() => history?.push("/")}
-                                    />
-                                );
+                        <img
+                            className="clickable"
+                            style={{
+                                marginLeft: "40px"
                             }}
-                        </appContext.Consumer>
+                            src="/public/footer/footer-logo.svg"
+                            onClick={this.props.onHome}
+                        />
                         <span
                             style={{
                                 fontWeight: "bold",

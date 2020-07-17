@@ -10,6 +10,9 @@ import { TableRow } from "./TableRow";
 import { HelpPopup } from "./HelpPopup";
 import { Categories } from "./Categories";
 import { Images } from "./Images";
+import * as H from "history";
+import { Theme } from "./Theme";
+import { appContext } from "./AppContext";
 
 interface ISectionIntroProps {
     section: SectionType;
@@ -26,6 +29,7 @@ interface ISectionState {
 
 export class Section extends React.Component<ISectionIntroProps, ISectionState> {
 
+    private _root!: HTMLElement;
     private _mounted = true;
 
     constructor(props: ISectionIntroProps) {
@@ -256,23 +260,41 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
             }
         };
 
+        const onExit = (history?: H.History) => {
+            this._root.classList.replace("fade-in", "fade-out");
+            setTimeout(() => history?.push("/"), Theme.fadeDuration);
+        };
+
         return (
-            <div className="fill-parent">
-                <div
-                    style={{
-                        height: `calc(100% - ${Footer.height})`,
-                        overflow: "auto",
-                        position: "relative"
-                    }}
-                >
-                    {makeContent()}
-                </div>
-                <Footer onHelp={() => this.setState({ helpVisible: true })} />
-                <HelpPopup 
-                    visible={this.state.helpVisible}
-                    onClose={() => this.setState({ helpVisible: false })}
-                />
-            </div>
+            <appContext.Consumer>
+                {({ history }) => {
+                    return (
+                        <div
+                            ref={e => this._root = e as HTMLElement}
+                            className="fill-parent fade-in"
+                        >
+                            <div
+                                style={{
+                                    height: `calc(100% - ${Footer.height})`,
+                                    overflow: "auto",
+                                    position: "relative"
+                                }}
+                            >
+                                {makeContent()}
+                            </div>
+                            <Footer
+                                onHelp={() => this.setState({ helpVisible: true })}
+                                onHome={() => onExit(history)}
+                            />
+                            <HelpPopup
+                                visible={this.state.helpVisible}
+                                onClose={() => this.setState({ helpVisible: false })}
+                                onHome={() => onExit(history)}
+                            />
+                        </div>
+                    );
+                }}
+            </appContext.Consumer>
         );
     }
 }

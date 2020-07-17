@@ -1,11 +1,11 @@
 
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { appContext } from "./AppContext";
 
 interface IHelpPopupProps {
     visible: boolean;
     onClose: () => void;
+    onHome: () => void;
 }
 
 // tslint:disable:max-line-length
@@ -18,6 +18,8 @@ export class HelpPopup extends React.Component<IHelpPopupProps> {
         ];
     }
 
+    private _root!: HTMLElement;
+
     public render() {
         if (!this.props.visible) {
             return null;
@@ -25,23 +27,21 @@ export class HelpPopup extends React.Component<IHelpPopupProps> {
 
         const makeHomeLink = () => {
             return (
-                <appContext.Consumer>
-                    {({ history }) => {
-                        return (
-                            <img
-                                src="/public/help/help-logo.png"
-                                className="clickable"
-                                onClick={() => history?.push("/")}
-                            />
-                        );
+                <img
+                    src="/public/help/help-logo.png"
+                    className="clickable"
+                    onClick={() => {
+                        this._root.classList.add("fade-out");
+                        this.props.onHome();
                     }}
-                </appContext.Consumer>
+                />
             );
         };
 
         return ReactDOM.createPortal(
             (
                 <div
+                    ref={e => this._root = e as HTMLElement}
                     className="help-dialog fill-parent"
                     style={{
                         position: "fixed",

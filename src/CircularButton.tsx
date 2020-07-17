@@ -6,13 +6,12 @@ interface ICircularButtonProps {
     radius: number;
     content: string | JSX.Element;
     color: string;
-    url?: string;
-    onClick?: () => void;
+    onClick: () => void;
 }
 
 export class CircularButton extends React.Component<ICircularButtonProps> {
     public render() {
-        const { radius, content, color, url, onClick } = this.props;
+        const { radius, content, color, onClick } = this.props;
         return (
             <appContext.Consumer>
                 {({ history }) => {
@@ -25,12 +24,8 @@ export class CircularButton extends React.Component<ICircularButtonProps> {
                                 backgroundColor: color
                             }}
                             onClick={e => {
-                                if (url) {
-                                    history?.push(url);
-                                } else if (onClick) {
-                                    onClick();
-                                    e.stopPropagation();
-                                }
+                                e.stopPropagation();
+                                onClick();
                             }}
                         >
                             {content}
