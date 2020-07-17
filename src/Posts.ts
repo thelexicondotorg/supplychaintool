@@ -3,6 +3,9 @@ import { IMapImageContent } from "./MapImage";
 import { DOMUtils } from "./DOMUtils";
 import { Settings } from "./Settings";
 
+// tslint:disable-next-line
+const { default: html2React } = require("html2react");
+
 interface IPostJson {
     slug: string;
     title: { rendered: string; };
@@ -16,9 +19,7 @@ interface IPostRawData {
 
 interface IArticle {
     image: string;
-    title: string;
-    subTitle?: string;
-    content: string;
+    contentElem: JSX.Element;
 }
 
 interface IContribution {
@@ -155,14 +156,10 @@ export class Posts {
         const articleElem = tree.body.querySelector(".wp-block-media-text") as Element;
         const image = articleElem.querySelector("img");
         const content = articleElem.querySelector(".wp-block-media-text__content");
-        const [header1, header2] = content ? DOMUtils.select(content, "h6") : [];
-        const text = content?.querySelector("p");
         const article = {
             image: forceHttps(image?.src),
-            title: header1?.innerText,
-            subTitle: header2?.innerText,
-            content: text?.innerText
-        } as IArticle;        
+            contentElem: html2React(content?.innerHTML)
+        } as IArticle;
 
         const contributions = DOMUtils.select(tree.body, "table > tbody > tr")
             .slice(1) // skip first title row
@@ -175,7 +172,8 @@ export class Posts {
             });
 
         const newPost: IPost = {
-            title: rawData.title,
+            // Remove the prefix from the title
+            title: rawData.title.slice(`${category}-${index + 1}`.length).trim(),
             article,
             contributions
         };

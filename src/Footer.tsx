@@ -2,8 +2,10 @@
 import * as React from "react";
 import { CircularButton } from "./CircularButton";
 import { appContext } from "./AppContext";
+import { SectionType } from "./Types";
 
 interface IFooterProps {
+    section: SectionType;
     onHelp: () => void;
 }
 
@@ -14,6 +16,15 @@ export class Footer extends React.Component<IFooterProps> {
         return [
             "/public/footer/footer-logo.svg"
         ];
+    }
+
+    private static readonly config = {
+        supplyChainText: {
+            "fonio": "FONIO SUPPLY CHAIN",
+            "amaranth-local": "AMARANTH SUPPLY CHAIN: LOCAL",
+            "amaranth-intl": "AMARANTH SUPPLY CHAIN: INTERNATIONAL",
+            "small-millets": "SMALL MILLET SUPPLEY CHAIN"
+        }
     }
 
     public render() {
@@ -71,7 +82,7 @@ export class Footer extends React.Component<IFooterProps> {
                                 marginRight: "20px"
                             }}
                         >
-                            FONIO SUPPLY CHAIN
+                            {Footer.config.supplyChainText[this.props.section]}
                         </span>
                         <CircularButton
                             radius={30}

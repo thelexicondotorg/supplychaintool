@@ -127,22 +127,7 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
                                             </div>
                                         </div>
                                         <div className="quadrant-text">
-                                            <div className="quadrant-text-title">
-                                                {post.article.title}
-                                            </div>
-                                            {
-                                                post.article.subTitle
-                                                &&
-                                                (
-                                                    <div className="quadrant-text-title">
-                                                        {post.article.subTitle}
-                                                    </div>
-                                                )
-                                            }
-                                            <div className="quadrant-text-separator" />
-                                            <div>
-                                                {post.article.content}
-                                            </div>
+                                            {post.article.contentElem}
                                         </div>
                                     </div>
                                 </div>
@@ -269,7 +254,10 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
                 >
                     {makeContent()}
                 </div>
-                <Footer onHelp={() => this.setState({ helpVisible: true })} />
+                <Footer 
+                    section={this.props.section}
+                    onHelp={() => this.setState({ helpVisible: true })} 
+                />
                 <HelpPopup
                     visible={this.state.helpVisible}
                     onClose={() => {

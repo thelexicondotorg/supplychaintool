@@ -176,6 +176,13 @@ body {
     max-width: 60%;
 }
 
+.quadrant-text h6 {
+    font-size: 14px;
+    font-weight: bold;
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+}
+
 .quadrant-text-title {
     font-weight: bold;
 }
