@@ -1,3 +1,4 @@
+import { Settings } from "./Settings";
 
 interface ICategoryJson {
     slug: string;
@@ -6,7 +7,10 @@ interface ICategoryJson {
 
 export class Categories {
     public static async load() {
-        const response = await fetch("https://wp-supplytool.franticsoftware.com/wp-json/wp/v2/categories");
+        if (Object.keys(Categories.data).length > 0) {
+            return;
+        }
+        const response = await fetch(`${Settings.wordpressUrl}/wp-json/wp/v2/categories`);
         const json = await response.json();
         (json as ICategoryJson[]).forEach(({ slug, id }) => {
             Object.assign(Categories.data, { [slug]: id });
@@ -17,5 +21,5 @@ export class Categories {
         return Categories.data[slug];
     }
 
-    private static data: { [slug: string]: string } = {};
+    private static readonly data: { [slug: string]: string } = {};
 }

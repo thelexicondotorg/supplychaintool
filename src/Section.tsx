@@ -8,6 +8,8 @@ import { Captions } from "./Captions";
 import { Footer } from "./Footer";
 import { TableRow } from "./TableRow";
 import { HelpPopup } from "./HelpPopup";
+import { Categories } from "./Categories";
+import { Images } from "./Images";
 
 interface ISectionIntroProps {
     section: SectionType;
@@ -36,7 +38,32 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
 
     public componentDidMount() {
         this._mounted = true;
-        Posts.load(this.props.section)
+        const { section } = this.props;
+        Promise.all([
+            Categories.load(),
+            Captions.load()
+        ])
+            .then(() => Posts.load(section))
+
+            // Preload content
+            .then(() => {          
+                const sections = Posts.getSections(section);
+                const principles = Posts.getPrinciples(section);
+                return Images.preload([
+                    // Map section
+                    `/public/${section}/map-paths.svg`,
+                    ...sections.map(s => s.image),
+                    
+                    // Posts
+                    ...Array.from(Array(sections.length).keys()).map(index => {
+                        return Posts.getPost(section, index).article.image;
+                    }),
+
+                    // Principles
+                    principles.intro.image,
+                    ...principles.principles.map(p => p.image)
+                ]);
+            })            
             .then(() => {
                 if (!this._mounted) {
                     return;
@@ -44,7 +71,7 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
                 this.setState({
                     loaded: {
                         ...this.state.loaded,
-                        ...{ [this.props.section]: true }
+                        ...{ [section]: true }
                     }
                 });
             });
@@ -72,9 +99,7 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
                 return (
                     <div className="quadrants-root fill-parent">
                         <div className="quadrant-col">
-                            <div
-                                className="quadrant-cell left"
-                            >
+                            <div className="quadrant-cell left">
                                 <SectionMap
                                     section={section}
                                     index={postIndex}
@@ -156,7 +181,7 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
                                                         onClick={() => this.setState({ currentPrinciple: i })}
                                                     >
                                                         <TableRow
-                                                            left={`${i + 1}. ${contribution.principleName}`}
+                                                            left={`${i + 1}. ${principles.principles[i].name}`}
                                                             right={
                                                                 contribution.contributes
                                                                     ?
@@ -245,9 +270,7 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
                 <Footer onHelp={() => this.setState({ helpVisible: true })} />
                 <HelpPopup 
                     visible={this.state.helpVisible}
-                    onClose={() => {
-                        this.setState({ helpVisible: false });
-                    }}
+                    onClose={() => this.setState({ helpVisible: false })}
                 />
             </div>
         );

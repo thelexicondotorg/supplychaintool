@@ -1,6 +1,7 @@
 import { Categories } from "./Categories";
 import { IMapImageContent } from "./MapImage";
 import { DOMUtils } from "./DOMUtils";
+import { Settings } from "./Settings";
 
 interface IPostJson {
     slug: string;
@@ -37,10 +38,32 @@ interface IPost {
     contributions: IContribution[];
 }
 
+interface IPosts {
+    map: {
+        rawData: IPostRawData;
+        sections?: IMapImageContent[];
+    };
+    principles: {
+        rawData: IPostRawData;
+        content?: {
+            intro: IPrinciple;
+            principles: IPrinciple[];
+        };
+    };
+    posts: Array<{
+        rawData: IPostRawData;
+        post?: IPost;
+    }>;
+}
+
 export class Posts {
     public static async load(category: string) {
+        if (category in Posts.data) {
+            return;
+        }
         const categoryId = Categories.getId(category);
-        const response = await fetch(`https://wp-supplytool.franticsoftware.com/wp-json/wp/v2/posts?categories=${categoryId}&per_page=11`);
+        const request = `wp-json/wp/v2/posts?categories=${categoryId}&per_page=11`;
+        const response = await fetch(`${Settings.wordpressUrl}/${request}`);
         const json = await response.json();
 
         const allPosts = (json as IPostJson[])
@@ -64,17 +87,15 @@ export class Posts {
             .map(([index, content]) => content);
 
         const [intro, principles, ...posts] = allPosts;
-        Object.assign(Posts.data, {
-            [category]: {
-                intro: { rawData: intro },
-                principles: { rawData: principles },
-                posts: posts.map(rawData => ({ rawData }))
-            }
-        });
+        Posts.data[category] = {
+            map: { rawData: intro },
+            principles: { rawData: principles },
+            posts: posts.map(rawData => ({ rawData }))
+        };
     }
 
-    public static getIntroSections(category: string) {
-        const { rawData, sections } = Posts.data[category].intro;
+    public static getSections(section: string) {
+        const { rawData, sections } = Posts.data[section].map;
         if (sections) {
             return sections;
         }
@@ -95,7 +116,7 @@ export class Posts {
             }
         }
 
-        Posts.data[category].intro.sections = newSections;
+        Posts.data[section].map.sections = newSections;
         return newSections;
     }
 
@@ -126,13 +147,9 @@ export class Posts {
         }
         const tree = new DOMParser().parseFromString(rawData.content, "text/html");
 
-        // TODO not sure why some images are reference with http
-        const forceHttps = (url?: string) => {            
-            if (url?.startsWith("http://")) {
-                return url.replace("http", "https");
-            } else {
-                return url;
-            }
+        // TODO not sure why some images are referenced with http
+        const forceHttps = (url?: string) => {  
+            return url?.replace("http://", "https://");
         };
 
         const articleElem = tree.body.querySelector(".wp-block-media-text") as Element;
@@ -167,23 +184,5 @@ export class Posts {
         return newPost;
     }
 
-    private static data: {
-        [category: string]: {
-            intro: {
-                rawData: IPostRawData;
-                sections: IMapImageContent[];
-            };
-            principles: {
-                rawData: IPostRawData;
-                content: {
-                    intro: IPrinciple;
-                    principles: IPrinciple[];
-                };
-            }
-            posts: Array<{
-                rawData: IPostRawData;
-                post: IPost;
-            }>;
-        }
-    } = {};
+    private static readonly data: { [category: string]: IPosts } = {};
 }

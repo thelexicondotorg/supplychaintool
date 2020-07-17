@@ -1,3 +1,4 @@
+import { Settings } from "./Settings";
 
 interface IMediaJson {
     source_url: string;
@@ -8,7 +9,11 @@ interface IMediaJson {
 
 export class Captions {
     public static async load() {
-        const response = await fetch("https://wp-supplytool.franticsoftware.com/wp-json/wp/v2/media?per_page=100");
+        if (Object.keys(Captions.data).length > 0) {
+            return;
+        }
+
+        const response = await fetch(`${Settings.wordpressUrl}/wp-json/wp/v2/media?per_page=100`);
         const json = await response.json();
 
         (json as IMediaJson[]).forEach(({ source_url, caption }) => {
@@ -24,5 +29,5 @@ export class Captions {
         return Captions.data[url];
     }
 
-    private static data: { [url: string]: string } = {};
+    private static readonly data: { [url: string]: string } = {};
 }

@@ -2,7 +2,7 @@
 import * as React from "react";
 import { MapImage } from "./MapImage";
 import { SectionType } from "./Types";
-import { routerContext } from "./RouterContext";
+import { appContext } from "./AppContext";
 import { Posts } from "./Posts";
 import { mapMetrics } from "./MapMetrics";
 
@@ -40,7 +40,7 @@ export class SectionMap extends React.Component<ISectionMapProps, ISectionMapSta
     public render() {
         const { section, index } = this.props;
         const { hoveredImage } = this.state;
-        const sections = Posts.getIntroSections(section);
+        const sections = Posts.getSections(section);
 
         return (
             <div 
@@ -55,7 +55,7 @@ export class SectionMap extends React.Component<ISectionMapProps, ISectionMapSta
                     src={`/public/${section}/map-paths.svg`}
                     onLoad={() => this.onResize()}
                 />
-                <routerContext.Consumer>
+                <appContext.Consumer>
                     {({ history }) => {
                         return sections.map((sectionProps, currentIndex) => {
                             return (
@@ -92,7 +92,7 @@ export class SectionMap extends React.Component<ISectionMapProps, ISectionMapSta
                             );
                         });
                     }}
-                </routerContext.Consumer>
+                </appContext.Consumer>
             </div>
         );
     }

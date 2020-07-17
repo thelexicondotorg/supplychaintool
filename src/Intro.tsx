@@ -1,6 +1,7 @@
 
 import * as React from "react";
 import { CircularButton } from "./CircularButton";
+import { LoadingIndicator } from "./LoadingIndicator";
 
 interface IIntroState {
     amaranthMenu: boolean;
@@ -12,6 +13,13 @@ export class Intro extends React.Component<{}, IIntroState> {
         buttonRadius: 180,
         amaranthButtonsSpacing: 20
     };
+
+    public static get assetsToPreload() {
+        return [
+            "/public/intro/logo.svg",
+            "/public/intro/intro.svg"
+        ];
+    }
 
     private _header!: HTMLElement;
     private _image!: HTMLElement;
@@ -27,9 +35,9 @@ export class Intro extends React.Component<{}, IIntroState> {
     }
 
     public componentDidMount() {
-        this.onResize();
         this.onResize = this.onResize.bind(this);
         window.addEventListener("resize", this.onResize);
+        this.onResize();
     }
 
     public componentWillUnmount() {
@@ -37,7 +45,6 @@ export class Intro extends React.Component<{}, IIntroState> {
     }
 
     public render() {
-
         const { config } = Intro;
         const { amaranthMenu } = this.state;
         const makeButton = (name: string, location: string) => {

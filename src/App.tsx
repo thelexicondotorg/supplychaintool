@@ -1,16 +1,15 @@
 
 import * as React from "react";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
-import { Intro } from "./Intro";
 import { Section } from "./Section";
 import { SectionType } from "./Types";
 
 import "./styles/common.css";
 import { LoadingIndicator } from "./LoadingIndicator";
 import { Fonts } from "./Fonts";
-import { Categories } from "./Categories";
-import { Captions } from "./Captions";
-import { routerContext } from "./RouterContext";
+import { appContext } from "./AppContext";
+import { Settings } from "./Settings";
+import { IntroContainer } from "./IntroContainer";
 
 interface IAppState {
     loaded: boolean;
@@ -25,13 +24,12 @@ export class App extends React.Component<{}, IAppState> {
     }
 
     public componentDidMount() {
-        Fonts.preload()
-            .then(() => Promise.all([
-                Categories.load(),
-                Captions.load()
-            ]))
+        Settings.load()
+            .then(() => Fonts.preload())
             .then(() => {
-                this.setState({ loaded: true });
+                this.setState({
+                    loaded: true,
+                });
             });
     }
 
@@ -55,9 +53,9 @@ export class App extends React.Component<{}, IAppState> {
                                     path={`/${section}/:index?`}
                                     render={({ match, history }) => {
                                         return (
-                                            <routerContext.Provider value={{ history }}>
+                                            <appContext.Provider value={{ history }}>
                                                 <Section section={section} index={match.params.index} />
-                                            </routerContext.Provider>
+                                            </appContext.Provider>
                                         );
                                     }}
                                 />
@@ -69,9 +67,9 @@ export class App extends React.Component<{}, IAppState> {
                         exact={true}
                         render={({ history }) => {
                             return (
-                                <routerContext.Provider value={{ history }}>
-                                    <Intro />
-                                </routerContext.Provider>
+                                <appContext.Provider value={{ history }}>
+                                    <IntroContainer />
+                                </appContext.Provider>
                             );
                         }}
                     />

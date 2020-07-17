@@ -1,7 +1,7 @@
 
 import * as React from "react";
 import { CircularButton } from "./CircularButton";
-import { routerContext } from "./RouterContext";
+import { appContext } from "./AppContext";
 
 interface IFooterProps {
     onHelp: () => void;
@@ -9,6 +9,12 @@ interface IFooterProps {
 
 export class Footer extends React.Component<IFooterProps> {
     public static get height() { return "75px"; }
+
+    public static get assetsToPreload() {
+        return [
+            "/public/footer/footer-logo.svg"
+        ];
+    }
 
     public render() {
         return (
@@ -30,7 +36,7 @@ export class Footer extends React.Component<IFooterProps> {
                     }}
                 >
                     <div className="footer-logo">
-                        <routerContext.Consumer>
+                        <appContext.Consumer>
                             {({ history }) => {
                                 return (
                                     <img
@@ -43,7 +49,7 @@ export class Footer extends React.Component<IFooterProps> {
                                     />
                                 );
                             }}
-                        </routerContext.Consumer>
+                        </appContext.Consumer>
                         <span
                             style={{
                                 fontWeight: "bold",

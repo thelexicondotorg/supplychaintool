@@ -36,7 +36,8 @@ export class MapImage extends React.Component<IMapImageProps> {
             <div
                 style={{
                     position: "absolute",
-                    textAlign: "center"
+                    textAlign: "center",
+                    display: "none"
                 }}
                 ref={e => this._container = e as HTMLElement}
             >
@@ -75,7 +76,6 @@ export class MapImage extends React.Component<IMapImageProps> {
             return;
         }
 
-        this.visible = true;
         const imageOrigSize = [this._image.naturalWidth, this._image.naturalHeight];
         const imageOrigPos = this.props.position;
 
@@ -104,5 +104,6 @@ export class MapImage extends React.Component<IMapImageProps> {
             this._container.style.top = `${offset + imageY * sizeRatio}px`;
             this._container.style.width = `${imageOrigSize[0] * sizeRatio}px`;
         }
+        this.visible = true;
     }
 }

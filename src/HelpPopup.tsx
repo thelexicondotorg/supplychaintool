@@ -1,7 +1,7 @@
 
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { routerContext } from "./RouterContext";
+import { appContext } from "./AppContext";
 
 interface IHelpPopupProps {
     visible: boolean;
@@ -11,6 +11,13 @@ interface IHelpPopupProps {
 // tslint:disable:max-line-length
 
 export class HelpPopup extends React.Component<IHelpPopupProps> {
+
+    public static get assetsToPreload() {
+        return [
+            "/public/help/help-logo.png"
+        ];
+    }
+
     public render() {
         if (!this.props.visible) {
             return null;
@@ -18,7 +25,7 @@ export class HelpPopup extends React.Component<IHelpPopupProps> {
 
         const makeHomeLink = () => {
             return (
-                <routerContext.Consumer>
+                <appContext.Consumer>
                     {({ history }) => {
                         return (
                             <img
@@ -28,7 +35,7 @@ export class HelpPopup extends React.Component<IHelpPopupProps> {
                             />
                         );
                     }}
-                </routerContext.Consumer>
+                </appContext.Consumer>
             );
         };
 

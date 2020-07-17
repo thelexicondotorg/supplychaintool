@@ -1,6 +1,6 @@
 
 import * as React from "react";
-import { routerContext } from "./RouterContext";
+import { appContext } from "./AppContext";
 
 interface ICircularButtonProps {
     radius: number;
@@ -14,7 +14,7 @@ export class CircularButton extends React.Component<ICircularButtonProps> {
     public render() {
         const { radius, content, color, url, onClick } = this.props;
         return (
-            <routerContext.Consumer>
+            <appContext.Consumer>
                 {({ history }) => {
                     return (
                         <button
@@ -37,7 +37,7 @@ export class CircularButton extends React.Component<ICircularButtonProps> {
                         </button>
                     );
                 }}
-            </routerContext.Consumer>
+            </appContext.Consumer>
 
         );
     }
