@@ -25,7 +25,7 @@ export class Footer extends React.Component<IFooterProps> {
             "amaranth-intl": "AMARANTH SUPPLY CHAIN: INTERNATIONAL",
             "small-millets": "SMALL MILLET SUPPLEY CHAIN"
         }
-    }
+    };
 
     public render() {
         return (
