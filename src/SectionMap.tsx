@@ -18,6 +18,10 @@ interface ISectionMapState {
 
 export class SectionMap extends React.Component<ISectionMapProps, ISectionMapState> {
 
+    public static mapPath(section: string) {
+        return `/public/${section}/map-paths.svg`;
+    }
+
     private _root!: HTMLElement;
     private _frame!: HTMLImageElement;
     private _images: MapImage[] = [];
@@ -53,7 +57,7 @@ export class SectionMap extends React.Component<ISectionMapProps, ISectionMapSta
                 <img
                     className={this.isFullscreen ? "fill-parent" : "map-image"}
                     ref={e => this._frame = e as HTMLImageElement}
-                    src={`/public/${section}/map-paths.svg`}
+                    src={SectionMap.mapPath(section)}
                     onLoad={() => this.onResize()}
                 />
                 <appContext.Consumer>

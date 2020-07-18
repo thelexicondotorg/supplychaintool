@@ -178,9 +178,7 @@ export class Intro extends React.Component<{}, IIntroState> {
                                             radius={config.buttonRadius}
                                             color="#E23F39"
                                             content={makeButton("AMARANTH", "International")}
-                                            onClick={() => {
-                                                // onEnter("/amaranth-intl");
-                                            }}
+                                            onClick={() => onEnter("/amaranth-intl")}
                                         />
                                     </div>
                                     <CircularButton

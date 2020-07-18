@@ -53,7 +53,7 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
                 const principles = Posts.getPrinciples(section);
                 return Images.preload([
                     // Map section
-                    `/public/${section}/map-paths.svg`,
+                    SectionMap.mapPath(section),
                     ...sections.map(s => s.image),
                     
                     // Posts
@@ -230,7 +230,7 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
                                                     </div>
                                                 </div>
                                                 <div className="quadrant-text">
-                                                    {data.content}
+                                                    {data.content.map((c, i) => <p key={i}>{c}</p>)}
                                                 </div>
                                             </div>
                                         </div>

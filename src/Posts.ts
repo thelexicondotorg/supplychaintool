@@ -30,7 +30,7 @@ interface IContribution {
 interface IPrinciple {
     name: string;
     image: string;
-    content: string;
+    content: string[];
 }
 
 interface IPost {
@@ -132,7 +132,7 @@ export class Posts {
             return {                
                 image: e.querySelector("img")?.src,
                 name: (e.querySelector(".wp-block-media-text__content > h6") as HTMLElement).innerText,
-                content: (e.querySelector(".wp-block-media-text__content > p") as HTMLElement).innerText,
+                content: DOMUtils.select(e, ".wp-block-media-text__content > p").map(p => p.innerText),
             } as IPrinciple;
         });
         const [intro, ...principles] = allPrinciples;

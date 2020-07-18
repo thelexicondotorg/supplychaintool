@@ -58,6 +58,7 @@ export class App extends React.Component<{}, IAppState> {
                             ([
                                 "fonio",
                                 "amaranth-local",
+                                "amaranth-intl",
                                 "small-millets"
                             ] as SectionType[]).map(section => {
                                 return (
