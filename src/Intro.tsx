@@ -22,7 +22,6 @@ export class Intro extends React.Component<{}, IIntroState> {
         ];
     }
 
-    private _root!: HTMLElement;
     private _header!: HTMLElement;
     private _image!: HTMLElement;
     private _buttons!: HTMLElement;
@@ -77,7 +76,6 @@ export class Intro extends React.Component<{}, IIntroState> {
 
         return (
             <div
-                ref={e => this._root = e as HTMLElement}
                 className="fill-parent"
                 style={{
                     overflow: "hidden"

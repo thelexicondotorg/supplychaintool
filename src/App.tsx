@@ -10,7 +10,6 @@ import { Fonts } from "./Fonts";
 import { appContext } from "./AppContext";
 import { Settings } from "./Settings";
 import { IntroContainer } from "./IntroContainer";
-import * as H from "history";
 import { Transition } from "./Transition";
 
 interface IAppState {
