@@ -31,9 +31,9 @@ app.use(serveStatic('.', {
   }
 }));
 
-// If no request matches, set status to 404 and send the index file
+// If no request matches, send the index file
 app.use((req, res, next) => {
-  res.status(404).sendFile('index.html', { root: '.' });
+  res.status(200).sendFile('index.html', { root: '.' });
 });
 
 const start = function (port) {  
