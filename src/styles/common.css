@@ -99,6 +99,7 @@ body {
 .intro-break {
     display: none;
 }
+
 @media (max-width: 1000px) {
     .intro-break {
         display: inline;
@@ -108,6 +109,15 @@ body {
     }
     .intro-subtitle {
         font-size: 16px;
+    }
+}
+
+@media (max-width: 800px) {
+    .intro-title {
+        font-size: 18px;
+    }
+    .intro-subtitle {
+        font-size: 14px;
     }
 }
 

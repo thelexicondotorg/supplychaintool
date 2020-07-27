@@ -28,6 +28,8 @@ export class Intro extends React.Component<{}, IIntroState> {
     private _amaranthButtons!: HTMLElement;
     private _amaranthLocal!: CircularButton;
     private _amaranthIntl!: CircularButton;
+    private _root!: HTMLElement;
+
     constructor(props: {}) {
         super(props);
         this.state = {
@@ -76,6 +78,7 @@ export class Intro extends React.Component<{}, IIntroState> {
 
         return (
             <div
+                ref={e => this._root = e as HTMLElement}
                 className="fill-parent"
                 style={{
                     overflow: "hidden"
@@ -95,7 +98,10 @@ export class Intro extends React.Component<{}, IIntroState> {
                     }}
                 >
                     <div style={{ paddingRight: "20px" }}>
-                        <img src="/public/intro/logo.svg" />
+                        <img 
+                            style={{ maxWidth: "100%" }}
+                            src="/public/intro/logo.svg" 
+                        />
                     </div>
                     <div
                         style={{
@@ -203,7 +209,13 @@ export class Intro extends React.Component<{}, IIntroState> {
     }
 
     private onResize() {
-        this._buttons.style.left = `${(window.innerWidth - this._buttons.clientWidth) / 2}px`;
+
+        const offset = (this._root.clientWidth - this._buttons.clientWidth) / 2;
+        let transform = `translate(${offset}px, 0px)`;
+        if (offset < 0) {
+            transform = `${transform} scale(${this._root.clientWidth / this._buttons.clientWidth})`;
+        }
+        this._buttons.style.transform = transform;
 
         const buttonContainerWidth = this._buttons.clientWidth / 3;
         const amaranthWidth = this._amaranthButtons.clientWidth;
@@ -211,7 +223,7 @@ export class Intro extends React.Component<{}, IIntroState> {
 
         // image
         const origSize = [1800, 818]; // naturalWidth/Height doesn't work as expected on Safari!!
-        const availableSpace = [window.innerWidth, window.innerHeight - this._header.clientHeight];
+        const availableSpace = [this._root.clientWidth, this._root.clientHeight - this._header.clientHeight];
         const origRatio = origSize[0] / origSize[1];
         const ratio = availableSpace[0] / availableSpace[1];
         if (ratio > origRatio) {
