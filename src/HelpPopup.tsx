@@ -67,8 +67,10 @@ export class HelpPopup extends React.Component<IHelpPopupProps> {
                         ref={e => this._root = e as HTMLElement}
                         className="card dialog-in"
                         style={{
+                            position: "relative",
                             maxWidth: "600px",
                             minHeight: "344px",
+                            maxHeight: "80%",
                             backgroundColor: "white",
                             margin: "0 auto",
                             alignSelf: "center",
@@ -93,7 +95,13 @@ export class HelpPopup extends React.Component<IHelpPopupProps> {
                                 X
                             </div>
                         </div>
-                        <div style={{ padding: "0px 20px 20px 20px" }}>
+                        <div 
+                            style={{ 
+                                padding: "0px 20px 20px 20px",
+                                height: "calc(100% - 78px)",
+                                overflow: "auto"
+                            }}
+                        >
                             <p>
                                 Food moves across the globe through supply chains that are mostly blind. Purchasers often have scant visibility into who grows our food, the practices they use, or the communities they support.
                             </p>
