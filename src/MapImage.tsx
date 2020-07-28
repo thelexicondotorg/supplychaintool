@@ -53,9 +53,6 @@ export class MapImage extends React.Component<IMapImageProps> {
                 />
                 <div 
                     className="map-elem-title"
-                    style={{
-                        fontSize: fullScreen ? undefined : "11.5px"
-                    }}
                 >
                         {title}
                 </div>
