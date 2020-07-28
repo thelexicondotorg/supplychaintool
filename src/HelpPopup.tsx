@@ -47,7 +47,7 @@ export class HelpPopup extends React.Component<IHelpPopupProps> {
 
         const close = () => {
             this._root.classList.replace("dialog-in", "dialog-out");
-            setTimeout(this.props.onClose, HelpPopup.config.animDuration);            
+            setTimeout(this.props.onClose, HelpPopup.config.animDuration);
         };
 
         return ReactDOM.createPortal(
@@ -76,7 +76,7 @@ export class HelpPopup extends React.Component<IHelpPopupProps> {
                         }}
                         onClick={e => e.stopPropagation()}
                     >
-                        <div 
+                        <div
                             className="quadrant-title"
                             style={{ position: "relative" }}
                         >
@@ -93,13 +93,22 @@ export class HelpPopup extends React.Component<IHelpPopupProps> {
                                 X
                             </div>
                         </div>
-                        <div style={{ paddingRight: "20px"}}>
+                        <div style={{ padding: "0px 20px 20px 20px" }}>
+                            <p>
+                                Food moves across the globe through supply chains that are mostly blind. Purchasers often have scant visibility into who grows our food, the practices they use, or the communities they support.
+                            </p>
+
+                            <p>
+                                To support greater transparency in our food systems, the FACT Roundtable has developed 10 Principles for Agrobiodiversity, then tested them by conducting tests with three grains on three continents:
+                            </p>
                             <ul>
-                                <li>A key is provided to show direction of money and goods.</li>
-                                <li>Click on each character to see read more about each part of the supply chain. Information is on the bottom left.</li>
-                                <li>The table (top right) shows how each character contributes to the ten agrobiodiversity principles. Click on principles to learn more about each of them.</li>
-                                <li>To go to another supply chain, Click {makeHomeLink()} to return home</li>
+                                <li>Small Millets in India</li>
+                                <li>Amaranth in Mexico</li>
+                                <li>Fonio in West Africa</li>
                             </ul>
+                            <p>
+                                The FACT Supply Chain Tool can provide food companies both big and small with a purchasing framework to accelerate the adoption of market-driven support to enhance agrobiodiversity across our food systems.
+                            </p>
                         </div>
                     </div>
                 </div>

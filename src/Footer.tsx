@@ -23,7 +23,7 @@ export class Footer extends React.Component<IFooterProps> {
             "fonio": "FONIO SUPPLY CHAIN",
             "amaranth-local": "AMARANTH SUPPLY CHAIN: LOCAL",
             "amaranth-intl": "AMARANTH SUPPLY CHAIN: INTERNATIONAL",
-            "small-millets": "SMALL MILLET SUPPLEY CHAIN"
+            "small-millets": "SMALL MILLET SUPPLY CHAIN"
         }
     };
 
