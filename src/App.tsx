@@ -15,6 +15,7 @@ import { Transition } from "./Transition";
 interface IAppState {
     loaded: boolean;
     helpShown: boolean;
+    rotateScreenPrompt: boolean;
 }
 
 export class App extends React.Component<{}, IAppState> {
@@ -25,7 +26,8 @@ export class App extends React.Component<{}, IAppState> {
         super(props);
         this.state = {
             loaded: false,
-            helpShown: false
+            helpShown: false,
+            rotateScreenPrompt: false
         };
     }
 
@@ -37,13 +39,21 @@ export class App extends React.Component<{}, IAppState> {
                     loaded: true,
                 });
             });
+
+        this.onResize = this.onResize.bind(this);
+        window.addEventListener("resize", this.onResize);
+        this.onResize();
+    }
+
+    public componentWillUnmount() {
+        window.removeEventListener("resize", this.onResize);
     }
 
     public render() {
         if (!this.state.loaded) {
             return <LoadingIndicator />;
         }
-        
+
         const transition = async (onFadeOut?: () => void) => {
             await this._transition.transition();
             onFadeOut?.();
@@ -67,9 +77,9 @@ export class App extends React.Component<{}, IAppState> {
                                         render={({ match, history }) => {
                                             return (
                                                 <appContext.Provider value={{ history, transition }}>
-                                                    <Section 
-                                                        section={section} 
-                                                        index={match.params.index} 
+                                                    <Section
+                                                        section={section}
+                                                        index={match.params.index}
                                                         showHelpOnStart={!this.state.helpShown}
                                                         onHelpClosed={() => {
                                                             this.setState({ helpShown: true });
@@ -98,7 +108,43 @@ export class App extends React.Component<{}, IAppState> {
                 </BrowserRouter>
                 <div id="dialog-layer" />
                 <Transition ref={e => this._transition = e as Transition} />
+                <div
+                    style={{
+                        position: "absolute",
+                        width: "100vw",
+                        height: "100vh",
+                        left: "0px",
+                        top: "0px",
+                        backgroundColor: "black",
+                        display: this.state.rotateScreenPrompt ? "grid" : "none",
+                        alignItems: "center",
+                        textAlign: "center"
+                    }}
+                >
+                    <div>
+                        <div>
+                            <img src="/public/rotate-device.png" />
+                        </div>
+                        <div
+                            style={{
+                                color: "white",
+                                fontSize: "1.8vh",
+                                padding: "20px"
+                            }}
+                        >
+                            Please rotate your device
+                        </div>
+                    </div>
+                </div>
             </React.Fragment>
         );
+    }
+
+    private onResize() {
+        const [width, height] = [window.innerWidth, window.innerHeight];
+        const isPortrait = height > width;
+        if (isPortrait !== this.state.rotateScreenPrompt) {
+            this.setState({ rotateScreenPrompt: isPortrait });
+        }
     }
 }
