@@ -121,30 +121,36 @@ body {
     }
 }
 
+.intro-button-container {
+    --buttonRadius: 180px;
+    --buttonOffsetP: 100px;
+    --buttonOffsetN: -100px;
+}
+
 .amaranth-slide-in-1 {
     animation: .25s forwards amaranth-slide-in-1; 
 }
 @keyframes amaranth-slide-in-1 { 
-    from { transform: translate(100px, 180px); } to { transform: translate(0px, 0px); }
+    from { transform: translate(var(--buttonOffsetP), var(--buttonRadius)); } to { transform: translate(0px, 0px); }
 }
 .amaranth-slide-out-1 {
     animation: .25s forwards amaranth-slide-out-1;
 }
 @keyframes amaranth-slide-out-1 { 
-    from { transform: translate(0px, 0px); } to { transform: translate(100px, 180px); }
+    from { transform: translate(0px, 0px); } to { transform: translate(var(--buttonOffsetP), var(--buttonRadius)); }
 }
 
 .amaranth-slide-in-2 {
     animation: .25s forwards amaranth-slide-in-2;
 }
 @keyframes amaranth-slide-in-2 { 
-    from { transform: translate(-100px, 180px); } to { transform: translate(0px, 0px); }
+    from { transform: translate(var(--buttonOffsetN), var(--buttonRadius)); } to { transform: translate(0px, 0px); }
 }
 .amaranth-slide-out-2 {
     animation: .25s forwards amaranth-slide-out-2;
 }
 @keyframes amaranth-slide-out-2 { 
-    from { transform: translate(0px, 0px); } to { transform: translate(-100px, 180px); }
+    from { transform: translate(0px, 0px); } to { transform: translate(var(--buttonOffsetN), var(--buttonRadius)); }
 }
 
 .map-elem-title {
@@ -323,4 +329,22 @@ body {
     10%, 90% { transform: scale(.95); }    
     20%, 80% { transform: scale(1.1); }  
     40%, 60% { transform: scale(1.05); }
+}
+
+.intro-button-title {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.intro-button-subtitle {
+    font-size: 14px;
+}
+
+@media (max-width: 540px), (max-height: 540px) {
+    .intro-button-title {
+        font-size: 14px;
+    }
+    .intro-button-subtitle {
+        font-size: 12px;
+    }
 }
