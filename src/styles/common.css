@@ -357,6 +357,15 @@ body {
     }
 }
 
+@media (max-width: 400px), (max-height: 400px) {
+    .intro-button-title {
+        font-size: 12px;
+    }
+    .intro-button-subtitle {
+        font-size: 10px;
+    }
+}
+
 .principles {
     font-size: 14px;
 }
@@ -370,5 +379,19 @@ body {
 @media (max-width: 700px) {
     .principles {
         font-size: 10px;
+    }
+}
+
+.intro-hint {
+    width: 374px;
+    height: 106px;
+    font-size: 34px;
+}
+
+@media (max-height: 660px) {
+    .intro-hint {
+        width: 200px;
+        height: 60px;
+        font-size: 18px;
     }
 }

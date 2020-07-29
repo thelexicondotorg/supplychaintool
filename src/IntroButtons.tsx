@@ -60,67 +60,95 @@ export class IntroButtons extends React.Component<{}, IIntroButtonsState> {
                     return (
                         <div
                             style={{
+                                minWidth: "80%",
                                 position: "absolute",
                                 bottom: "25px",
-                                minWidth: "80%",
-                                display: "grid",
-                                gridTemplateColumns: "1fr 1fr 1fr",
                                 left: `${(window.innerWidth - buttonsWidth) / 2}px`
                             }}
                         >
-                            <div className="intro-button-container">
-                                <CircularButton
-                                    radius={buttonRadius}
-                                    color="#FBB040"
-                                    content={makeButton("FONIO", "West Africa")}
-                                    onClick={() => onEnter("/fonio")}
-                                />
-                            </div>
-                            <div 
-                                ref={e => this._buttons = e as HTMLElement}
-                                className="intro-button-container"
+                            <div
+                                className="intro-hint"
+                                style={{
+                                    margin: "0 auto",
+                                    backgroundColor: "#3B86F1",
+                                    borderRadius: "15px",
+                                    border: "2px solid white",
+                                    color: "white",
+                                    textAlign: "center",
+                                    marginBottom: "40px",
+                                    display: "flex"
+                                }}
                             >
                                 <div
-                                    ref={e => this._amaranthButtons = e as HTMLElement}
                                     style={{
-                                        position: "absolute",
-                                        width: `${buttonRadius * 2 + config.amaranthButtonsSpacing}px`,
-                                        top: `${-buttonRadius}px`,
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        opacity: amaranthMenu ? 1 : 0,
-                                        pointerEvents: amaranthMenu ? "all" : "none"
+                                        width: "100%",
+                                        textAlign: "center",
+                                        alignSelf: "center"
                                     }}
                                 >
+                                    CHOOSE A CROP.<br/>LEARN ITS STORY.
+                                </div>
+                            </div>
+                            <div
+                                style={{                                    
+                                    display: "grid",
+                                    gridTemplateColumns: "1fr 1fr 1fr"                                    
+                                }}
+                            >
+                                <div className="intro-button-container">
                                     <CircularButton
-                                        ref={e => this._amaranthLocal = e as CircularButton}
                                         radius={buttonRadius}
-                                        color="#E23F39"
-                                        content={makeButton("AMARANTH", "Local")}
-                                        onClick={() => onEnter("/amaranth-local")}
-                                    />
-                                    <CircularButton
-                                        ref={e => this._amaranthIntl = e as CircularButton}
-                                        radius={buttonRadius}
-                                        color="#E23F39"
-                                        content={makeButton("AMARANTH", "International")}
-                                        onClick={() => onEnter("/amaranth-intl")}
+                                        color="#FBB040"
+                                        content={makeButton("FONIO", "West Africa")}
+                                        onClick={() => onEnter("/fonio")}
                                     />
                                 </div>
-                                <CircularButton
-                                    radius={buttonRadius}
-                                    color={amaranthMenu ? "grey" : "#E23F39"}
-                                    content={makeButton("AMARANTH", "Mexico")}
-                                    onClick={() => this.amaranthToggle()}
-                                />
-                            </div>
-                            <div className="intro-button-container">
-                                <CircularButton
-                                    radius={buttonRadius}
-                                    color="#27A33E"
-                                    content={makeButton("SMALL MILLETS", "India")}
-                                    onClick={() => onEnter("/small-millets")}
-                                />
+                                <div
+                                    ref={e => this._buttons = e as HTMLElement}
+                                    className="intro-button-container"
+                                >
+                                    <div
+                                        ref={e => this._amaranthButtons = e as HTMLElement}
+                                        style={{
+                                            position: "absolute",
+                                            width: `${buttonRadius * 2 + config.amaranthButtonsSpacing}px`,
+                                            top: `${-buttonRadius}px`,
+                                            display: "flex",
+                                            justifyContent: "space-between",
+                                            opacity: amaranthMenu ? 1 : 0,
+                                            pointerEvents: amaranthMenu ? "all" : "none"
+                                        }}
+                                    >
+                                        <CircularButton
+                                            ref={e => this._amaranthLocal = e as CircularButton}
+                                            radius={buttonRadius}
+                                            color="#E23F39"
+                                            content={makeButton("AMARANTH", "Local")}
+                                            onClick={() => onEnter("/amaranth-local")}
+                                        />
+                                        <CircularButton
+                                            ref={e => this._amaranthIntl = e as CircularButton}
+                                            radius={buttonRadius}
+                                            color="#E23F39"
+                                            content={makeButton("AMARANTH", "International")}
+                                            onClick={() => onEnter("/amaranth-intl")}
+                                        />
+                                    </div>
+                                    <CircularButton
+                                        radius={buttonRadius}
+                                        color={amaranthMenu ? "grey" : "#E23F39"}
+                                        content={makeButton("AMARANTH", "Mexico")}
+                                        onClick={() => this.amaranthToggle()}
+                                    />
+                                </div>
+                                <div className="intro-button-container">
+                                    <CircularButton
+                                        radius={buttonRadius}
+                                        color="#27A33E"
+                                        content={makeButton("SMALL MILLETS", "India")}
+                                        onClick={() => onEnter("/small-millets")}
+                                    />
+                                </div>
                             </div>
                         </div>
                     );
@@ -165,8 +193,8 @@ export class IntroButtons extends React.Component<{}, IIntroButtonsState> {
         this._amaranthLocal.root.classList.replace("amaranth-slide-in-1", "amaranth-slide-out-1");
         this._amaranthIntl.root.classList.replace("amaranth-slide-in-2", "amaranth-slide-out-2");
         setTimeout(() => this.setState({ amaranthMenu: false }), IntroButtons.config.amaranthAnimDuration);
-    }   
-    
+    }
+
     private getButtonRadius() {
         const { config } = IntroButtons;
         const buttonsWidth = window.innerWidth * (80 / 100);

@@ -114,7 +114,7 @@ export class SectionMap extends React.Component<ISectionMapProps, ISectionMapSta
         }
         this._images.forEach(i => i.onResize(this._frame));
 
-        const ratio = this.isFullscreen ? 49 : 49;
+        const ratio = this.isFullscreen ? 55 : 49;
         const { width, height } = this._frame.getBoundingClientRect();
         this._root.style.fontSize = `${Math.min(width, height) / ratio}px`;
     }
