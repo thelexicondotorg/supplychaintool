@@ -21,9 +21,9 @@ export class TableRow extends React.Component<ITableRowProps> {
                     style={{
                         padding: "8px 8px 8px 20px",     
                         width: `calc(100% - ${rightColumnWidth})`,
-                        whiteSpace: "nowrap",
-                        textOverflow: "ellipsis",
-                        overflow: "hidden"    
+                        // whiteSpace: "nowrap",
+                        // textOverflow: "ellipsis",
+                        // overflow: "hidden"    
                     }}
                 >
                     {left}

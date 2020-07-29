@@ -225,11 +225,15 @@ body {
 
 .quadrant-cell {
     position: relative;
-    height: 50%;
+    /* height: 50%; */
 }
 
 .quadrant-cell.left {
     padding-right: 20px;
+}
+
+.quadrant-cell.map {
+    height: 50%;
 }
 
 .map-image {
@@ -254,9 +258,13 @@ body {
         padding-right: unset;
     }
 
+    .quadrant-cell.map {
+        height: unset;
+    }
+
     .map-image {
         height: auto;
-    }
+    }    
 }
 
 .circular-button {
@@ -346,5 +354,21 @@ body {
     }
     .intro-button-subtitle {
         font-size: 12px;
+    }
+}
+
+.principles {
+    font-size: 14px;
+}
+
+@media (max-width: 800px) {
+    .principles {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 700px) {
+    .principles {
+        font-size: 10px;
     }
 }

@@ -101,7 +101,7 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
                 return (
                     <div className="quadrants-root fill-parent">
                         <div className="quadrant-col">
-                            <div className="quadrant-cell left">
+                            <div className="quadrant-cell left map">
                                 <SectionMap
                                     section={section}
                                     index={postIndex}
@@ -133,11 +133,11 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
                                 </div>
                             </div>
                         </div>
-                        <div className="quadrant-col">
+                        <div className="quadrant-col principles">
                             <div
                                 className="quadrant-cell"
                                 style={{
-                                    minHeight: "410px"
+                                    // minHeight: "410px"
                                 }}
                             >
                                 <div className="card">
@@ -198,6 +198,9 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
                             </div>
                             <div
                                 className="quadrant-cell"
+                                style={{
+                                    paddingTop: "10px"
+                                }}
                             >
                                 {(() => {
                                     const data = (() => {

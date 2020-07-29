@@ -69,8 +69,8 @@ export class HelpPopup extends React.Component<IHelpPopupProps> {
                         style={{
                             position: "relative",
                             maxWidth: "600px",
-                            minHeight: "344px",
-                            maxHeight: "80%",
+                            height: "90%",
+                            maxHeight: "444px",
                             backgroundColor: "white",
                             margin: "0 auto",
                             alignSelf: "center",
@@ -98,7 +98,7 @@ export class HelpPopup extends React.Component<IHelpPopupProps> {
                         <div 
                             style={{ 
                                 padding: "0px 20px 20px 20px",
-                                height: "calc(100% - 78px)",
+                                height: "calc(100% - 44px)",
                                 overflow: "auto"
                             }}
                         >
