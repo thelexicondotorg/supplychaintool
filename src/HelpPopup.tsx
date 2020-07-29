@@ -55,11 +55,11 @@ export class HelpPopup extends React.Component<IHelpPopupProps> {
                 <div
                     className="help-dialog fill-parent"
                     style={{
-                        position: "fixed",
+                        position: "absolute",
                         left: 0,
                         top: 0,
                         backgroundColor: "rgba(0,0,0,0.4)",
-                        display: "grid",
+                        display: "flex",
                     }}
                     onClick={close}
                 >
