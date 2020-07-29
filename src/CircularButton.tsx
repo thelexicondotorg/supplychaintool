@@ -26,8 +26,8 @@ export class CircularButton extends React.Component<ICircularButtonProps> {
                     backgroundColor: color
                 }}
                 onClick={e => {
-                    e.stopPropagation();
                     onClick();
+                    e.stopPropagation();
                 }}
             >
                 {content}
