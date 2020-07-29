@@ -244,8 +244,8 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
         return (
             <div className="fill-parent">
                 <div
+                    className="main-area"
                     style={{
-                        height: `calc(100% - ${Footer.height})`,
                         overflow: "auto",
                         position: "relative"
                     }}

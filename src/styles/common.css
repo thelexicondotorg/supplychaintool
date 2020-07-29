@@ -301,6 +301,20 @@ body {
 @keyframes dialog-out { from { transform: scaleY(1); } to { transform: scaleY(0); }}
 @keyframes dialog-in { from { transform: scaleY(0); } to { transform: scaleY(1); }}
 
+:root {
+    --footer-height: 75px;
+    --footer-height-mobile: 38px;
+}
+
+.main-area {
+    height: calc(100% - var(--footer-height));
+}
+
+.footer {
+    font-size: 16px;    
+    height: var(--footer-height);
+}
+
 .footer-logo {
     grid-template-columns: auto 1fr;
     display: grid;                            
@@ -317,13 +331,21 @@ body {
     }
 }
 
-.footer {
-    font-size: 16px;    
-}
-
 @media (max-width: 800px) {
     .footer {
         font-size: 13px;    
+    }
+}
+
+@media (max-height: 600px) {
+    .footer {
+        height: var(--footer-height-mobile);
+    }
+    .main-area {
+        height: calc(100% - var(--footer-height-mobile));
+    }
+    .footer-logo img {
+        height: 28px;
     }
 }
 

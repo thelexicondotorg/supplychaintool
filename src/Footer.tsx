@@ -10,8 +10,6 @@ interface IFooterProps {
 }
 
 export class Footer extends React.Component<IFooterProps> {
-    public static get height() { return "75px"; }
-
     public static get assetsToPreload() {
         return [
             "/public/footer/footer-logo.svg"
@@ -32,7 +30,6 @@ export class Footer extends React.Component<IFooterProps> {
             <div
                 className="footer"
                 style={{
-                    height: Footer.height,
                     backgroundColor: "#743F30",
                 }}
             >
