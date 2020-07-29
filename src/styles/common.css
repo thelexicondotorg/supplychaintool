@@ -160,6 +160,7 @@ body {
 }
 
 .quadrant-title {
+    font-size: 14px;
     font-weight: bold;
     border-bottom: 2px solid #B7B7B7;
     padding: 12px 12px 14px 30px;
@@ -171,9 +172,9 @@ body {
     border-bottom: 2px solid #B7B7B7;
     padding: 8px;
     color: #334B2E;
-    white-space: nowrap;
+    /* white-space: nowrap;
     text-overflow: ellipsis;
-    overflow: hidden;
+    overflow: hidden; */
 }
 
 .quadrant-image {
@@ -386,6 +387,7 @@ body {
     width: 374px;
     height: 106px;
     font-size: 34px;
+    margin: 0 auto 40px;
 }
 
 @media (max-height: 660px) {
@@ -393,5 +395,25 @@ body {
         width: 200px;
         height: 60px;
         font-size: 18px;
+        margin: 0 auto 10px;
+    }
+}
+
+.help-popup {
+    font-size: 14px;
+    max-height: 400px;
+}
+
+@media (max-height: 700px) {
+    .help-popup {
+        font-size: 12px;
+        max-height: 370px;
+    }
+}
+
+@media (max-height: 600px) {
+    .help-popup {
+        font-size: 10px;
+        max-height: 300px;
     }
 }

@@ -69,13 +69,11 @@ export class IntroButtons extends React.Component<{}, IIntroButtonsState> {
                             <div
                                 className="intro-hint"
                                 style={{
-                                    margin: "0 auto",
                                     backgroundColor: "#3B86F1",
                                     borderRadius: "15px",
                                     border: "2px solid white",
                                     color: "white",
                                     textAlign: "center",
-                                    marginBottom: "40px",
                                     display: "flex"
                                 }}
                             >

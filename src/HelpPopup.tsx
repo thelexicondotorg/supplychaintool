@@ -65,12 +65,11 @@ export class HelpPopup extends React.Component<IHelpPopupProps> {
                 >
                     <div
                         ref={e => this._root = e as HTMLElement}
-                        className="card dialog-in"
+                        className="card dialog-in help-popup"
                         style={{
                             position: "relative",
                             maxWidth: "600px",
                             height: "90%",
-                            maxHeight: "444px",
                             backgroundColor: "white",
                             margin: "0 auto",
                             alignSelf: "center",
@@ -87,15 +86,16 @@ export class HelpPopup extends React.Component<IHelpPopupProps> {
                                 className="clickable"
                                 style={{
                                     position: "absolute",
-                                    right: "14px",
-                                    top: "10px"
+                                    right: "0px",
+                                    top: "-6px",
+                                    padding: "20px"
                                 }}
                                 onClick={close}
                             >
                                 X
                             </div>
                         </div>
-                        <div 
+                        <div                             
                             style={{ 
                                 padding: "0px 20px 20px 20px",
                                 height: "calc(100% - 44px)",

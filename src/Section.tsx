@@ -134,12 +134,7 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
                             </div>
                         </div>
                         <div className="quadrant-col principles">
-                            <div
-                                className="quadrant-cell"
-                                style={{
-                                    // minHeight: "410px"
-                                }}
-                            >
+                            <div className="quadrant-cell">
                                 <div className="card">
                                     <div className="table-quadrant-title">
                                         How the <b>{post.title}</b> contribute to agrobiodiversity principles.
