@@ -52,7 +52,6 @@ export class IntroButtons extends React.Component<{}, IIntroButtonsState> {
                 {({ history, transition }) => {
 
                     const onEnter = (url: string) => {
-                        console.log(url);
                         transition?.(() => history?.push(url));
                     };
                     const buttonsWidth = window.innerWidth * (80 / 100);

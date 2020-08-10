@@ -137,7 +137,7 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
                             <div className="quadrant-cell">
                                 <div className="card">
                                     <div className="table-quadrant-title">
-                                        How the <b>{post.title}</b> contribute to agrobiodiversity principles.
+                                        How <b>{post.title}</b> contribute to agrobiodiversity principles.
                                     </div>
                                     <div>
                                         <TableRow
