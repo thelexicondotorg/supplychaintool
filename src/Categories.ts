@@ -10,7 +10,7 @@ export class Categories {
         if (Object.keys(Categories.data).length > 0) {
             return;
         }
-        const response = await fetch(`${Settings.wordpressUrl}/wp-json/wp/v2/categories`);
+        const response = await fetch(`${Settings.data.wordpressUrl}/wp-json/wp/v2/categories`);
         const json = await response.json();
         (json as ICategoryJson[]).forEach(({ slug, id }) => {
             Object.assign(Categories.data, { [slug]: id });

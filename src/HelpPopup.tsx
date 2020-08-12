@@ -2,6 +2,10 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { appContext } from "./AppContext";
+import { Settings } from "./Settings";
+
+// tslint:disable-next-line
+const { default: html2React } = require("html2react");
 
 interface IHelpPopupProps {
     visible: boolean;
@@ -12,15 +16,30 @@ interface IHelpPopupProps {
 
 export class HelpPopup extends React.Component<IHelpPopupProps> {
 
+    public static async load() {
+        if (HelpPopup.contentElem) {
+            return;
+        }
+
+        const request = `wp-json/wp/v2/posts?slug=help`;
+        const response = await fetch(`${Settings.data.wordpressUrl}/${request}`);
+        const json = await response.json();
+        const [helpPost] = json;
+        const html = new DOMParser().parseFromString(helpPost.content.rendered, "text/html");
+        HelpPopup.contentElem = html2React(html.body.innerHTML);
+    }
+
     private static readonly config = {
         animDuration: 300
     };
+
+    private static contentElem: JSX.Element;
 
     public static get assetsToPreload() {
         return [
             "/public/help/help-logo.png"
         ];
-    }
+    }    
 
     private _root!: HTMLElement;
 
@@ -102,21 +121,7 @@ export class HelpPopup extends React.Component<IHelpPopupProps> {
                                 overflow: "auto"
                             }}
                         >
-                            <p>
-                                Food moves across the globe through supply chains that are mostly blind. Purchasers often have scant visibility into who grows our food, the practices they use, or the communities they support.
-                            </p>
-
-                            <p>
-                                To support greater transparency in our food systems, the FACT Roundtable has developed 10 Principles for Agrobiodiversity, then tested them by conducting tests with three grains on three continents:
-                            </p>
-                            <ul>
-                                <li>Small Millets in India</li>
-                                <li>Amaranth in Mexico</li>
-                                <li>Fonio in West Africa</li>
-                            </ul>
-                            <p>
-                                The FACT Supply Chain Tool can provide food companies both big and small with a purchasing framework to accelerate the adoption of market-driven support to enhance agrobiodiversity across our food systems.
-                            </p>
+                            {HelpPopup.contentElem}
                         </div>
                     </div>
                 </div>

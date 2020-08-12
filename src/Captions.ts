@@ -13,7 +13,7 @@ export class Captions {
             return;
         }
 
-        const response = await fetch(`${Settings.wordpressUrl}/wp-json/wp/v2/media?per_page=100`);
+        const response = await fetch(`${Settings.data.wordpressUrl}/wp-json/wp/v2/media?per_page=100`);
         const json = await response.json();
 
         (json as IMediaJson[]).forEach(({ source_url, caption }) => {

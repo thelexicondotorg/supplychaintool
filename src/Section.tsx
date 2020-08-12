@@ -10,6 +10,7 @@ import { TableRow } from "./TableRow";
 import { HelpPopup } from "./HelpPopup";
 import { Categories } from "./Categories";
 import { Images } from "./Images";
+import { Preloading } from "./Preloading";
 
 interface ISectionIntroProps {
     section: SectionType;
@@ -41,10 +42,12 @@ export class Section extends React.Component<ISectionIntroProps, ISectionState> 
     public componentDidMount() {
         this._mounted = true;
         const { section } = this.props;
-        Promise.all([
-            Categories.load(),
-            Captions.load()
-        ])
+        Preloading.preloadSection()
+            .then(() => Promise.all([
+                Categories.load(),
+                Captions.load(),
+                HelpPopup.load()
+            ]))        
             .then(() => Posts.load(section))
 
             // Preload content

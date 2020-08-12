@@ -1,0 +1,10 @@
+{
+    "wordpressUrl": "https://wp-supplytool.franticsoftware.com",
+    "footerText": "AGROBIODIVERSITY + TRANSPARENCY",
+    "supplyChains": [
+        "amaranth-intl",
+        "amaranth-local",
+        "fonio",
+        "small-millets"
+    ]
+}

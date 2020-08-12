@@ -64,7 +64,7 @@ export class Posts {
         }
         const categoryId = Categories.getId(category);
         const request = `wp-json/wp/v2/posts?categories=${categoryId}&per_page=11`;
-        const response = await fetch(`${Settings.wordpressUrl}/${request}`);
+        const response = await fetch(`${Settings.data.wordpressUrl}/${request}`);
         const json = await response.json();
 
         const allPosts = (json as IPostJson[])

@@ -4,8 +4,8 @@ import { MapImage } from "./MapImage";
 import { SectionType } from "./Types";
 import { appContext } from "./AppContext";
 import { Posts } from "./Posts";
-import { mapMetrics } from "./MapMetrics";
 import { Transition } from "./Transition";
+import { Settings } from "./Settings";
 
 interface ISectionMapProps {
     section: SectionType;
@@ -19,7 +19,7 @@ interface ISectionMapState {
 export class SectionMap extends React.Component<ISectionMapProps, ISectionMapState> {
 
     public static mapPath(section: string) {
-        return `/public/${section}/map-paths.svg`;
+        return `/customize/${section}-map.svg`;
     }
 
     private _root!: HTMLElement;
@@ -62,14 +62,15 @@ export class SectionMap extends React.Component<ISectionMapProps, ISectionMapSta
                 />
                 <appContext.Consumer>
                     {({ history, transition }) => {
+                        const { mapMetrics } = Settings.data.supplyChains[section];
                         return sections.map((sectionProps, currentIndex) => {
                             return (
                                 <MapImage
                                     key={currentIndex}
                                     content={sectionProps}
                                     ref={e => this._images[currentIndex] = e as MapImage}
-                                    frameOrigSize={mapMetrics[section].frameSize}
-                                    position={mapMetrics[section].iconPositions[currentIndex]}
+                                    frameOrigSize={mapMetrics.frameSize}
+                                    position={mapMetrics.iconPositions[currentIndex]}
                                     fullScreen={this.isFullscreen}
                                     greyedOut={(() => {
                                         if (this.isFullscreen) {

@@ -3,6 +3,7 @@ import * as React from "react";
 import { CircularButton } from "./CircularButton";
 import { appContext } from "./AppContext";
 import { SectionType } from "./Types";
+import { Settings } from "./Settings";
 
 interface IFooterProps {
     section: SectionType;
@@ -12,20 +13,11 @@ interface IFooterProps {
 export class Footer extends React.Component<IFooterProps> {
     public static get assetsToPreload() {
         return [
-            "/public/footer/footer-logo.svg"
+            "/customize/footer-logo.svg"
         ];
     }
 
-    private static readonly config = {
-        supplyChainText: {
-            "fonio": "FONIO SUPPLY CHAIN",
-            "amaranth-local": "AMARANTH SUPPLY CHAIN: LOCAL",
-            "amaranth-intl": "AMARANTH SUPPLY CHAIN: INTERNATIONAL",
-            "small-millets": "SMALL MILLET SUPPLY CHAIN"
-        }
-    };
-
-    public render() {
+    public render() {        
         return (
             <div
                 className="footer"
@@ -50,7 +42,7 @@ export class Footer extends React.Component<IFooterProps> {
                                     <img
                                         className="clickable"
                                         style={{ marginLeft: "40px" }}
-                                        src="/public/footer/footer-logo.svg"
+                                        src="/customize/footer-logo.svg"
                                         onClick={() => transition?.(() => history?.push("/"))}
                                     />
                                 );
@@ -62,7 +54,7 @@ export class Footer extends React.Component<IFooterProps> {
                                 paddingLeft: "20px"
                             }}
                         >
-                            {"Agrobiodiversity + Transparency".toUpperCase()}
+                            {Settings.data.footerText}
                         </span>
                     </div>
                     <div
@@ -79,7 +71,7 @@ export class Footer extends React.Component<IFooterProps> {
                                 marginRight: "20px"
                             }}
                         >
-                            {Footer.config.supplyChainText[this.props.section]}
+                            {Settings.data.supplyChains[this.props.section].footerText}
                         </span>
                         <CircularButton
                             radius={30}
