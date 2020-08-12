@@ -19,7 +19,7 @@ interface ISectionMapState {
 export class SectionMap extends React.Component<ISectionMapProps, ISectionMapState> {
 
     public static mapPath(section: string) {
-        return `/customize/${section}-map.svg`;
+        return `/customize/supplychains/${section}-map.svg`;
     }
 
     private _root!: HTMLElement;

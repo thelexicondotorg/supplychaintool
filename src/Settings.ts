@@ -27,7 +27,7 @@ export class Settings {
     public static async load() {
         const rawSettings = await (await fetch("/customize/settings.json")).json() as IRawSettings;
         // tslint:disable-next-line
-        const getSupplyChain = async (supplyChain: string) => (await fetch(`/customize/${supplyChain}.json`)).json() as Promise<ISupplyChain>;
+        const getSupplyChain = async (supplyChain: string) => (await fetch(`/customize/supplychains/${supplyChain}.json`)).json() as Promise<ISupplyChain>;
         const supplyChains = await Promise.all(rawSettings.supplyChains.map(getSupplyChain));
         Settings._data = {
             wordpressUrl: rawSettings.wordpressUrl,

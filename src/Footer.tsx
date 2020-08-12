@@ -13,7 +13,7 @@ interface IFooterProps {
 export class Footer extends React.Component<IFooterProps> {
     public static get assetsToPreload() {
         return [
-            "/customize/footer-logo.svg"
+            "/customize/footer/footer-logo.svg"
         ];
     }
 
@@ -42,7 +42,7 @@ export class Footer extends React.Component<IFooterProps> {
                                     <img
                                         className="clickable"
                                         style={{ marginLeft: "40px" }}
-                                        src="/customize/footer-logo.svg"
+                                        src="/customize/footer/footer-logo.svg"
                                         onClick={() => transition?.(() => history?.push("/"))}
                                     />
                                 );
