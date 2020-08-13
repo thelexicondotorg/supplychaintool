@@ -19,6 +19,7 @@ export class IntroContainer extends React.Component<{}, IIntroContainerState> {
 
     public componentDidMount() {
         Preloading.preloadIntro()
+            .then(() => Intro.load())
             .then(() => this.setState({ loaded: true }));
     }
 

@@ -1,15 +1,35 @@
 
 import * as React from "react";
 import { IntroButtons } from "./IntroButtons";
+import { IIntroSupplyChain } from "./Types";
+
+// tslint:disable-next-line
+const { default: html2React } = require("html2react");
+
+interface IIntro {
+    title: string;
+    subtitle?: string;
+    buttons: IIntroSupplyChain[];
+}
 
 export class Intro extends React.Component {
 
+    public static async load() {
+        if (Intro._data) {
+            return;
+        }
+        const data = await (await fetch("/customize/intro/intro.json")).json() as IIntro;
+        Intro._data = data;
+    }
+
     public static get assetsToPreload() {
         return [
-            "/public/intro/logo.svg",
-            "/public/intro/intro.svg"
+            "/customize/intro/intro-logo.svg",
+            "/customize/intro/intro-background.svg"
         ];
     }
+
+    private static _data: IIntro;
 
     private _header!: HTMLElement;
     private _image!: HTMLElement;
@@ -49,7 +69,7 @@ export class Intro extends React.Component {
                     <div style={{ paddingRight: "20px" }}>
                         <img 
                             style={{ maxWidth: "100%" }}
-                            src="/public/intro/logo.svg" 
+                            src="/customize/intro/intro-logo.svg" 
                         />
                     </div>
                     <div
@@ -59,18 +79,23 @@ export class Intro extends React.Component {
                         }}
                     >
                         <div className="intro-title">
-                            The FACT Supply Chain Tool
+                            {Intro._data.title}
                         </div>
                         <div className="intro-subtitle">
-                            CAN TRANSPARENCY BRING GREATER <br className="intro-break" />
-                            <b>AGROBIODIVERSITY</b> TO OUR FOOD SYSTEMS?
+                            {(() => {
+                                if (!Intro._data.subtitle) {
+                                    return;
+                                }
+                                const html = new DOMParser().parseFromString(Intro._data.subtitle, "text/html");
+                                return html2React(html.body.innerHTML);
+                            })()}
                         </div>
                     </div>
                 </div>
                 <div>
                     <img
                         ref={e => this._image = e as HTMLElement}
-                        src="/public/intro/intro.svg"
+                        src="/customize/intro/intro-background.svg"
                     />
                     <div
                         style={{
@@ -80,7 +105,9 @@ export class Intro extends React.Component {
                         }}
                     />
                 </div>
-                <IntroButtons ref={e => this._introButtons = e as IntroButtons } />
+                <IntroButtons 
+                    ref={e => this._introButtons = e as IntroButtons } 
+                />
             </div>
         );
     }
