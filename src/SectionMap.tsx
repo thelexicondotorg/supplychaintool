@@ -4,8 +4,7 @@ import { MapImage } from "./MapImage";
 import { SectionType } from "./Types";
 import { appContext } from "./AppContext";
 import { Posts } from "./Posts";
-import { Transition } from "./Transition";
-import { Settings } from "./Settings";
+import { Categories } from "./Categories";
 
 interface ISectionMapProps {
     section: SectionType;
@@ -62,7 +61,7 @@ export class SectionMap extends React.Component<ISectionMapProps, ISectionMapSta
                 />
                 <appContext.Consumer>
                     {({ history, transition }) => {
-                        const { mapMetrics } = Settings.data.supplyChains[section];
+                        const { mapMetrics } = Categories.get(section).info;
                         return sections.map((sectionProps, currentIndex) => {
                             return (
                                 <MapImage

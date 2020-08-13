@@ -62,7 +62,7 @@ export class Posts {
         if (category in Posts.data) {
             return;
         }
-        const categoryId = Categories.getId(category);
+        const categoryId = Categories.get(category).id;
         const request = `wp-json/wp/v2/posts?categories=${categoryId}&per_page=11`;
         const response = await fetch(`${Settings.data.wordpressUrl}/${request}`);
         const json = await response.json();

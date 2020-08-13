@@ -4,6 +4,7 @@ import { CircularButton } from "./CircularButton";
 import { appContext } from "./AppContext";
 import { SectionType } from "./Types";
 import { Settings } from "./Settings";
+import { Categories } from "./Categories";
 
 interface IFooterProps {
     section: SectionType;
@@ -71,7 +72,7 @@ export class Footer extends React.Component<IFooterProps> {
                                 marginRight: "20px"
                             }}
                         >
-                            {Settings.data.supplyChains[this.props.section].footerText}
+                            {Categories.get(this.props.section).info.footerText}
                         </span>
                         <CircularButton
                             radius={30}
