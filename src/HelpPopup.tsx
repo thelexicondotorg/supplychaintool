@@ -27,6 +27,7 @@ export class HelpPopup extends React.Component<IHelpPopupProps> {
         const [helpPost] = json;
         const html = new DOMParser().parseFromString(helpPost.content.rendered, "text/html");
         HelpPopup.contentElem = html2React(html.body.innerHTML);
+        HelpPopup.title = helpPost.title.rendered;
     }
 
     private static readonly config = {
@@ -34,6 +35,7 @@ export class HelpPopup extends React.Component<IHelpPopupProps> {
     };
 
     private static contentElem: JSX.Element;
+    private static title: string;
 
     public static get assetsToPreload() {
         return [
@@ -100,7 +102,7 @@ export class HelpPopup extends React.Component<IHelpPopupProps> {
                             className="quadrant-title"
                             style={{ position: "relative" }}
                         >
-                            <span>How to use this tool?</span>
+                            <span>{HelpPopup.title}</span>
                             <div
                                 className="clickable"
                                 style={{
