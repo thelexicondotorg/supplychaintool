@@ -331,9 +331,15 @@ body {
     }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 860px) {
     .footer {
         font-size: 13px;    
+    }
+}
+
+@media (max-width: 760px) {
+    .footer {
+        font-size: 11px;    
     }
 }
 

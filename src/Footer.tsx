@@ -36,19 +36,28 @@ export class Footer extends React.Component<IFooterProps> {
                         color: "white"
                     }}
                 >
+                    <appContext.Consumer>
+                        {({ history, transition }) => {
+                            return (
+                                <div
+                                    className="clickable"
+                                    style={{ 
+                                        fontWeight: "bold",
+                                        padding: "8px",
+                                        paddingLeft: "20px"
+                                    }}
+                                    onClick={() => transition?.(() => history?.push("/"))}
+                                >
+                                    {"< BACK"}
+                                </div>
+                            );
+                        }}
+                    </appContext.Consumer>
                     <div className="footer-logo">
-                        <appContext.Consumer>
-                            {({ history, transition }) => {
-                                return (
-                                    <img
-                                        className="clickable"
-                                        style={{ marginLeft: "40px" }}
-                                        src="/customize/footer/footer-logo.svg"
-                                        onClick={() => transition?.(() => history?.push("/"))}
-                                    />
-                                );
-                            }}
-                        </appContext.Consumer>
+                        <img
+                            style={{ marginLeft: "40px" }}
+                            src="/customize/footer/footer-logo.svg"
+                        />
                         <span
                             style={{
                                 fontWeight: "bold",
